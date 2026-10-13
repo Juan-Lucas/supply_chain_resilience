@@ -22,7 +22,7 @@ Principe : **le code tourne pendant que vous lisez et rédigez.** Chaque journé
 ## Mercredi 14/10 — mise en route (soirée, ~3 h)
 
 - [ ] Créer l'environnement Python 3.11, ajouter à `requirements.txt` : pandas, numpy, scikit-learn, xgboost, optuna, matplotlib, scipy.
-- [ ] Télécharger DataCo (Mendeley Data, v5) → `data/raw/dataco/` ; Olist (Kaggle) → `data/raw/olist/`. Noter la date de téléchargement et la version (à citer).
+- [x] Télécharger DataCo (Mendeley Data, v5) dans `data/raw/dataco/` et Olist (Kaggle) dans `data/raw/olist/`. Noter la date de téléchargement et la version (à citer).
 - [ ] Mettre à jour `.gitignore` (données brutes, `.idea/`, `*.synctex.gz`, PDF compilés) ; commit « docs + brouillon FR ».
 - [ ] Corrections rapides du brouillon listées dans `ORGANISATION.md` §4 (RQ1, renvoi eq:facto, ponctuation Huber).
 - [ ] **Lire Douaioui et al. (2024)** : jeu de données, protocole de split, métriques, résultats → remplir sa ligne du tableau 1.

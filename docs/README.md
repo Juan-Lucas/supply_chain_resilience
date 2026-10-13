@@ -37,8 +37,8 @@ L'article ne propose pas un nouvel algorithme : il mesure **combien le protocole
 supply_chain_resilience/
 ├── data/
 │   ├── raw/                 <- données brutes, jamais modifiées (non versionnées)
-│   │   ├── dataco/          <- DataCoSupplyChainDataset.csv (+ Description…csv)   [À TÉLÉCHARGER]
-│   │   └── olist/           <- les 9 CSV Olist                                       [À TÉLÉCHARGER]
+│   │   ├── dataco/          <- DataCoSupplyChainDataset.csv, DescriptionDataCoSupplyChain.csv
+│   │   └── olist/           <- 8 CSV Olist (olist_*.csv + traduction des catégories)
 │   ├── interim/             <- données nettoyées par jeu
 │   └── processed/           <- schéma commun : X, y_clf, y_reg, timestamp, group_id
 ├── docs/                    <- cette documentation

@@ -18,7 +18,7 @@
 | §6 Résultats et discussion | ❌ 0 % | Dépend entièrement des expériences. |
 | §7 Conclusion, résumé | ❌ 0 % | En dernier. |
 | Bibliographie FR | 🟡 | 33 entrées, dont 20 marquées `[A VERIFIER]` ; 4 articles en `@misc` sans revue (+ 2 jeux de données). |
-| **Code** | ❌ **0 %** | Le package est encore le gabarit cookiecutter (`dataset.py`, `features.py`, `train.py` = code factice). Aucune donnée téléchargée : `data/raw/` est vide. |
+| **Code** | ❌ **0 %** | Le package est encore le gabarit cookiecutter (`dataset.py`, `features.py`, `train.py` = code factice). Données DataCo et Olist téléchargées dans `data/raw/dataco/` et `data/raw/olist/`. |
 | Version anglaise | ⏸ Squelette | `supply_chain_resilience.tex` : sections vides. À remplir par traduction à la fin. |
 | Gabarit Elsevier / Procedia | 🗑 Supprimé | Cohérent avec le plan : la revue/conférence cible sera décidée avec le Prof. Merlec. |
 
@@ -84,7 +84,7 @@ Le cadre mathématique promet beaucoup. Pour tenir le délai, on distingue un no
 Le dépôt n'a qu'un commit et beaucoup de fichiers non suivis. Proposition :
 - un commit maintenant (docs + brouillon FR + bib FR) ;
 - ensuite un commit par étape du planning (« EDA DataCo », « §4 rédigée »…) ;
-- ajouter `.idea/`, `*.synctex.gz` et les PDF compilés au `.gitignore`, ainsi que `data/raw/dataco/` et `data/raw/olist/` (licences, volume).
+- ajouter `.idea/`, `*.synctex.gz` et les PDF compilés au `.gitignore` (`/data/` est déjà ignoré : licences, volume).
 
 ## 4. Points relevés dans le brouillon FR (à corriger)
 

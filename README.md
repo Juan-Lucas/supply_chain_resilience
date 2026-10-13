@@ -30,7 +30,7 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-Télécharger ensuite les deux jeux dans `data/raw/dataco/` et `data/raw/olist/`.
+Placer les fichiers CSV des deux jeux dans `data/raw/dataco/` et `data/raw/olist/` (liste dans `docs/DICTIONNAIRE_DONNEES.md`).
 
 ## Documentation
 

@@ -11,7 +11,7 @@
 | Jeu | Rôle dans l'article | Nature | Volume |
 |---|---|---|---|
 | **DataCo Smart Supply Chain** | **Jeu principal** — tous les résultats du corps du texte | Réel, public, DOI | 180 519 lignes × 53 colonnes |
-| **Olist Brazilian E-Commerce** | **Validation externe** — réplication du résultat principal | Réel, public | ≈ 99 441 commandes, 9 fichiers |
+| **Olist Brazilian E-Commerce** | **Validation externe** — réplication du résultat principal | Réel, public | ≈ 99 441 commandes, 8 fichiers |
 
 Deux règles qui ne se négocient pas :
 
@@ -23,7 +23,7 @@ Deux règles qui ne se négocient pas :
 ## 1. DataCo Smart Supply Chain — jeu principal
 
 **Source :** Constante, F., Silva, F., Pereira, A. (2019). *DataCo SMART SUPPLY CHAIN FOR BIG DATA ANALYSIS*, Mendeley Data, v5. DOI : 10.17632/8gx2fvg2k6.5 — licence CC BY 4.0.
-**Fichiers :** `DataCoSupplyChainDataset.csv` (structuré), `DescriptionDataCoSupplyChain.csv` (descriptif des variables), `tokenized_access_logs.csv` (clickstream, non utilisé ici).
+**Fichiers :** `DataCoSupplyChainDataset.csv` (structuré), `DescriptionDataCoSupplyChain.csv` (descriptif des variables). Le fichier `tokenized_access_logs.csv` (clickstream) n'est pas utilisé et n'a pas été conservé.
 **Lecture :** `pd.read_csv(..., encoding='latin-1')` — l'encodage UTF-8 échoue.
 **Période :** commandes de 2015 à début 2018. **Granularité : une ligne = un article de commande**, pas une commande.
 
@@ -110,7 +110,7 @@ Vérification obligatoire : `y_clf` doit coïncider avec `Late_delivery_risk`. S
 ## 2. Olist Brazilian E-Commerce — validation externe
 
 **Source :** Olist, *Brazilian E-Commerce Public Dataset by Olist*, Kaggle — licence CC BY-NC-SA 4.0. Données commerciales réelles, anonymisées.
-**Volume :** ≈ 99 441 commandes, 2016 → 2018, réparties sur 9 fichiers CSV.
+**Volume :** ≈ 99 441 commandes, 2016 → 2018, réparties sur 8 fichiers CSV conservés (le fichier des avis, postérieur à la livraison, a été écarté).
 **Granularité :** `olist_orders_dataset` est au niveau **commande** ; `olist_order_items_dataset` au niveau **article**.
 
 ### 2.1 Les fichiers et leurs jointures
@@ -124,7 +124,6 @@ Vérification obligatoire : `y_clf` doit coïncider avec `Late_delivery_risk`. S
 | `olist_sellers_dataset.csv` | `seller_id` | code postal, ville, État du vendeur |
 | `olist_geolocation_dataset.csv` | `zip_code_prefix` | latitude, longitude → **distance client-vendeur** |
 | `olist_order_payments_dataset.csv` | `order_id` | type de paiement, mensualités, montant |
-| `olist_order_reviews_dataset.csv` | `order_id` | **postérieur à la livraison → fuite** (réservé à une éventuelle piste NLP hors cible) |
 | `product_category_name_translation.csv` | catégorie | traduction PT → EN |
 
 Chaîne de jointure recommandée : `orders` ← `order_items` (agrégés par commande) ← `products` ; puis `customers` et `sellers` ; puis `geolocation` (moyenne des coordonnées par préfixe de code postal, car le fichier contient plusieurs lignes par préfixe).
