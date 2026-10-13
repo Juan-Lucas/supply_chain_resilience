@@ -1,8 +1,27 @@
-loguru
-pip
-pytest
-python-dotenv
-ruff
-tqdm
-typer
+# Calcul et données
+numpy==2.4.6
+pandas==3.0.2
+pyarrow==23.0.1
+scipy==1.17.1
+
+# Apprentissage automatique
+scikit-learn==1.8.0
+xgboost==3.2.0
+optuna==5.0.0
+shap==0.51.0
+
+# Figures
+matplotlib==3.10.8
+
+# Outils
+loguru==0.7.3
+python-dotenv==1.2.2
+tqdm==4.67.3
+typer==0.24.1
+
+# Développement
+pytest==9.0.3
+ruff==0.15.11
+
+# Le package du projet
 -e .
