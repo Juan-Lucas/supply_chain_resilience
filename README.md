@@ -15,8 +15,6 @@ L'article mesure l'effet du protocole d'évaluation (partition aléatoire contre
 
 ```
 data/raw/          données brutes (non versionnées) : dataco/, olist/
-docs/              documentation, planning, dictionnaire de données
-references/        articles de l'état de l'art + liste de recherche
 reports/draft/     article LaTeX (version de travail : supply_chain_resilience_fr.tex)
 reports/figures/   figures générées par le code
 supply_chain_resilience/   code source
@@ -30,9 +28,4 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-Placer les fichiers CSV des deux jeux dans `data/raw/dataco/` et `data/raw/olist/` (liste dans `docs/DICTIONNAIRE_DONNEES.md`).
-
-## Documentation
-
-Tout est dans [`docs/README.md`](docs/README.md) : organisation, planning et dictionnaire de données.
-La liste des travaux à retrouver est dans [`references/LISTE_ARTICLES.md`](references/LISTE_ARTICLES.md).
+Placer les fichiers CSV des deux jeux dans `data/raw/dataco/` et `data/raw/olist/`.

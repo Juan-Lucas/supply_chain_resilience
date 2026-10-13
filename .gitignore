@@ -206,3 +206,9 @@ reports/draft/*.pdf
 
 # Articles de l'état de l'art (droits d'auteur) : seule la liste est versionnée
 references/*.pdf
+
+# Documents de travail personnels (plan, journal, dictionnaire, liste d'articles)
+/docs/*
+!/docs/.gitkeep
+/references/*
+!/references/.gitkeep
