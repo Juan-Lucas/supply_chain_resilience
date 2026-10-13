@@ -1,4 +1,5 @@
 site_name: Supply Chain Resilience
-# 
-site_author: Jean-Luc MUPASA
-# 
+site_author: Jean-Luc MUPASA KALUNGA
+nav:
+  - Accueil: index.md
+  - Mise en route: getting-started.md

@@ -189,3 +189,20 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+# IDE
+.idea/
+.vscode/
+
+# LaTeX : fichiers auxiliaires et PDF compilés (reports/draft)
+*.aux
+*.bbl
+*.blg
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+reports/draft/*.pdf
+
+# Articles de l'état de l'art (droits d'auteur) : seule la liste est versionnée
+references/*.pdf

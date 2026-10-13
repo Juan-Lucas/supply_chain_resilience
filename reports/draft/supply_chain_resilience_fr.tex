@@ -1,0 +1,484 @@
+%! Author = Jean-Luc MUPASA KALUNGA
+%! Date = 07/10/2026
+%
+% Version française de travail.
+% Parties rédigées : mots-clés, 1. Introduction, 2. Travaux connexes,
+% 3. Cadre mathématique. Les sections 4 à 7 et le résumé restent à rédiger.
+%
+% Repères de relecture dans le texte :
+%   \pending{...}  (rouge)   : contenu à écrire
+%   \verif{...}    (orange)  : affirmation ou référence à vérifier avant de la garder
+%   \tbd           (rouge)   : case de tableau à remplir après lecture de l'article
+
+\documentclass[11pt,a4paper]{article}
+
+% Paquets de base
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[french]{babel}
+\usepackage{microtype}
+\usepackage[a4paper,margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb,mathtools,amsthm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+
+% Pseudocode
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\algrenewcommand\algorithmicrequire{\textbf{Entrée :}}
+\algrenewcommand\algorithmicensure{\textbf{Sortie :}}
+
+% Références et Liens
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage[nameinlink,capitalise]{cleveref}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!55!black,
+  citecolor=blue!55!black,
+  urlcolor=blue!65!black,
+  pdftitle={Prédiction des retards de livraison par apprentissage automatique pour la résilience des chaînes d'approvisionnement},
+  pdfauthor={Jean-Luc MUPASA KALUNGA}
+}
+
+% Configuration des légendes et tableaux
+\captionsetup{font=small,labelfont=bf} % Légendes petites et labels en gras
+\setlist[itemize]{leftmargin=1.5em,itemsep=2pt,topsep=4pt}
+\setlist[enumerate]{leftmargin=1.7em,itemsep=2pt,topsep=4pt}
+\renewcommand{\arraystretch}{1.15} % Espacement vertical des tableaux
+
+% Suppression du style fancyhdr
+\pagestyle{plain}
+
+% Macros de rédaction (à retirer avant la version finale)
+\newcommand{\pending}[1]{\textcolor{red}{[À COMPLÉTER : #1]}}
+\newcommand{\tbd}{\textcolor{red}{\textit{À DÉFINIR}}}
+\newcommand{\verif}[1]{\textcolor{orange!80!black}{[à vérifier : #1]}}
+% Cadre de figure provisoire (à remplacer par \includegraphics)
+\newcommand{\phfig}[2][6cm]{%
+  \fbox{\parbox[c][#1][c]{0.92\textwidth}{\centering\textit{#2}}}}
+
+% Macros mathématiques
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\ind}{\mathbf{1}}
+\newcommand{\Preci}{\text{Préc}}
+\newcommand{\Rapp}{\mathrm{Rap}}
+
+% Environnements de définition
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}
+\newtheorem{contrainte}{Contrainte}
+
+% Titre et Auteurs
+\title{\textbf{Prédiction des retards de livraison par apprentissage automatique pour la résilience des chaînes d'approvisionnement}}
+
+\author{%
+\begin{tabular}{c}
+Mupasa Kalunga Jean-Luc$^{1}$ \qquad Mpyana Mwamba Merlec$^{2}$\\[0.5em]
+{\small $^{1}$Faculté d'Informatique, Université Don Bosco de Lubumbashi (UDBL), Lubumbashi, RDC}\\
+{\small $^{2}$Département d'informatique, Université de Corée (Korea University), Séoul, Corée du Sud}\\[0.3em]
+{\small\texttt{16mk293@esisalama.org; mlecjm@korea.ac.kr}}
+\end{tabular}%
+}
+\date{} % Pas de date apparente
+
+
+\begin{document}
+
+\maketitle
+
+% Le résumé s'écrit en dernier, une fois les résultats connus.
+\begin{abstract}
+\pending{Insérer le résumé ici (à écrire en dernier, avec au moins un résultat chiffré).}
+\end{abstract}
+
+\noindent\textbf{Mots-clés :} résilience de la chaîne d'approvisionnement ; prédiction des retards de livraison ; validation temporelle ; dérive de distribution ; gradient boosting ; optimisation d'hyperparamètres.
+% Version anglaise pour la traduction :
+% supply chain resilience; delivery delay prediction; temporal validation; distribution shift; gradient boosting; hyperparameter optimization
+
+% ============================================================================
+% Section 1 : Introduction
+% ============================================================================
+\section{Introduction}
+\label{sec:intro}
+
+Le respect des délais de livraison est l'un des piliers de la performance d'une chaîne logistique. Il conditionne la satisfaction du client, la disponibilité des stocks et la planification des ressources en entrepôt. Un retard ne reste jamais local : il se propage en aval, immobilise du stock, provoque des ruptures et peut déclencher des pénalités contractuelles \pending{ajouter une ou deux données chiffrées sur le coût des retards, avec leur source}. La résilience d'une chaîne d'approvisionnement ne se limite donc pas à sa capacité d'absorber une perturbation une fois qu'elle s'est produite ; elle suppose aussi de l'anticiper, afin de laisser au gestionnaire le temps d'agir : choisir un autre transporteur, réallouer du stock ou prévenir le client.
+
+Anticiper un retard est difficile, car ses causes sont multiples, interdépendantes et changeantes : conditions météorologiques, congestion portuaire, formalités douanières, fiabilité inégale des transporteurs, état des infrastructures. Leurs effets ne s'additionnent pas simplement, et leur poids relatif évolue dans le temps (saisonnalité, perturbations ponctuelles, changements de réseau ou de transporteur). Un modèle linéaire saisit mal ces interactions, ce qui justifie le recours à l'apprentissage automatique, et en particulier aux méthodes d'ensemble d'arbres de décision \cite{breiman2001random,friedman2001greedy,chen2016xgboost}.
+
+Une littérature récente applique l'apprentissage supervisé à la prédiction des retards et des risques logistiques, avec des modèles allant des régressions classiques aux réseaux profonds \cite{rezki2024machine,douaioui2024enhancing,zogaan2025leveraging,widayanti2026predicting}. Elle établit qu'un modèle entraîné sur l'historique des expéditions peut produire des alertes exploitables. La manière dont ces performances sont \emph{estimées} reste en revanche peu discutée. Le partitionnement aléatoire des observations en ensembles d'entraînement et de test suppose que les données sont indépendantes et identiquement distribuées : le modèle est alors évalué sur des expéditions dont il a vu, à l'entraînement, des voisines proches dans le temps. Or les chaînes logistiques ne vérifient pas cette hypothèse, car elles subissent des variations saisonnières, des ruptures de régime et des changements structurels. Dans d'autres domaines, des travaux montrent que ce type de partitionnement peut conduire à des estimations trop optimistes : détection de logiciels malveillants \cite{pendlebury2019tesseract}, modélisation en chimie \cite{sheridan2013time}, prévision de séries temporelles \cite{cerqueira2020evaluating,hewamalage2023forecast}. L'ampleur de l'écart dépend toutefois de la stationnarité des données \cite{cerqueira2020evaluating} : il doit donc être mesuré, et non supposé. Plus généralement, la fuite d'information, y compris temporelle, compte parmi les causes de non-reproductibilité des travaux d'apprentissage automatique appliqué \cite{kapoor2023leakage,kaufman2012leakage}. À notre connaissance, l'effet du protocole d'évaluation n'a pas été étudié de façon systématique pour la prédiction des retards de livraison, sur plusieurs jeux de données publics \verif{à confirmer après la lecture complète des articles de la section~\ref{sec:relwork}}.
+
+Le problème se pose sous deux formes complémentaires. La \emph{classification} indique si une livraison sera en retard et déclenche l'alerte ; la \emph{régression} indique de combien de jours, ce qui permet de dimensionner la réponse (quantité de stock à réallouer, transporteur de remplacement, message au client). Un gestionnaire qui ne connaîtrait que l'occurrence du retard ne saurait pas s'il faut agir pour un jour ou pour dix.
+
+Cet article se concentre sur la question suivante : \emph{dans quelle mesure le protocole d'évaluation influence-t-il la fiabilité estimée des modèles d'apprentissage automatique pour la prédiction des retards de livraison, lorsqu'ils sont confrontés à une évolution temporelle de la distribution des données ?} Elle se décompose en deux sous-questions :
+\begin{description}[leftmargin=2.2em,style=nextline]
+  \item[RQ1] La dégradation observée sous évaluation temporelle se retrouve-t-elle sur des jeux de données réels et indépendants ?
+  \item[RQ2] Quelles sont les conséquences de cette dégradation pour les décisions opérationnelles de réponse aux retards ?
+\end{description}
+Notre hypothèse de travail est que l'évaluation par partitionnement aléatoire surestime la performance réellement obtenue en déploiement. Cette hypothèse est testée, et non admise, dans la suite. Nous nous appuyons sur deux jeux de données publics : DataCo Smart Supply Chain \cite{constante2019dataco}, jeu principal et référence de la littérature, et Olist Brazilian E-Commerce \cite{olist2018brazilian}, jeu indépendant dont la structure et la prévalence des retards diffèrent.
+
+Les contributions de cet article sont au nombre de trois :
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{Une comparaison rigoureuse de modèles.} Nous comparons une référence linéaire régularisée, la forêt aléatoire et XGBoost, dont les hyperparamètres sont optimisés avec Optuna, sur la double tâche de classification et de régression, selon un protocole qui exclut toute fuite d'information. Cette comparaison sert de socle aux deux autres contributions.
+  \item \textbf{Une quantification de l'effet du protocole d'évaluation.} Nous comparons le partitionnement aléatoire et le partitionnement chronologique, mesurons l'écart d'optimisme qui les sépare et le décomposons par période. Nous en traduisons les conséquences opérationnelles par une analyse coût--bénéfice fondée sur des hypothèses de coût déclarées comme illustratives.
+  \item \textbf{Une vérification de la généralisation inter-jeux.} Nous répétons l'expérience sur DataCo puis sur Olist, deux jeux indépendants, pour établir si l'écart observé est une propriété du problème ou un artefact d'un seul fichier.
+\end{enumerate}
+
+Le reste de l'article est organisé comme suit. La section~\ref{sec:relwork} présente les travaux connexes et en dégage la lacune. La section~\ref{sec:formulation} formalise le problème, la contrainte de causalité temporelle et les protocoles d'évaluation. La section~\ref{sec:framework} décrit l'architecture et la méthodologie, la section~\ref{sec:design} le protocole expérimental, la section~\ref{sec:results} les résultats et leur discussion, et la section~\ref{sec:conclusion} conclut.
+
+% ============================================================================
+% Section 2 : Travaux connexes
+% ============================================================================
+\section{Travaux connexes}
+\label{sec:relwork}
+
+Nous organisons cette revue par angle plutôt que par article : la prédiction du risque de retard par apprentissage supervisé (section~\ref{sec:rw-supervise}), les approches profondes et temporelles (section~\ref{sec:rw-profond}), le choix des modèles et l'optimisation des hyperparamètres (section~\ref{sec:rw-hpo}), les protocoles d'évaluation (section~\ref{sec:rw-protocoles}) et les jeux de données (section~\ref{sec:rw-donnees}). Le tableau~\ref{tab:litterature} en donne la synthèse, et la section~\ref{sec:rw-lacune} en tire la lacune que traite cet article.
+
+\subsection{Prédiction du risque de retard par apprentissage supervisé}
+\label{sec:rw-supervise}
+
+Les travaux les plus proches de notre problème appliquent des modèles supervisés classiques à la prédiction du retard ou du risque logistique. Rezki et Mansouri \cite{rezki2024machine} comparent sept algorithmes (k plus proches voisins, forêt aléatoire, gradient boosting, régression linéaire, arbre de décision, régression logistique et machine à vecteurs de support) sur deux tâches : la prédiction des retards de livraison et la classification de la performance des fournisseurs. Ils concluent que les méthodes d'ensemble donnent la meilleure erreur de généralisation en régression, tandis que la régression logistique et le gradient boosting se distinguent en classification. Widayanti et al. \cite{widayanti2026predicting} comparent forêt aléatoire, gradient boosting et machine à vecteurs de support sur plus de 5\,000 enregistrements opérationnels couvrant les années 2018 à 2024 ; le gradient boosting obtient la meilleure exactitude. Sani et al. \cite{sani2023supply} proposent un modèle LightGBM dont les hyperparamètres sont optimisés par une méthode bayésienne, et Al Khaldy et al. \cite{alkhaldy2024towards} étudient des méthodes d'apprentissage automatique pour l'évaluation du risque de livraison \verif{compléter ce que ces deux articles établissent, après lecture}. Douaioui et al. \cite{douaioui2024enhancing} traitent la prédiction du risque de retard à la livraison par apprentissage profond ; leur jeu de données est, d'après notre plan, DataCo \verif{lire l'article}, ce qui rendrait nos résultats directement comparables aux leurs.
+
+Ces travaux convergent sur un point : dans les articles examinés, les méthodes d'ensemble d'arbres figurent fréquemment parmi les modèles les plus performants. Ils ne sont en revanche pas directement comparables entre eux, car les données, les cibles et les métriques diffèrent : erreurs absolue et quadratique, précision, rappel et F1 chez Rezki et Mansouri, exactitude chez Widayanti et al. L'exactitude est pourtant peu informative lorsque la classe positive est minoritaire (section~\ref{sec:metriques}).
+
+\subsection{Approches profondes et temporelles}
+\label{sec:rw-profond}
+
+Une seconde famille de travaux mobilise des architectures profondes. Zogaan et al. \cite{zogaan2025leveraging} appliquent l'apprentissage profond à la prédiction du risque et de la résilience dans des industries critiques. Jin \cite{jin2025attention} associe des réseaux convolutifs temporels à attention et l'apprentissage par renforcement pour prédire les retards et optimiser les stocks. Bhuiyan et al. \cite{bhuiyan2026deep} proposent un cadre d'apprentissage profond fondé sur des indicateurs macroéconomiques pour prédire le risque de retard de livraison. Ces approches exploitent explicitement la dimension temporelle ou des signaux exogènes, ce qui constitue un avantage potentiel. Il reste à établir si leur gain par rapport aux ensembles d'arbres justifie leur coût de complexité sur des données tabulaires \verif{vérifier si ces articles comparent leur modèle à des ensembles d'arbres, et avec quel écart}. Ce point conditionne notre choix de n'étudier que des modèles d'ensemble d'arbres et une référence linéaire.
+
+\subsection{Choix des modèles et optimisation des hyperparamètres}
+\label{sec:rw-hpo}
+
+Le choix du modèle et le réglage de ses hyperparamètres relèvent d'une littérature méthodologique distincte. Fazil et al. \cite{fazil2023comparative} comparent des modèles de classification et mettent en évidence la supériorité empirique de la forêt aléatoire \cite{breiman2001random} ; Latha et al. \cite{latha2024overview} proposent un cadre de sélection de modèle en régression. Pour le réglage, la recherche aléatoire est plus efficace que la recherche sur grille lorsque peu d'hyperparamètres comptent réellement \cite{bergstra2012random}, et les méthodes bayésiennes fondées sur l'estimateur de Parzen arborescent \cite{bergstra2011algorithms}, implémentées dans Optuna \cite{akiba2019optuna}, vont plus loin. Kee et Ho \cite{kee2025optimizing} comparent la recherche sur grille, la recherche aléatoire et Optuna sur 7\,652 transactions immobilières à Hong Kong (2010 à 2020), avec un gradient boosting et une forêt aléatoire : Optuna est de 6,77 à 108,92 fois plus rapide que les méthodes traditionnelles, pour une exactitude supérieure. Les auteurs recommandent aussi de rapporter les métriques sur l'entraînement \emph{et} sur le test, afin de détecter le surapprentissage, ce que nous reprenons.
+
+Ces articles justifient nos choix méthodologiques, mais ils ne portent pas sur la logistique, et aucun n'examine l'effet du protocole de partitionnement sur l'estimation de la performance \verif{confirmer en relisant Fazil et al. et Latha et al.}.
+
+\subsection{Protocoles d'évaluation}
+\label{sec:rw-protocoles}
+
+\paragraph{Dans la littérature sur les retards.} Le protocole de partitionnement est rarement décrit de façon explicite. Dans les extraits que nous avons consultés, les articles de Rezki et Mansouri et de Widayanti et al. n'indiquent pas comment les données sont séparées entre entraînement et test ; Kee et Ho réservent 70\,\% des données à l'entraînement et 30\,\% au test, avec une validation croisée à cinq plis pour le réglage, sans préciser si la séparation est aléatoire ou chronologique \verif{confirmer sur le texte intégral de chaque article avant de conserver ce paragraphe, puis renseigner la colonne « Protocole » du tableau~\ref{tab:litterature}}.
+
+\paragraph{Dans d'autres domaines.} La question est mieux documentée hors de la logistique. En chimie, Sheridan \cite{sheridan2013time} montre que le partitionnement aléatoire peut gonfler l'estimation de la qualité d'un modèle, alors que le partitionnement chronologique donne une image plus réaliste de sa capacité à prédire de nouveaux composés. En détection de logiciels malveillants, Pendlebury et al. \cite{pendlebury2019tesseract} attribuent le caractère gonflé des résultats publiés à deux biais, l'un spatial, l'autre temporel ; ce dernier provient de partitions incorrectes entre entraînement et test. Ils proposent des contraintes de conception d'expérience et une métrique de performance dans le temps. En prévision de séries temporelles, Cerqueira et al. \cite{cerqueira2020evaluating} comparent des variantes de validation croisée, le hold-out et des approches prequentielles sur 174 séries réelles et trois séries synthétiques : les résultats diffèrent nettement d'un scénario à l'autre, et la validation croisée par blocs peut s'appliquer aux séries stationnaires. Cette réserve est essentielle, car elle indique que l'optimisme du partitionnement aléatoire dépend de la stationnarité ; nous devons donc la vérifier plutôt que l'admettre. Bergmeir et al. \cite{bergmeir2012use,bergmeir2018note} étudient les conditions de validité de la validation croisée pour les séries temporelles \verif{préciser ces conditions après lecture}, et Hewamalage et al. \cite{hewamalage2023forecast} recensent les pièges de l'évaluation des prévisions, dont le partitionnement aléatoire, qui ne préserve pas l'ordre temporel.
+
+\paragraph{Fuite d'information et dérive.} La fuite d'information est un problème plus large. Kaufman et al. \cite{kaufman2012leakage} la formalisent en fouille de données, et Kapoor et Narayanan \cite{kapoor2023leakage} en dressent une taxonomie dans les sciences fondées sur l'apprentissage automatique, qui inclut la fuite temporelle. La dérive de distribution fait l'objet d'une littérature propre \cite{gama2014survey,morenotorres2012unifying}, sur laquelle nous nous appuyons pour formaliser le problème (section~\ref{sec:formulation}).
+
+\begin{table}[t]
+\centering
+\footnotesize
+\caption{Synthèse des travaux sur la prédiction des retards et des risques logistiques. Les cases marquées \tbd{} sont à renseigner après lecture de l'article ; la colonne « Protocole » est celle qui rend visible la lacune traitée ici. La dernière ligne, hors logistique, est retenue pour sa méthodologie de réglage.}
+\label{tab:litterature}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\begin{tabularx}{\textwidth}{@{}L{2.0cm}L{2.5cm}L{2.2cm}L{2.7cm}L{2.0cm}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Référence & Données & Tâche & Modèles & Protocole d'évaluation & Métriques rapportées \\
+\midrule
+Rezki et Mansouri \cite{rezki2024machine} & Données réelles, origine et taille non précisées dans le résumé & Retard de livraison ; performance des fournisseurs & KNN, RF, GB, régression linéaire, arbre, régression logistique, SVM & \tbd & MAE, MSE, RMSE ; précision, rappel, F1 \\
+Douaioui et al. \cite{douaioui2024enhancing} & DataCo \verif{lire l'article} & Risque de retard à la livraison & Apprentissage profond & \tbd & \tbd \\
+Widayanti et al. \cite{widayanti2026predicting} & Plus de 5\,000 enregistrements, 2018--2024 & Risque de chaîne logistique & RF, GB, SVM & \tbd & Exactitude \\
+Zogaan et al. \cite{zogaan2025leveraging} & \tbd & Risque et résilience (industries critiques) & Apprentissage profond & \tbd & \tbd \\
+Sani et al. \cite{sani2023supply} & \tbd & Risque de chaîne logistique & LightGBM, optimisation bayésienne & \tbd & \tbd \\
+Jin \cite{jin2025attention} & \tbd & Retard ; optimisation des stocks & TCN à attention, apprentissage par renforcement & \tbd & \tbd \\
+Bhuiyan et al. \cite{bhuiyan2026deep} & \tbd & Risque de retard de livraison & Apprentissage profond, indicateurs macroéconomiques & \tbd & \tbd \\
+Al Khaldy et al. \cite{alkhaldy2024towards} & \tbd & Risque de livraison & \tbd & \tbd & \tbd \\
+\midrule
+Kee et Ho \cite{kee2025optimizing} & Transactions immobilières, Hong Kong, 7\,652 obs. (2010--2020) & Régression (prix) & GBM, RF ; grille, aléatoire, Optuna & 70\,\%/30\,\% ; validation croisée à 5 plis pour le réglage & R\textsuperscript{2}, MAE, MedAE, MSE, MAPE, sMAPE, RMSE, RMSLE ; entraînement et test \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Jeux de données du domaine}
+\label{sec:rw-donnees}
+
+Le jeu DataCo Smart Supply Chain \cite{constante2019dataco} est public et citable ; il est, d'après notre plan, celui qu'exploitent Douaioui et al. \cite{douaioui2024enhancing} \verif{lire l'article}. Le jeu Olist \cite{olist2018brazilian}, public lui aussi, complète le premier avec une structure et une prévalence de retards différentes. D'autres travaux indiquent s'appuyer sur des « données réelles » sans les décrire dans leur résumé \cite{rezki2024machine}, ce qui limite la reproductibilité et la comparabilité des résultats. L'usage de jeux publics, versionnés et documentés est donc une condition de notre étude.
+
+\subsection{Ce qui manque}
+\label{sec:rw-lacune}
+
+Trois constats se dégagent de cette revue. D'abord, les méthodes d'ensemble d'arbres sont fréquemment les plus performantes dans les travaux examinés, mais la comparaison entre articles est limitée par la diversité des données, des cibles et des métriques. Ensuite, le protocole d'évaluation est rarement décrit et, à notre connaissance, n'est pas comparé, alors que des travaux d'autres domaines montrent que le partitionnement aléatoire peut surestimer la performance en présence de dérive \verif{à confirmer après lecture des articles du tableau~\ref{tab:litterature}}. Enfin, aucun travail connu de nous ne vérifie si cet écart se reproduit sur plusieurs jeux de données publics et indépendants. Notre étude traite ensemble la classification et la régression, compare explicitement les deux protocoles et répète l'analyse sur DataCo et sur Olist.
+
+% ============================================================================
+% Section 3 : Cadre mathématique
+% ============================================================================
+\section{Cadre mathématique}
+\label{sec:formulation}
+
+Cette section formalise le problème pour le rendre non ambigu et reproductible. Elle définit les deux cibles (section~\ref{sec:notations}), la contrainte de causalité temporelle qui sépare les variables admissibles des variables de fuite (section~\ref{sec:causalite}), les protocoles d'évaluation et la dérive (section~\ref{sec:protocoles}), les fonctions de perte (section~\ref{sec:pertes}), les métriques (section~\ref{sec:metriques}), la règle de décision (section~\ref{sec:decision}) et l'optimisation des hyperparamètres (section~\ref{sec:hpo}).
+
+\subsection{Notations et cibles}
+\label{sec:notations}
+
+Considérons $n$ expéditions indexées par $i \in \{1,\dots,n\}$. L'unité d'observation est la commande ou la ligne de commande selon le jeu de données (section~\ref{sec:design}). À chaque expédition sont associés :
+\begin{itemize}
+  \item un instant de prédiction $\tau_i$, auquel le gestionnaire doit disposer de l'alerte ;
+  \item une date de livraison promise $t_i^{p}$ (date contractuelle ou estimée) ;
+  \item une date de livraison effective $t_i^{e}$, avec $\tau_i < t_i^{e}$ : la prédiction précède la livraison ;
+  \item un vecteur de caractéristiques $\mathbf{x}_i \in \mathcal{X} \subseteq \mathbb{R}^{d}$, obtenu après encodage des variables catégorielles.
+\end{itemize}
+Le retard signé, exprimé en jours, est
+\begin{equation}
+  \delta_i = t_i^{e} - t_i^{p}.
+  \label{eq:delta}
+\end{equation}
+Lorsque seules des durées sont disponibles, comme dans DataCo, $\delta_i$ est la différence entre la durée réelle et la durée prévue. Un retard positif correspond à une livraison tardive, un retard négatif à une livraison en avance. Les deux cibles dérivent de $\delta_i$ défini par l'équation~\eqref{eq:delta} :
+\begin{align}
+  y_i &= \ind\{\delta_i > 0\}, \label{eq:ycls}\\
+  r_i &= \max(\delta_i, 0), \label{eq:yreg}
+\end{align}
+où $y_i \in \{0,1\}$ est la cible de classification (1 pour une livraison en retard) et $r_i \ge 0$ la cible de régression, c'est-à-dire le nombre de jours de retard tronqué à zéro. Les cibles \eqref{eq:ycls} et \eqref{eq:yreg} sont liées : $r_i > 0 \iff y_i = 1$, d'où $r_i = y_i\,\delta_i$. Nous notons $\pi = \Prob(y=1)$ la prévalence des retards.
+
+La cible $r$ n'est pas continue sur $\mathbb{R}_+$ : elle porte une masse de probabilité en zéro (toutes les livraisons à l'heure ou en avance) et une partie continue pour les retards. En posant $p(\mathbf{x}) = \Prob(y=1 \mid \mathbf{x})$ et $m(\mathbf{x}) = \E[\delta \mid \mathbf{x},\, y=1]$, l'espérance conditionnelle de $r$ se décompose en
+\begin{equation}
+  \E[r \mid \mathbf{x}] = p(\mathbf{x})\, m(\mathbf{x}).
+  \label{eq:decomp}
+\end{equation}
+La décomposition~\eqref{eq:decomp} motive une architecture à deux modèles : un classifieur estime $p$, et un modèle de régression conditionnel au retard estime $m$, entraîné sur le sous-ensemble $\{i : y_i = 1\}$ où la cible est strictement positive. Nous retenons cette variante parce qu'elle sépare deux problèmes de nature différente, l'occurrence et l'ampleur, et qu'elle évite d'imposer à un même modèle de régression une masse en zéro. La régression directe de $r$ sur toutes les observations sert de point de comparaison \verif{valider ce choix avec le Prof. Merlec}.
+
+\subsection{Causalité temporelle et fuite d'information}
+\label{sec:causalite}
+
+À l'instant $\tau_i$, seule une partie de l'information sur l'expédition $i$ est connue. Notons $a_{ij}$ l'instant à partir duquel la $j$-ième caractéristique de l'expédition $i$ est connue : la date de commande est connue dès la commande, alors que la durée réelle d'expédition ne l'est qu'à la livraison.
+
+\begin{contrainte}[Disponibilité]
+\label{ctr:dispo}
+Une caractéristique $j$ est admissible si elle est connue à l'instant de prédiction pour toutes les expéditions :
+\begin{equation}
+  \mathcal{J}_{\mathrm{adm}} = \bigl\{\, j \;:\; a_{ij} \le \tau_i \ \text{ pour tout } i \,\bigr\}.
+  \label{eq:adm}
+\end{equation}
+Toute caractéristique hors de $\mathcal{J}_{\mathrm{adm}}$ est une variable de fuite et est exclue.
+\end{contrainte}
+
+La contrainte~\ref{ctr:dispo}, qui définit l'ensemble~\eqref{eq:adm}, élimine formellement les variables postérieures à $\tau_i$, comme la durée réelle d'expédition ou le statut final de livraison. Elle s'applique de la même façon aux deux jeux de données.
+
+\paragraph{Caractéristiques d'historique.} Une caractéristique calculée à partir du passé, comme le taux de retard antérieur d'un transporteur, demande une attention particulière. Pour un transporteur $c_i$ et une fenêtre de largeur $w$, définissons l'ensemble des expéditions \emph{déjà livrées} à l'instant $\tau_i$ :
+\begin{equation}
+  \mathcal{H}_i(w) = \bigl\{\, k \neq i \;:\; c_k = c_i,\ t_k^{e} \le \tau_i,\ \tau_i - t_k^{e} \le w \,\bigr\},
+  \label{eq:hist}
+\end{equation}
+et le taux de retard historique
+\begin{equation}
+  h_i =
+  \begin{cases}
+    \dfrac{1}{|\mathcal{H}_i(w)|} \displaystyle\sum_{k \in \mathcal{H}_i(w)} y_k & \text{si } |\mathcal{H}_i(w)| \ge n_{\min},\\[2ex]
+    \text{valeur manquante} & \text{sinon.}
+  \end{cases}
+  \label{eq:taux}
+\end{equation}
+La condition de l'équation~\eqref{eq:hist} porte sur $t_k^{e} \le \tau_i$ (la livraison de $k$ est connue avant $\tau_i$) et non sur $\tau_k < \tau_i$ : une expédition passée mais encore en transit n'a pas de cible connue, et l'inclure ferait fuiter l'information. Le seuil $n_{\min}$ de l'équation~\eqref{eq:taux} évite d'estimer un taux sur trop peu d'observations ; les transporteurs récents reçoivent alors une valeur manquante, traitée dans la méthodologie (section~\ref{sec:framework}).
+
+\paragraph{Partition chronologique.} Fixons une date de coupure $\tau^\star$.
+\begin{contrainte}[Précédence entre entraînement et test]
+\label{ctr:prec}
+Les ensembles d'entraînement et de test sont
+\begin{equation}
+  \mathcal{D}_{\mathrm{ent}} = \{\, i : t_i^{e} \le \tau^\star \,\}, \qquad
+  \mathcal{D}_{\mathrm{test}} = \{\, i : \tau_i > \tau^\star \,\}.
+  \label{eq:split}
+\end{equation}
+\end{contrainte}
+Dans \eqref{eq:split}, une expédition est donc utilisée pour l'entraînement seulement si sa cible est connue à $\tau^\star$, ce qui reproduit les conditions réelles de déploiement. Les deux ensembles sont disjoints puisque $\tau_i < t_i^{e}$. Les expéditions telles que $\tau_i \le \tau^\star < t_i^{e}$, déjà prédites mais pas encore livrées à la date de coupure, n'appartiennent à aucun ensemble ; leur effectif sera rapporté dans le protocole expérimental (section~\ref{sec:design}).
+
+\begin{contrainte}[Intégrité des groupes]
+\label{ctr:groupes}
+Soit $g(i)$ le groupe de l'observation $i$ (la commande, lorsque l'unité est la ligne de commande). Deux observations d'un même groupe partagent l'instant de prédiction et sont affectées au même ensemble.
+\end{contrainte}
+Sans cette contrainte, une même commande est dispersée entre l'entraînement et le test, ce qui constitue une fuite directe.
+
+\subsection{Estimation du risque, protocoles d'évaluation et dérive}
+\label{sec:protocoles}
+
+Soit $\ell$ une fonction de perte. Pour une distribution $Q$ de $(\mathbf{X}, Y)$, le risque d'un prédicteur $f$ est
+\begin{equation}
+  R_Q(f) = \E_{(\mathbf{X},Y)\sim Q}\bigl[\ell(f(\mathbf{X}), Y)\bigr].
+  \label{eq:risque}
+\end{equation}
+Notons $P_t$ la loi conjointe de $(\mathbf{X},Y)$ pour les expéditions dont l'instant de prédiction est $t$, et $\mu$ la loi empirique des instants de prédiction sur la période d'étude. L'hypothèse implicite du partitionnement aléatoire est la \emph{stationnarité}, $P_t = P$ pour tout $t$, avec des observations indépendantes.
+
+\paragraph{Deux estimateurs.} Dans le protocole aléatoire, un ensemble de test $\mathcal{T}$ est tiré uniformément parmi les $n$ observations, et le modèle $f_{\mathcal{A}}$ est entraîné sur le complémentaire $\mathcal{A}$. Dans le protocole chronologique, le modèle $f_{\mathrm{ent}}$ est entraîné sur $\mathcal{D}_{\mathrm{ent}}$ et évalué sur $\mathcal{D}_{\mathrm{test}}$ :
+\begin{align}
+  \widehat{R}_{\text{alé}} &= \frac{1}{|\mathcal{T}|} \sum_{i\in\mathcal{T}} \ell\bigl(f_{\mathcal{A}}(\mathbf{x}_i), y_i\bigr), \label{eq:Ralea}\\
+  \widehat{R}_{\mathrm{chr}} &= \frac{1}{|\mathcal{D}_{\mathrm{test}}|} \sum_{i\in\mathcal{D}_{\mathrm{test}}} \ell\bigl(f_{\mathrm{ent}}(\mathbf{x}_i), y_i\bigr). \label{eq:Rchr}
+\end{align}
+Les observations de test du premier protocole sont réparties sur toute la période : elles suivent la loi mélange $\bar{P} = \int P_t \,\mathrm{d}\mu(t)$. Celles du second suivent la loi de la période postérieure à la coupure,
+\begin{equation}
+  P_{\mathrm{fut}} = \frac{1}{\mu\bigl((\tau^\star,\infty)\bigr)} \int_{(\tau^\star,\infty)} P_t \,\mathrm{d}\mu(t).
+  \label{eq:Pfut}
+\end{equation}
+Pour un prédicteur $f$ fixé et indépendant de l'échantillon de test, et pour le risque défini par l'équation~\eqref{eq:risque}, les estimateurs \eqref{eq:Ralea} et \eqref{eq:Rchr} sont sans biais pour $R_{\bar{P}}(f)$ et $R_{P_{\mathrm{fut}}}(f)$ respectivement. Sous stationnarité, $\bar{P} = P_{\mathrm{fut}} = P$ (la loi \eqref{eq:Pfut} se confond avec la loi mélange) et les deux protocoles visent la même quantité. Sous dérive, ils visent deux quantités différentes, et $R_{\bar{P}}(f) \neq R_{P_{\mathrm{fut}}}(f)$ en général.
+
+Le protocole aléatoire a une seconde source d'optimisme, indépendante de la dérive : le modèle $f_{\mathcal{A}}$ est entraîné sur des observations \emph{entrelacées} avec celles du test. Lorsque des observations voisines dans le temps sont corrélées (par exemple lors d'un même épisode de congestion), il interpole au lieu d'extrapoler.
+
+\paragraph{Écart d'optimisme.} Pour une métrique de score $M$ (plus grande, meilleure), l'écart d'optimisme est
+\begin{equation}
+  \Delta_M = \widehat{M}_{\text{alé}} - \widehat{M}_{\mathrm{chr}},
+  \label{eq:delta-opt}
+\end{equation}
+et, pour une métrique d'erreur $E$ (plus petite, meilleure), $\Delta_E = \widehat{E}_{\mathrm{chr}} - \widehat{E}_{\text{alé}}$. Notons $M_{\text{dép}}(f)$ la performance de $f$ entraîné sur $\mathcal{D}_{\mathrm{ent}}$ et appliqué aux expéditions postérieures à $\tau^\star$ : c'est la performance en conditions de déploiement. Le biais d'un protocole $\pi$ est $B_\pi = \E[\widehat{M}_\pi] - M_{\text{dép}}$. Le protocole chronologique reproduit ces conditions, donc $B_{\mathrm{chr}} \approx 0$ aux effets de variance près, et en première approximation $\Delta_M \approx B_{\text{alé}}$. L'écart~\eqref{eq:delta-opt} mesure ainsi le biais du partitionnement aléatoire ; c'est la grandeur par laquelle nous rendons opérationnelle la « fiabilité estimée » de la question de recherche.
+
+\paragraph{Profil de dérive.} Pour décomposer l'écart par période, découpons la période de test en $Q$ trimestres consécutifs et notons $\widehat{M}_q$ la performance mesurée sur les expéditions de $\mathcal{D}_{\mathrm{test}}$ dont l'instant de prédiction tombe dans le trimestre $q$. La suite $q \mapsto \widehat{M}_q$ est le profil de dérive du modèle ; un décrochage correspond à une baisse de $\widehat{M}_q$ par rapport à la performance de validation.
+
+\paragraph{Types de dérive.} On factorise la loi conjointe de deux façons, comme dans l'équation~\eqref{eq:facto} :
+\begin{equation}
+  P_t(\mathbf{x}, y) = P_t(y \mid \mathbf{x})\, P_t(\mathbf{x}) = P_t(\mathbf{x} \mid y)\, P_t(y),
+  \label{eq:facto}
+\end{equation}
+On distingue alors trois formes de dérive \cite{morenotorres2012unifying,gama2014survey} : un décalage des covariables, lorsque $P_t(\mathbf{x})$ varie et $P_t(y\mid\mathbf{x})$ reste fixe ; un décalage de la prévalence, lorsque $P_t(y)$ varie et $P_t(\mathbf{x}\mid y)$ reste fixe ; un décalage de concept, lorsque $P_t(y\mid\mathbf{x})$ varie. Nous ne cherchons pas à identifier le type de dérive : nous mesurons ses conséquences sur l'estimation de la performance. Le décalage de la prévalence agit directement sur certaines métriques (section~\ref{sec:metriques}).
+
+\subsection{Fonctions de perte}
+\label{sec:pertes}
+
+\paragraph{Classification.} Le modèle produit une probabilité $\hat{p}(\mathbf{x}) \in (0,1)$. Nous minimisons l'entropie croisée pondérée,
+\begin{equation}
+  \ell_w(y, \hat{p}) = -\bigl[\, w_1\, y \log \hat{p} + w_0\, (1-y) \log(1-\hat{p}) \,\bigr],
+  \qquad w_1 = \frac{n}{2\,n_1}, \quad w_0 = \frac{n}{2\,n_0},
+  \label{eq:logloss}
+\end{equation}
+où $n_c$ est le nombre d'observations de la classe $c$. Avec les poids de l'équation~\eqref{eq:logloss}, chaque classe contribue au total pour le même poids $n/2$, puisque $w_1 n_1 = w_0 n_0 = n/2$. La pondération n'a d'effet marqué que lorsque la classe positive est minoritaire ; elle est comparée au sur-échantillonnage et à l'ajustement du seuil dans la méthodologie (section~\ref{sec:framework}).
+
+\paragraph{Régression.} Notons $e_i = r_i - \hat{r}_i$ l'erreur de prédiction. La perte quadratique $e^2$ donne un poids quadratique aux retards extrêmes. Si les retards ont une queue lourde, ce que l'analyse exploratoire des données devra confirmer (section~\ref{sec:design}), nous lui préférons la perte de Huber \cite{huber1964robust},
+\begin{equation}
+  \ell_\kappa(e) =
+  \begin{cases}
+    \tfrac{1}{2}\, e^{2} & \text{si } |e| \le \kappa,\\[0.5ex]
+    \kappa \bigl(|e| - \tfrac{1}{2}\kappa\bigr) & \text{sinon,}
+  \end{cases}
+  \label{eq:huber}
+\end{equation}
+La perte~\eqref{eq:huber} est quadratique près de zéro et linéaire dans les queues, donc moins sensible aux valeurs extrêmes. Une alternative consiste à modéliser $\tilde{r} = \log(1+r)$ puis à rétro-transformer la prédiction ; cette rétro-transformation biaise toutefois la moyenne conditionnelle vers le bas (inégalité de Jensen), ce qui la rend moins adaptée à une estimation de l'ampleur moyenne du retard.
+
+\subsection{Métriques d'évaluation}
+\label{sec:metriques}
+
+\paragraph{Classification.} Pour un seuil $\theta$, la prédiction est $\hat{y}_i(\theta) = \ind\{\hat{p}_i \ge \theta\}$. Notons VP, FP, FN et VN les vrais positifs, faux positifs, faux négatifs et vrais négatifs. Alors
+\begin{align}
+  \Preci &= \frac{\mathrm{VP}}{\mathrm{VP}+\mathrm{FP}}, &
+  \Rapp &= \mathrm{TVP} = \frac{\mathrm{VP}}{\mathrm{VP}+\mathrm{FN}}, &
+  \mathrm{TFP} &= \frac{\mathrm{FP}}{\mathrm{FP}+\mathrm{VN}}, \label{eq:prf}\\
+  F_1 &= \frac{2\,\Preci\,\Rapp}{\Preci+\Rapp} = \frac{2\,\mathrm{VP}}{2\,\mathrm{VP}+\mathrm{FP}+\mathrm{FN}}. \label{eq:f1}
+\end{align}
+
+\emph{Pourquoi écarter l'exactitude.} L'exactitude $(\mathrm{VP}+\mathrm{VN})/n$ est dominée par la classe majoritaire : un classifieur qui prédit toujours « à l'heure » atteint une exactitude de $1-\pi$ avec un rappel nul. Sur un jeu où la prévalence des retards est faible, ce score élevé ne dit rien de l'utilité du modèle.
+
+\emph{ROC-AUC et PR-AUC.} L'aire sous la courbe ROC est la probabilité qu'un retard tiré au hasard reçoive un score supérieur à celui d'une livraison à l'heure tirée au hasard, les égalités comptant pour moitié ; elle ne dépend pas de la prévalence. La précision \eqref{eq:prf} en dépend, comme le montre la formule de Bayes :
+\begin{equation}
+  \Preci = \frac{\mathrm{TVP}\cdot\pi}{\mathrm{TVP}\cdot\pi + \mathrm{TFP}\cdot(1-\pi)}.
+  \label{eq:prec-bayes}
+\end{equation}
+Pour un même point de la courbe ROC, $\mathrm{TVP}=0{,}8$ et $\mathrm{TFP}=0{,}05$, la précision vaut $0{,}8\cdot0{,}5/(0{,}8\cdot0{,}5+0{,}05\cdot0{,}5)\approx0{,}94$ si $\pi=0{,}5$, mais seulement $0{,}8\cdot0{,}05/(0{,}8\cdot0{,}05+0{,}05\cdot0{,}95)\approx0{,}46$ si $\pi=0{,}05$. La ROC-AUC peut donc paraître excellente alors que la moitié des alertes sont de fausses alertes. L'aire sous la courbe précision--rappel est approchée par la précision moyenne,
+\begin{equation}
+  \mathrm{PR\text{-}AUC} \approx \sum_{k} \bigl(\Rapp_k - \Rapp_{k-1}\bigr)\,\Preci_k,
+  \label{eq:ap}
+\end{equation}
+où les seuils sont les scores classés par ordre décroissant ; la valeur d'un classifieur sans pouvoir discriminant est proche de $\pi$. Pour ces raisons, la PR-AUC \eqref{eq:ap} et le $F_1$ \eqref{eq:f1} sont plus informatifs que l'exactitude et la ROC-AUC quand la classe positive est minoritaire \cite{saito2015precision}.
+
+\emph{Lien avec la dérive.} Si seule la prévalence change entre deux périodes (les lois conditionnelles à la classe restent fixes), le point $(\mathrm{TFP},\mathrm{TVP})$ et la ROC-AUC sont inchangés, tandis que la précision, la PR-AUC et l'exactitude varient selon l'équation~\eqref{eq:prec-bayes}. Un écart d'optimisme mesuré sur ces métriques peut donc venir d'un simple changement de prévalence ; nous rapportons la prévalence de chaque période pour distinguer les cas.
+
+\paragraph{Régression.} Avec $e_i = r_i - \hat{r}_i$ sur un ensemble de $N$ observations, nous rapportons les métriques de l'équation~\eqref{eq:reg} :
+\begin{equation}
+  \mathrm{MAE} = \frac{1}{N}\sum_i |e_i|, \qquad
+  \mathrm{RMSE} = \sqrt{\frac{1}{N}\sum_i e_i^{2}}, \qquad
+  R^{2} = 1 - \frac{\sum_i e_i^{2}}{\sum_i (r_i-\bar{r})^{2}}.
+  \label{eq:reg}
+\end{equation}
+Le MAPE est indéfini lorsque $r_i = 0$, ce qui est le cas de toutes les livraisons à l'heure ; il n'est donc calculable que sur le sous-ensemble des retards $\{i : y_i = 1\}$, où $r_i > 0$. On lui préfère sur ce sous-ensemble le sMAPE, dont le dénominateur reste strictement positif :
+\begin{equation*}
+  \mathrm{sMAPE} = \frac{100}{n_1} \sum_{i:\,y_i=1} \frac{|e_i|}{\bigl(|r_i|+|\hat{r}_i|\bigr)/2}.
+\end{equation*}
+
+\paragraph{Variabilité.} Pour une métrique $M$ calculée sur $K$ plis, nous rapportons la moyenne et l'écart-type
+\begin{equation*}
+  \bar{M} = \frac{1}{K}\sum_{k=1}^{K} M_k, \qquad
+  s = \sqrt{\frac{1}{K-1}\sum_{k=1}^{K} \bigl(M_k-\bar{M}\bigr)^{2}},
+\end{equation*}
+jamais une valeur unique.
+
+\subsection{Règle de décision et coût}
+\label{sec:decision}
+
+Soient $c_{\mathrm{FN}}$ le coût d'un retard non signalé et $c_{\mathrm{FP}}$ celui d'une fausse alerte. Le coût d'un seuil $\theta$ est
+\begin{equation}
+  C(\theta) = c_{\mathrm{FN}}\,\mathrm{FN}(\theta) + c_{\mathrm{FP}}\,\mathrm{FP}(\theta).
+  \label{eq:cout}
+\end{equation}
+Si les probabilités sont bien calibrées, prédire un retard coûte en espérance $(1-p)\,c_{\mathrm{FP}}$ et ne rien prédire coûte $p\,c_{\mathrm{FN}}$ ; on alerte donc dès que $p \ge \theta^\star$, avec
+\begin{equation}
+  \theta^\star = \frac{c_{\mathrm{FP}}}{c_{\mathrm{FP}} + c_{\mathrm{FN}}}.
+  \label{eq:seuil}
+\end{equation}
+En pratique, les probabilités étant rarement calibrées, on n'applique pas directement \eqref{eq:seuil} : le seuil est choisi en minimisant l'équation~\eqref{eq:cout} sur un ensemble de validation, jamais sur le test. Comme les coûts réels ne sont pas observés dans nos jeux de données, nous les traitons comme des hypothèses illustratives. La différence de coût entre les deux protocoles, $C_{\mathrm{chr}}(\theta) - C_{\text{alé}}(\theta)$, traduit l'écart d'optimisme en conséquence décisionnelle ; elle répond à RQ2.
+
+\subsection{Optimisation des hyperparamètres}
+\label{sec:hpo}
+
+Soit $f_{\boldsymbol\lambda}$ un modèle d'hyperparamètres $\boldsymbol\lambda \in \Lambda$. Le réglage minimise le risque estimé en validation, moyenné sur $K$ plis :
+\begin{equation}
+  \boldsymbol\lambda^\star = \arg\min_{\boldsymbol\lambda \in \Lambda} \; \frac{1}{K} \sum_{k=1}^{K} \mathcal{L}\bigl(f^{(k)}_{\boldsymbol\lambda};\, \mathcal{V}_k\bigr),
+  \label{eq:hpo}
+\end{equation}
+où $f^{(k)}_{\boldsymbol\lambda}$ est entraîné sur $\mathcal{T}_k$ et $\mathcal{L}$ désigne le critère optimisé. Pour respecter la contrainte~\ref{ctr:prec}, les plis sont chronologiques, avec fenêtre croissante : pour des dates $s_1 < \dots < s_K$ prises dans la période d'entraînement,
+\begin{equation}
+  \mathcal{T}_k = \{\, i \in \mathcal{D}_{\mathrm{ent}} : t_i^{e} \le s_k \,\}, \qquad
+  \mathcal{V}_k = \{\, i \in \mathcal{D}_{\mathrm{ent}} : s_k < \tau_i \le s_{k+1} \,\},
+  \label{eq:plis}
+\end{equation}
+avec $s_{K+1} = \tau^\star$. Le réglage~\eqref{eq:hpo} s'appuie ainsi sur les plis chronologiques~\eqref{eq:plis}, de sorte que la validation interne suit le même principe que l'évaluation externe. Avec des plis aléatoires, la sélection des hyperparamètres introduirait elle-même un biais d'optimisme. Le protocole aléatoire sert de comparateur, avec des plis tirés au hasard et groupés (contrainte~\ref{ctr:groupes}).
+
+Trois stratégies de recherche sont comparées. La recherche sur grille évalue le produit cartésien de valeurs prédéfinies. La recherche aléatoire tire $\boldsymbol\lambda$ dans des distributions données \cite{bergstra2012random}. L'estimateur de Parzen arborescent (TPE) \cite{bergstra2011algorithms}, utilisé par Optuna \cite{akiba2019optuna}, procède séquentiellement : après $m$ essais $(\boldsymbol\lambda_j, v_j)$, où $v_j$ est la valeur du critère, on fixe $v^\star$ comme un quantile $\gamma$ des valeurs observées et l'on modélise deux densités,
+\begin{equation}
+  \ell(\boldsymbol\lambda) = p(\boldsymbol\lambda \mid v < v^\star), \qquad g(\boldsymbol\lambda) = p(\boldsymbol\lambda \mid v \ge v^\star).
+  \label{eq:tpe}
+\end{equation}
+Le prochain essai maximise le rapport $\ell(\boldsymbol\lambda)/g(\boldsymbol\lambda)$ des densités \eqref{eq:tpe}, ce qui revient à maximiser l'amélioration espérée \cite{bergstra2011algorithms}.
+
+% ============================================================================
+% Section 4 : Architecture proposée et méthodologie
+% ============================================================================
+\section{Architecture proposée et méthodologie}
+\label{sec:framework}
+
+\pending{Contenu de l'architecture proposée et de la méthodologie.}
+
+% ============================================================================
+% Section 5 : Protocole expérimental
+% ============================================================================
+\section{Protocole expérimental}
+\label{sec:design}
+
+\pending{Contenu du protocole expérimental.}
+
+% ============================================================================
+% Section 6 : Résultats et discussion
+% ============================================================================
+\section{Résultats et discussion}
+\label{sec:results}
+
+\pending{Contenu des résultats et de la discussion.}
+
+% ============================================================================
+% Section 7 : Conclusion
+% ============================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+
+\pending{Contenu de la conclusion.}
+
+% ============================================================================
+% Bibliographie
+% ============================================================================
+% \nocite{*}  % à réactiver seulement pour lister toutes les entrées du fichier .bib
+\bibliographystyle{plain}
+\bibliography{related_work_fr}
+
+\end{document}

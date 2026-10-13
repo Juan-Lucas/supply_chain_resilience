@@ -1,57 +1,38 @@
 # Supply Chain Resilience
 
-Machine Learning-Based Delivery Delay Prediction for Supply Chain Resilience
+**Machine Learning-Based Delivery Delay Prediction for Supply Chain Resilience**
 
-## Project Organization
+Mupasa Kalunga Jean-Luc (UDBL, Lubumbashi) — Prof. Mpyana Mwamba Merlec (Korea University)
+
+## Objet
+
+L'article mesure l'effet du protocole d'évaluation (partition aléatoire contre partition chronologique) sur la performance estimée des modèles de prédiction des retards de livraison, sur deux jeux de données publics :
+
+- **DataCo Smart Supply Chain** — jeu principal ([Mendeley Data](https://doi.org/10.17632/8gx2fvg2k6.5)) ;
+- **Olist Brazilian E-Commerce** — validation externe ([Kaggle](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)).
+
+## Structure
 
 ```
-├── LICENSE            <- Open-source license if one is chosen
-├── Makefile           <- Makefile with convenience commands like `make data` or `make train`
-├── README.md          <- The top-level README for developers using this project.
-├── data
-│   ├── external       <- Data from third party sources.
-│   ├── interim        <- Intermediate data that has been transformed.
-│   ├── processed      <- The final, canonical data sets for modeling.
-│   └── raw            <- The original, immutable data dump.
-│
-├── docs               <- A default mkdocs project; see www.mkdocs.org for details
-│
-├── models             <- Trained and serialized models, model predictions, or model summaries
-│
-├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-│                         the creator's initials, and a short `-` delimited description, e.g.
-│                         `1.0-jqp-initial-data-exploration`.
-│
-├── pyproject.toml     <- Project configuration file with package metadata for 
-│                         supply_chain_resilience and configuration for tools like black
-│
-├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-│
-├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-│   └── figures        <- Generated graphics and figures to be used in reporting
-│
-├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-│                         generated with `pip freeze > requirements.txt`
-│
-├── setup.cfg          <- Configuration file for flake8
-│
-└── supply_chain_resilience   <- Source code for use in this project.
-    │
-    ├── __init__.py             <- Makes supply_chain_resilience a Python module
-    │
-    ├── config.py               <- Store useful variables and configuration
-    │
-    ├── dataset.py              <- Scripts to download or generate data
-    │
-    ├── features.py             <- Code to create features for modeling
-    │
-    ├── modeling                
-    │   ├── __init__.py 
-    │   ├── predict.py          <- Code to run model inference with trained models          
-    │   └── train.py            <- Code to train models
-    │
-    └── plots.py                <- Code to create visualizations
+data/raw/          données brutes (non versionnées) : dataco/, olist/
+docs/              documentation, planning, dictionnaire de données
+references/        articles de l'état de l'art + liste de recherche
+reports/draft/     article LaTeX (version de travail : supply_chain_resilience_fr.tex)
+reports/figures/   figures générées par le code
+supply_chain_resilience/   code source
 ```
 
---------
+## Démarrage
 
+```bash
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+Télécharger ensuite les deux jeux dans `data/raw/dataco/` et `data/raw/olist/`.
+
+## Documentation
+
+Tout est dans [`docs/README.md`](docs/README.md) : organisation, planning et dictionnaire de données.
+La liste des travaux à retrouver est dans [`references/LISTE_ARTICLES.md`](references/LISTE_ARTICLES.md).

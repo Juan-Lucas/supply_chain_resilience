@@ -1,103 +1,312 @@
-@misc{Douaioui2024,
-	author = {Douaioui, K. and others},
-	title = {Enhancing Supply Chain Resilience: A Deep Learning Approach to Late Delivery Risk Prediction},
-	year = {2024},
-	note = {Deep learning approach for late-delivery risk prediction as provided by user notes}
+% =============================================================================
+%  related_work_v2.bib
+%  Article : Machine Learning-Based Delivery Delay Prediction for Supply Chain
+%            Resilience  --  AI2M4RI 2026 / Procedia Computer Science
+%  Auteur  : Mupasa Kalunga Jean-Luc
+%
+%  ORGANISATION DU FICHIER
+%    BLOC A : references verifiees (metadonnees completes, DOI controle)
+%    BLOC B : references methodologiques de reference (classiques du domaine)
+%    BLOC C : references issues de votre .bib initial -> METADONNEES A COMPLETER
+%
+%  REGLE : ne laissez AUCUNE entree de type misc dans la version soumise. Procedia
+%  utilise le style numerique (elsarticle-num). Un relecteur qui voit
+%  "year = {n.d.}" conclut que la revue de litterature n'a pas ete faite
+%  serieusement. Retrouvez chaque article via son DOI sur Crossref
+%  (https://search.crossref.org) et remplacez l'entree par le BibTeX officiel.
+%
+%  ATTENTION SYNTAXE : dans un fichier .bib, "%" n'est PAS un caractere de
+%  commentaire, et l'arobase declenche toujours la lecture d'une entree. Ne
+%  mettez donc jamais de ligne "%" A L'INTERIEUR d'une entree, et n'ecrivez
+%  jamais d'arobase (suivie de misc, article...) dans un commentaire.
+% =============================================================================
+
+
+% -----------------------------------------------------------------------------
+% BLOC A -- REFERENCES VERIFIEES
+% -----------------------------------------------------------------------------
+
+@inproceedings{Douaioui2024,
+  author       = {Douaioui, Kaoutar and Oucheikh, Rachid and Mabrouki, Charif},
+  title        = {Enhancing Supply Chain Resilience: A Deep Learning Approach to
+                  Late Delivery Risk Prediction},
+  booktitle    = {2024 4th International Conference on Innovative Research in
+                  Applied Science, Engineering and Technology (IRASET)},
+  publisher    = {IEEE},
+  pages        = {1--7},
+  month        = may,
+  year         = {2024}
 }
 
-@misc{RezkiMansouri2024,
-	author = {Rezki and Mansouri},
-	title = {Machine Learning for Proactive Supply Chain Risk Management},
-	year = {2024},
-	note = {Compares ML models for proactive risk management and delay prediction}
+@article{RezkiMansouri2024,
+  author       = {Rezki, Nourelhouda and Mansouri, Mohammed},
+  title        = {Machine Learning for Proactive Supply Chain Risk Management:
+                  Predicting Delays and Enhancing Operational Efficiency},
+  journal      = {Management Systems in Production Engineering},
+  volume       = {32},
+  number       = {3},
+  year         = {2024}
 }
+
+@article{Zogaan2025,
+  author       = {Zogaan, Waleed A. and others},
+  title        = {Leveraging Deep Learning for Risk Prediction and Resilience in
+                  Supply Chains: Insights from Critical Industries},
+  journal      = {Journal of Big Data},
+  volume       = {12},
+  year         = {2025},
+  doi          = {10.1186/s40537-025-01143-4}
+}
+% A COMPLETER (Zogaan2025) : liste exacte des co-auteurs + numero de page (via le DOI)
+
+@article{KeeHo2025,
+  author       = {Kee, Tris and Ho, Winky K. O.},
+  title        = {Optimizing Machine Learning Models for Urban Sciences: A
+                  Comparative Analysis of Hyperparameter Tuning Methods},
+  journal      = {Urban Science},
+  volume       = {9},
+  number       = {9},
+  pages        = {348},
+  year         = {2025},
+  doi          = {10.3390/urbansci9090348},
+}
+
+@article{Latha2024,
+  author       = {Latha, N. Madhavi and Geetha, K. and Damodharan, S.},
+  title        = {Overview of Regression Models and How to Determine the Best
+                  Model for Data},
+  journal      = {Journal of Scientific Research and Reports},
+  volume       = {30},
+  number       = {10},
+  pages        = {250--266},
+  year         = {2024},
+  doi          = {10.9734/jsrr/2024/v30i102452},
+}
+
+@article{Fazil2023,
+  author       = {Fazil, Abdul Wajid and Hakimi, Musawer and Akbari, Rohullah and
+                  Quchi, Mohammad Mustafa and Khaliqyar, Khudai Qul},
+  title        = {Comparative Analysis of Machine Learning Models for Data
+                  Classification: An In-Depth Exploration},
+  journal      = {Journal of Computer Science and Technology Studies},
+  volume       = {5},
+  number       = {4},
+  pages        = {160--168},
+  year         = {2023},
+  doi          = {10.32996/jcsts.2023.5.4.16},
+}
+
+
+% -----------------------------------------------------------------------------
+% BLOC B -- SOCLE METHODOLOGIQUE
+% Ces references sont indispensables : elles justifient CHAQUE brique technique
+% de votre pipeline. Un article qui utilise XGBoost sans citer Chen & Guestrin,
+% ou Optuna sans citer Akiba et al., est incomplet.
+% -----------------------------------------------------------------------------
+
+@article{Breiman2001,
+  author       = {Breiman, Leo},
+  title        = {Random Forests},
+  journal      = {Machine Learning},
+  volume       = {45},
+  number       = {1},
+  pages        = {5--32},
+  year         = {2001},
+  doi          = {10.1023/A:1010933404324},
+}
+
+@article{Friedman2001,
+  author       = {Friedman, Jerome H.},
+  title        = {Greedy Function Approximation: A Gradient Boosting Machine},
+  journal      = {The Annals of Statistics},
+  volume       = {29},
+  number       = {5},
+  pages        = {1189--1232},
+  year         = {2001},
+  doi          = {10.1214/aos/1013203451},
+}
+
+@inproceedings{ChenGuestrin2016,
+  author       = {Chen, Tianqi and Guestrin, Carlos},
+  title        = {{XGBoost}: A Scalable Tree Boosting System},
+  booktitle    = {Proceedings of the 22nd ACM SIGKDD International Conference on
+                  Knowledge Discovery and Data Mining},
+  pages        = {785--794},
+  year         = {2016},
+  doi          = {10.1145/2939672.2939785},
+}
+
+@inproceedings{Akiba2019,
+  author       = {Akiba, Takuya and Sano, Shotaro and Yanase, Toshihiko and
+                  Ohta, Takeru and Koyama, Masanori},
+  title        = {Optuna: A Next-generation Hyperparameter Optimization Framework},
+  booktitle    = {Proceedings of the 25th ACM SIGKDD International Conference on
+                  Knowledge Discovery and Data Mining},
+  pages        = {2623--2631},
+  year         = {2019},
+  doi          = {10.1145/3292500.3330701},
+}
+
+@article{BergstraBengio2012,
+  author       = {Bergstra, James and Bengio, Yoshua},
+  title        = {Random Search for Hyper-Parameter Optimization},
+  journal      = {Journal of Machine Learning Research},
+  volume       = {13},
+  pages        = {281--305},
+  year         = {2012}
+}
+
+@inproceedings{LundbergLee2017,
+  author       = {Lundberg, Scott M. and Lee, Su-In},
+  title        = {A Unified Approach to Interpreting Model Predictions},
+  booktitle    = {Advances in Neural Information Processing Systems 30 (NeurIPS)},
+  pages        = {4765--4774},
+  year         = {2017}
+}
+
+@article{Chawla2002,
+  author       = {Chawla, Nitesh V. and Bowyer, Kevin W. and Hall, Lawrence O.
+                  and Kegelmeyer, W. Philip},
+  title        = {{SMOTE}: Synthetic Minority Over-sampling Technique},
+  journal      = {Journal of Artificial Intelligence Research},
+  volume       = {16},
+  pages        = {321--357},
+  year         = {2002},
+  doi          = {10.1613/jair.953},
+}
+
+@article{Pedregosa2011,
+  author       = {Pedregosa, Fabian and Varoquaux, Ga{\"e}l and Gramfort, Alexandre
+                  and Michel, Vincent and Thirion, Bertrand and Grisel, Olivier
+                  and others},
+  title        = {Scikit-learn: Machine Learning in {P}ython},
+  journal      = {Journal of Machine Learning Research},
+  volume       = {12},
+  pages        = {2825--2830},
+  year         = {2011}
+}
+
+@inproceedings{Wirth2000,
+  author       = {Wirth, R{\"u}diger and Hipp, Jochen},
+  title        = {{CRISP-DM}: Towards a Standard Process Model for Data Mining},
+  booktitle    = {Proceedings of the 4th International Conference on the Practical
+                  Applications of Knowledge Discovery and Data Mining},
+  pages        = {29--39},
+  year         = {2000}
+}
+
+@misc{ConstanteDataCo2019,
+  author       = {Constante, Fabian and Silva, Fernando and Pereira, Ant{\'o}nio},
+  title        = {{DataCo} Smart Supply Chain for Big Data Analysis},
+  publisher    = {Mendeley Data},
+  year         = {2019},
+  doi          = {10.17632/8gx2fvg2k6.5}
+}
+% A VERIFIER (ConstanteDataCo2019) sur Mendeley Data avant soumission (numero de version).
+% Citez cette entree si vous retenez DataCo comme jeu de donnees principal.
+
+
+% -----------------------------------------------------------------------------
+% BLOC C -- A COMPLETER IMPERATIVEMENT
+% Entrees reprises de votre fichier initial. Pour chacune :
+%   1. retrouver l'article (Google Scholar / Crossref / IEEE Xplore)
+%   2. remplacer misc par article ou inproceedings
+%   3. renseigner journal/booktitle, volume, pages, annee, DOI
+%   4. supprimer le champ "note"
+%   5. LIRE l'article -- ne citez rien que vous n'ayez pas lu au moins en
+%      abstract + conclusion. Le Prof. Merlec vous posera la question.
+% -----------------------------------------------------------------------------
 
 @misc{KangBhawna2025,
-	author = {Kang and Bhawna},
-	title = {Enhancing Supply Chain Resilience through Supervised Machine Learning},
-	year = {2025},
-	note = {Multi-class supervised ML for supplier risk and resilience}
-}
-
-@misc{Zogaan2025,
-	author = {Zogaan and others},
-	title = {Leveraging Deep Learning for Risk Prediction and Resilience in Supply Chains: Insights from Critical Industries},
-	year = {2025},
-	note = {Journal of Big Data}
+  author = {Kang, {\`a} compl{\'e}ter and Bhawna, {\`a} compl{\'e}ter},
+  title  = {Enhancing Supply Chain Resilience through Supervised Machine Learning},
+  year   = {2025},
+  note   = {METADONNEES A COMPLETER}
 }
 
 @misc{Sani2023,
-	author = {Sani and others},
-	title = {Supply Chain 4.0: A Machine Learning-Based Bayesian-Optimized LightGBM Model for Predicting Supply Chain Risk},
-	year = {2023},
-	note = {Bayesian-optimized LightGBM for backorder and risk prediction}
+  author = {Sani, {\`a} compl{\'e}ter and others},
+  title  = {Supply Chain 4.0: A Machine Learning-Based Bayesian-Optimized
+            {LightGBM} Model for Predicting Supply Chain Risk},
+  year   = {2023},
+  note   = {METADONNEES A COMPLETER}
 }
 
 @misc{Jin2025TCNRL,
-	author = {Jin, Tian},
-	title = {Attention-Based Temporal Convolutional Networks and Reinforcement Learning for Supply Chain Delay Prediction and Inventory Optimization},
-	year = {2025},
-	note = {IEEE conference paper as referenced in user notes}
+  author = {Jin, Tian},
+  title  = {Attention-Based Temporal Convolutional Networks and Reinforcement
+            Learning for Supply Chain Delay Prediction and Inventory Optimization},
+  year   = {2025},
+  note   = {METADONNEES A COMPLETER}
 }
 
-@misc{AoufiHalouaShipmentLatency,
-	author = {Aoufi and Haloua},
-	title = {Enhancing Supply Chain Using Machine Learning and Data Analytics: Case Study for Shipment Latency Prediction},
-	year = {n.d.},
-	note = {IEEE paper; year not specified in provided notes}
+@misc{AoufiHaloua,
+  author = {Aoufi, {\`a} compl{\'e}ter and Haloua, {\`a} compl{\'e}ter},
+  title  = {Enhancing Supply Chain Using Machine Learning and Data Analytics:
+            Case Study for Shipment Latency Prediction},
+  year   = {METADONNEES A COMPLETER},
+  note   = {METADONNEES A COMPLETER}
 }
 
 @misc{Bhuiyan2026,
-	author = {Bhuiyan and others},
-	title = {A Deep Learning Framework for Supply Chain Delivery Delay Risk Prediction Using Macroeconomic Indicators},
-	year = {2026},
-	note = {Conference paper as referenced in user notes}
+  author = {Bhuiyan, {\`a} compl{\'e}ter and others},
+  title  = {A Deep Learning Framework for Supply Chain Delivery Delay Risk
+            Prediction Using Macroeconomic Indicators},
+  year   = {2026},
+  note   = {METADONNEES A COMPLETER -- chapitre Springer, DOI 10.1007/978-3-032-02790-0\_33 a verifier}
 }
 
-@misc{LiChenRiskPrediction,
-	author = {Li, Changxia and Chen, Haolin},
-	title = {Machine Learning Based Supply Chain Risk Prediction and Management},
-	year = {n.d.},
-	note = {Year and venue not specified in provided notes}
+@misc{LiChen,
+  author = {Li, Changxia and Chen, Haolin},
+  title  = {Machine Learning Based Supply Chain Risk Prediction and Management},
+  year   = {METADONNEES A COMPLETER},
+  note   = {METADONNEES A COMPLETER}
 }
 
 @misc{KasaliOlaworeRaji,
-	author = {Kasali and Olawore and Raji},
-	title = {Machine Learning Applications in Early Warning Systems for Supply Chain Disruptions: Strategies for Adapting to Risk, Pandemics and Enhancing Business Resilience and Economic Stability},
-	year = {n.d.},
-	note = {Review-style article on ML-based early warning systems}
+  author = {Kasali, {\`a} compl{\'e}ter and Olawore, {\`a} compl{\'e}ter and Raji, {\`a} compl{\'e}ter},
+  title  = {Machine Learning Applications in Early Warning Systems for Supply
+            Chain Disruptions},
+  year   = {METADONNEES A COMPLETER},
+  note   = {METADONNEES A COMPLETER}
 }
 
-@misc{AlKhaldySmarterSC,
-	author = {Al Khaldy and others},
-	title = {Towards Smarter Supply Chains: Machine Learning Methodologies for Delivery Risk Assessment},
-	year = {n.d.},
-	note = {IEEE paper as referenced in user notes}
+@misc{AlKhaldy,
+  author = {Al Khaldy, {\`a} compl{\'e}ter and others},
+  title  = {Towards Smarter Supply Chains: Machine Learning Methodologies for
+            Delivery Risk Assessment},
+  year   = {METADONNEES A COMPLETER},
+  note   = {METADONNEES A COMPLETER}
 }
 
-@misc{WuGreenAgriResilience,
-	author = {Wu, Daqing and others},
-	title = {Machine Learning-Based Prediction of Resilience in Green Agricultural Supply Chains: Influencing Factors Analysis and Model Construction},
-	year = {n.d.},
-	note = {Year and venue not specified in provided notes}
+@misc{WuGreenAgri,
+  author = {Wu, Daqing and others},
+  title  = {Machine Learning-Based Prediction of Resilience in Green Agricultural
+            Supply Chains},
+  year   = {METADONNEES A COMPLETER},
+  note   = {METADONNEES A COMPLETER}
 }
 
 @misc{Pourhejazy2017,
-	author = {Pourhejazy and others},
-	title = {Evaluating Resiliency of Supply Chain Network: A Data Envelopment Analysis Approach},
-	year = {2017}
+  author = {Pourhejazy, Pourya and others},
+  title  = {Evaluating Resiliency of Supply Chain Network: A Data Envelopment
+            Analysis Approach},
+  year   = {2017},
+  note   = {METADONNEES A COMPLETER -- publie dans Sustainability, a verifier}
 }
 
-@misc{WidayantiResilientOps,
-	author = {Widayanti and others},
-	title = {Predicting Supply Chain Risks Using Machine Learning for Resilient Operations},
-	year = {n.d.},
-	note = {Referenced by user; bibliographic metadata incomplete}
+@misc{Widayanti,
+  author = {Widayanti, {\`a} compl{\'e}ter and others},
+  title  = {Predicting Supply Chain Risks Using Machine Learning for Resilient
+            Operations},
+  year   = {METADONNEES A COMPLETER},
+  note   = {METADONNEES A COMPLETER}
 }
 
 @misc{HuangEWS,
-	author = {Huang},
-	title = {AI-Driven Early Warning Systems for Supply Chain Risk Detection: A Machine Learning Approach},
-	year = {n.d.},
-	note = {Referenced by user; bibliographic metadata incomplete}
+  author = {Huang, {\`a} compl{\'e}ter},
+  title  = {{AI}-Driven Early Warning Systems for Supply Chain Risk Detection:
+            A Machine Learning Approach},
+  year   = {METADONNEES A COMPLETER},
+  note   = {METADONNEES A COMPLETER}
 }
