@@ -191,6 +191,8 @@ cython_debug/
 .pypirc
 # IDE
 .idea/
+# Bibliothèques de support Jupyter créées par PyCharm à la racine
+*-pycharm-support-libs/
 .vscode/
 
 # LaTeX : fichiers auxiliaires et PDF compilés (reports/draft)

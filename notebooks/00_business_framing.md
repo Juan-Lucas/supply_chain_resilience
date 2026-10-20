@@ -60,7 +60,7 @@ Fixés maintenant pour qu'on ne puisse pas les ajuster après coup.
 | Un modèle est utile si… | sa PR-AUC dépasse la prévalence du jeu et celle de la régression logistique | Retenu |
 | L'écart Δ entre protocoles est un résultat si… | son intervalle sur les graines exclut 0 | Retenu |
 | Nombre de graines | 5 | Retenu |
-| Règle de coupure chronologique | les 25 % de commandes les plus récentes en test | Retenu. Coupures provisoires (calcul rapide, à recalculer en phase 3) : 12/05/2017 (DataCo), 06/05/2018 (Olist) |
+| Règle de coupure chronologique | les 25 % de commandes les plus récentes en test | Retenu. Coupures provisoires (calcul rapide, à recalculer en phase 3) : 12/05/2017 (DataCo), 19/04/2018 (Olist, après exclusion de 2016 et troncature de fin de période, 19/10/2026) |
 | Période retenue pour Olist | à partir du 01/01/2017 (2016 : 267 commandes) | Retenu |
 
 ## 5. Situation : hypothèses et risques connus
@@ -68,12 +68,13 @@ Fixés maintenant pour qu'on ne puisse pas les ajuster après coup.
 | Constat (vérifié le 14/10/2026) | Conséquence pour l'étude |
 |---|---|
 | DataCo : prévalence stable autour de 57 % sur 13 trimestres | Écart entre protocoles probablement faible : à rapporter tel quel |
+| DataCo : à partir d'octobre 2017, 1 ligne par commande au lieu de 3, et 8 à 20 produits par mois au lieu de 42 à 53 (vérifié le 19/10/2026) | Décalage des covariables sans dérive de prévalence : 8 043 des 15 725 commandes du test chronologique sont dans ce nouveau régime. À décrire au §5.1 |
 | DataCo : délai prévu fixé par le mode, First Class toujours en retard | Données probablement générées : menace à la validité |
 | Olist : prévalence de 3,4 % à 12,9 % selon le trimestre | Dérive forte : l'écart a le plus de chances d'apparaître ici |
 | Olist : la date estimée est une promesse commerciale | Menace à la validité de construit |
 | Aucun coût réel observé | Analyse de sensibilité sur r (section 3) |
-| Avec la coupure à 25 %, la prévalence d'Olist passe de 7,6 % (entraînement) à 4,4 % (test) ; DataCo reste à 57 % | Le test Olist subit un décalage de prévalence : à rapporter avec les résultats (§3.5, lien avec la dérive) |
-| Olist : les commandes passées juste avant la fin de l'extraction ne figurent que si elles sont déjà livrées ; les commandes encore en cours (1 107 « shipped ») sont exclues | Risque de sous-estimer les retards en fin de période, donc dans le test. **À examiner en phase 2** : faut-il exclure les dernières semaines ? |
+| Avec la coupure à 25 %, la prévalence d'Olist passe de 7,8 % (entraînement) à 4,0 % (test) après troncature ; DataCo reste à 57 % | Le test Olist subit un décalage de prévalence : à rapporter avec les résultats (§3.5, lien avec la dérive) |
+| Olist : les commandes passées juste avant la fin de l'extraction ne figurent que si elles sont déjà livrées ; les commandes encore en cours (1 107 « shipped ») sont exclues | Vérifié en phase 2 : le délai moyen par semaine d'achat passe de 8 jours à 5,0 puis 1,8 sur les deux dernières semaines. **Décidé (19/10/2026) :** fin d'observation = dernière approbation de commande (03/09/2018) ; on exclut les achats des 29 derniers jours (95e centile du délai de livraison), soit les achats à partir du 05/08/2018 (5 209 commandes). Restent 90 994 commandes, prévalence 6,87 % |
 
 ## 6. Ce que j'écris dans l'article
 
