@@ -262,7 +262,7 @@ Une caractéristique $j$ est admissible si elle est connue à l'instant de préd
 Toute caractéristique hors de $\mathcal{J}_{\mathrm{adm}}$ est une variable de fuite et est exclue.
 \end{contrainte}
 
-La contrainte~\ref{ctr:dispo}, qui définit l'ensemble~\eqref{eq:adm}, élimine formellement les variables postérieures à $\tau_i$, comme la durée réelle d'expédition ou le statut final de livraison. Elle s'applique de la même façon aux deux jeux de données.
+La contrainte~\ref{ctr:dispo}, qui définit l'ensemble~\eqref{eq:adm}, élimine formellement les variables postérieures à $\tau_i$, comme la durée réelle d'expédition ou le statut final de livraison. Elle s'applique de la même façon aux deux jeux de données. Elle transcrit la règle que Kaufman et al. appellent \emph{no-time-machine} : une variable n'est légitime que si elle est observable avant l'instant où la prédiction de la cible est demandée \cite{kaufman2012leakage}. Une variable qui l'enfreint relève de la catégorie des variables illégitimes de la taxonomie de Kapoor et Narayanan \cite{kapoor2023leakage}.
 
 \paragraph{Caractéristiques d'historique.} Une caractéristique calculée à partir du passé, comme le taux de retard antérieur d'un transporteur, demande une attention particulière. Pour un transporteur $c_i$ et une fenêtre de largeur $w$, définissons l'ensemble des expéditions \emph{déjà livrées} à l'instant $\tau_i$ :
 \begin{equation}
@@ -292,11 +292,13 @@ Les ensembles d'entraînement et de test sont
 \end{contrainte}
 Dans \eqref{eq:split}, une expédition est donc utilisée pour l'entraînement seulement si sa cible est connue à $\tau^\star$, ce qui reproduit les conditions réelles de déploiement. Les deux ensembles sont disjoints puisque $\tau_i < t_i^{e}$. Les expéditions telles que $\tau_i \le \tau^\star < t_i^{e}$, déjà prédites mais pas encore livrées à la date de coupure, n'appartiennent à aucun ensemble ; leur effectif sera rapporté dans le protocole expérimental (section~\ref{sec:design}).
 
+La contrainte~\ref{ctr:prec} porte sur les exemples d'entraînement, et non sur les variables. Kaufman et al. montrent que la contrainte~\ref{ctr:dispo} ne suffit pas lorsque les données ne sont pas stationnaires : des exemples d'entraînement postérieurs aux cibles évaluées créent une fuite, même si chacune de leurs variables est légitime \cite{kaufman2012leakage}. Le remède qu'ils proposent est précisément une séparation par une coupure dans le temps. Kapoor et Narayanan rangent dans la \emph{fuite temporelle} toute évaluation dont l'ensemble de test contient des données antérieures à l'ensemble d'entraînement, lorsque le modèle sert à prédire un événement futur \cite{kapoor2023leakage}. Une partition aléatoire produit exactement cette situation ; c'est ce qui en fait le protocole de comparaison de cet article.
+
 \begin{contrainte}[Intégrité des groupes]
 \label{ctr:groupes}
 Soit $g(i)$ le groupe de l'observation $i$ (la commande, lorsque l'unité est la ligne de commande). Deux observations d'un même groupe partagent l'instant de prédiction et sont affectées au même ensemble.
 \end{contrainte}
-Sans cette contrainte, une même commande est dispersée entre l'entraînement et le test, ce qui constitue une fuite directe.
+Sans cette contrainte, une même commande est dispersée entre l'entraînement et le test, ce qui constitue une fuite directe : Kapoor et Narayanan la rangent parmi les fuites par non-indépendance entre entraînement et test, lorsque les mêmes unités figurent des deux côtés \cite{kapoor2023leakage}.
 
 \subsection{Estimation du risque, protocoles d'évaluation et dérive}
 \label{sec:protocoles}
@@ -329,7 +331,7 @@ Le protocole aléatoire a une seconde source d'optimisme, indépendante de la d�
 \end{equation}
 et, pour une métrique d'erreur $E$ (plus petite, meilleure), $\Delta_E = \widehat{E}_{\mathrm{chr}} - \widehat{E}_{\text{alé}}$. Notons $M_{\text{dép}}(f)$ la performance de $f$ entraîné sur $\mathcal{D}_{\mathrm{ent}}$ et appliqué aux expéditions postérieures à $\tau^\star$ : c'est la performance en conditions de déploiement. Le biais d'un protocole $\pi$ est $B_\pi = \E[\widehat{M}_\pi] - M_{\text{dép}}$. Le protocole chronologique reproduit ces conditions, donc $B_{\mathrm{chr}} \approx 0$ aux effets de variance près, et en première approximation $\Delta_M \approx B_{\text{alé}}$. L'écart~\eqref{eq:delta-opt} mesure ainsi le biais du partitionnement aléatoire ; c'est la grandeur par laquelle nous rendons opérationnelle la « fiabilité estimée » de la question de recherche.
 
-\paragraph{Profil de dérive.} Pour décomposer l'écart par période, découpons la période de test en $Q$ trimestres consécutifs et notons $\widehat{M}_q$ la performance mesurée sur les expéditions de $\mathcal{D}_{\mathrm{test}}$ dont l'instant de prédiction tombe dans le trimestre $q$. La suite $q \mapsto \widehat{M}_q$ est le profil de dérive du modèle ; un décrochage correspond à une baisse de $\widehat{M}_q$ par rapport à la performance de validation.
+\paragraph{Profil de dérive.} Pour décomposer l'écart par période, découpons la période de test en $Q$ périodes consécutives de même durée (des mois dans nos expériences, section~\ref{sec:partitions}) et notons $\widehat{M}_q$ la performance mesurée sur les expéditions de $\mathcal{D}_{\mathrm{test}}$ dont l'instant de prédiction tombe dans la période $q$. La suite $q \mapsto \widehat{M}_q$ est le profil de dérive du modèle ; un décrochage correspond à une baisse de $\widehat{M}_q$ par rapport à la performance de validation.
 
 \paragraph{Types de dérive.} On factorise la loi conjointe de deux façons, comme dans l'équation~\eqref{eq:facto} :
 \begin{equation}
@@ -471,7 +473,7 @@ La classification décide s'il faut agir ; la régression détermine ce qu'il fa
 
 \paragraph{Coût des erreurs.} Un faux négatif, c'est-à-dire un retard non annoncé, expose le distributeur à une réclamation, à un traitement par le service client et à une perte de confiance. Un faux positif, c'est-à-dire un retard annoncé à tort, coûte un message inutile et peut lui aussi entamer la confiance du client. La littérature confirme ces deux coûts et leur asymétrie. Sur plus de 11 millions d'achats d'une grande plateforme de commerce électronique, un écart à la date promise fait baisser la note du produit de 0,4 point en moyenne pour un retard, et de 0,2 point pour une avance \cite{nozari2026please}. Or une alerte émise à tort reporte la date annoncée : si le colis arrive à la date initiale, il arrive en avance sur la nouvelle. Dans la livraison rapide, un retard allonge le délai avant le réachat plus fortement qu'une avance de même ampleur ne le raccourcit \cite{harter2025effect}. L'enjeu dépasse la note : sur plus de 15 millions de commandes de la plateforme Tmall, ramener à deux jours les livraisons effectuées en trois jours augmenterait de 13,3\,\% les ventes quotidiennes des vendeurs tiers \cite{deshpande2023logistics}. Nous supposons donc $c_{\mathrm{FN}} > c_{\mathrm{FP}}$. Aucun des deux jeux de données ne renseigne ces coûts : nous les traitons comme des hypothèses illustratives, à travers le rapport $r = c_{\mathrm{FN}}/c_{\mathrm{FP}}$. Plutôt que de fixer une valeur unique, nous étudions $r \in \{1, 2, 5, 10\}$, auxquels correspondent, pour des probabilités calibrées, les seuils $\theta^\star = 1/(1+r)$ de l'équation~\eqref{eq:seuil}, soit 0,50, 0,33, 0,17 et 0,09 ; la valeur $r = 5$ sert de scénario principal. Conformément à la section~\ref{sec:decision}, le seuil est choisi pour chaque valeur de $r$ en minimisant le coût $C(\theta)$ sur l'ensemble de validation, jamais sur le test. Une conclusion qui se maintient sur toute cette plage ne dépend pas d'une hypothèse de coût particulière.
 
-\paragraph{Critères de succès.} Ils sont fixés avant toute expérimentation. La métrique principale est la PR-AUC en classification et la MAE en régression, pour les raisons données en section~\ref{sec:metriques}. Un modèle est jugé utile si sa PR-AUC dépasse à la fois la prévalence du jeu, qui est la valeur d'un classifieur sans pouvoir discriminant, et celle de la référence linéaire. L'écart d'optimisme $\Delta_M$ de l'équation~\eqref{eq:delta-opt} est considéré comme un résultat si son intervalle calculé sur cinq graines aléatoires exclut zéro \verif{préciser en section~\ref{sec:design} le calcul de l'intervalle}. La règle de partition chronologique est donnée en section~\ref{sec:design}.
+\paragraph{Critères de succès.} Ils sont fixés avant toute expérimentation. La métrique principale est la PR-AUC en classification et la MAE en régression, pour les raisons données en section~\ref{sec:metriques}. Un modèle est jugé utile si sa PR-AUC dépasse à la fois la prévalence du jeu, qui est la valeur d'un classifieur sans pouvoir discriminant, et celle de la référence linéaire. L'écart d'optimisme $\Delta_M$ de l'équation~\eqref{eq:delta-opt} est considéré comme un résultat si son intervalle calculé sur cinq graines aléatoires exclut zéro (équation~\eqref{eq:ic-delta}, section~\ref{sec:partitions}). La règle de partition chronologique est donnée en section~\ref{sec:design}.
 
 \subsection{Compréhension des données}
 \label{sec:data-understanding}
@@ -593,7 +595,25 @@ Retard en jours (médiane / moyenne / max.) & 1 / 1,6 / 4 & 7 / 10,9 / 188 \\
 \end{tabular}
 \end{table}
 
-\pending{Suite du protocole expérimental : règle de partition chronologique (coupure aux 25\,\% de commandes les plus récentes), partitions aléatoires groupées, graines, calcul de l'intervalle de l'écart d'optimisme (rédigé en phase 3).}
+\subsection{Partitions}
+\label{sec:partitions}
+
+\paragraph{Partition chronologique.} La date de coupure $\tau^\star$ est le 75\textsuperscript{e} centile des instants de prédiction, calculé avec une date par commande : les 25\,\% de commandes les plus récentes forment l'ensemble de test. Elle vaut le 12 mai 2017 pour DataCo et le 19 avril 2018 pour Olist. Conformément à la contrainte~\ref{ctr:prec}, l'entraînement ne retient que les commandes livrées au plus tard à $\tau^\star$. Pour DataCo, l'entraînement compte 46\,984 commandes et le test 15\,725 ; 188 commandes, passées avant la coupure mais livrées après, sont écartées. Pour Olist, ces effectifs sont respectivement de 65\,213, 22\,749 et 3\,032. La prévalence passe de 57,2\,\% à l'entraînement à 57,5\,\% au test pour DataCo, et de 7,0 à 4,0\,\% pour Olist : le test d'Olist subit un décalage de prévalence, dont il faut tenir compte dans la lecture des métriques qui en dépendent (section~\ref{sec:metriques}).
+
+\paragraph{Partition aléatoire.} Pour que les deux protocoles ne diffèrent que par la manière de partager les données, la partition aléatoire porte sur les mêmes commandes, à savoir l'union de l'entraînement et du test chronologiques, et produit un ensemble de test de même taille. Les commandes y sont tirées uniformément, et toutes les lignes d'une commande sont affectées au même ensemble (contrainte~\ref{ctr:groupes}). Les commandes écartées par la partition chronologique le sont aussi ici, ce qui laisse inchangée la population étudiée.
+
+\paragraph{Validation et réglage.} Le réglage~\eqref{eq:hpo} utilise $K = 4$ plis à l'intérieur de l'ensemble d'entraînement de chaque protocole. Pour le protocole chronologique, les plis suivent l'équation~\eqref{eq:plis}, avec des dates $s_k$ choisies comme les quantiles d'ordre $k/(K+1)$ des instants de prédiction de l'entraînement, et $s_{K+1} = \tau^\star$. Pour le protocole aléatoire, les plis sont tirés au hasard, en restant groupés par commande. Chaque protocole est ainsi validé selon son propre principe, ce qui est la situation des travaux que nous comparons.
+
+\paragraph{Graines et intervalle de l'écart d'optimisme.} L'expérience est répétée avec $S = 5$ graines. La graine $s$ fixe le tirage de la partition aléatoire, celui de ses plis, l'aléa des modèles (forêt aléatoire, sous-échantillonnage de XGBoost) et celui d'Optuna. La partition chronologique ne dépend pas de la graine ; seuls les modèles et le réglage en dépendent. Pour chaque graine, on calcule l'écart $\Delta_M^{(s)}$ de l'équation~\eqref{eq:delta-opt}, puis sa moyenne $\bar\Delta_M$ et son écart-type $s_\Delta$ sur les cinq graines. L'intervalle de confiance à 95\,\% est
+\begin{equation}
+  \bar\Delta_M \pm t_{0{,}975;\,S-1}\,\frac{s_\Delta}{\sqrt{S}}, \qquad t_{0{,}975;\,4} \approx 2{,}78.
+  \label{eq:ic-delta}
+\end{equation}
+Il ne reflète que la variabilité due aux graines, et non celle de l'échantillon de test chronologique, qui est unique ; nous le présentons comme tel. L'écart est retenu comme un résultat lorsque cet intervalle exclut zéro (section~\ref{sec:business}).
+
+\paragraph{Profil de dérive.} La période de test couvre environ neuf mois pour DataCo et trois mois et demi pour Olist. Le profil de dérive de la section~\ref{sec:protocoles} est donc calculé par mois : un découpage par trimestre ne donnerait qu'un à trois points selon le jeu.
+
+\pending{Environnement logiciel et reproductibilité : versions, commandes \texttt{make}, durée des calculs (rédigé en phase 4).}
 
 % ============================================================================
 % Section 6 : Résultats et discussion
