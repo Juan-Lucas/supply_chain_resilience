@@ -99,12 +99,23 @@ def test_dataco_no_leakage_columns(dataco):
         assert col not in df.columns
 
 
+def assert_precedence(df: pd.DataFrame, order_date: str, cut: str) -> None:
+    """Contrainte de précédence (section 3.2) et intégrité des groupes."""
+    cut = pd.Timestamp(cut)
+    split = df["split_chrono"]
+    assert (df.loc[split == "train", "delivered_at"] <= cut).all()
+    assert (df.loc[split == "test", order_date] >= cut).all()
+    assert (df.loc[split == "gap", order_date] < cut).all()
+    assert (df.loc[split == "gap", "delivered_at"] > cut).all()
+    assert (df.groupby("group_id")["split_chrono"].nunique() == 1).all()
+
+
 @needs_raw_data
 def test_dataco_chrono_split(dataco):
     df, summary = dataco
     assert summary["chrono_cut"] == "2017-05-12 10:42:00"
-    assert (summary["n_orders_train"], summary["n_orders_test"]) == (47172, 15725)
-    assert (df.groupby("group_id")["split_chrono"].nunique() == 1).all()
+    assert (summary["n_orders_train"], summary["n_orders_test"], summary["n_orders_gap"]) == (46984, 15725, 188)
+    assert_precedence(df, "order date (DateOrders)", summary["chrono_cut"])
 
 
 # ---------------------------------------------------------------------------
@@ -149,8 +160,9 @@ def test_olist_no_post_purchase_columns(olist):
 
 @needs_raw_data
 def test_olist_chrono_split(olist):
-    _, summary = olist
+    df, summary = olist
     assert summary["chrono_cut"].startswith("2018-04-19 12:45")
-    assert (summary["n_orders_train"], summary["n_orders_test"]) == (68245, 22749)
-    assert summary["prevalence_train"] == pytest.approx(0.0781, abs=1e-4)
+    assert (summary["n_orders_train"], summary["n_orders_test"], summary["n_orders_gap"]) == (65213, 22749, 3032)
+    assert summary["prevalence_train"] == pytest.approx(0.0702, abs=1e-4)
     assert summary["prevalence_test"] == pytest.approx(0.0404, abs=1e-4)
+    assert_precedence(df, "order_purchase_timestamp", summary["chrono_cut"])

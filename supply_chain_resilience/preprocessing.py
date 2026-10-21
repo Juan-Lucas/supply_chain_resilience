@@ -86,13 +86,19 @@ def build_targets(df: pd.DataFrame, dataset: Dataset) -> pd.DataFrame:
     Olist : jours calendaires, la date de livraison est ramenée au jour (la date estimée
     est déjà à minuit). delta reste manquant pour les commandes non livrées, que les
     filtres de l'étape 4 retirent ; les cibles sont donc des entiers nullables (Int64).
+
+    delivered_at est l'instant où la cible devient connue (t^e de la section 3.2) : il
+    sert à la partition chronologique, jamais au modèle. Pour DataCo, la date
+    d'expédition redonne exactement la durée réelle (phase 2, étape 10e).
     """
     df = df.copy()
     if dataset is Dataset.dataco:
         delta = df["Days for shipping (real)"] - df["Days for shipment (scheduled)"]
+        df["delivered_at"] = df["shipping date (DateOrders)"]
     else:
         delivered_day = df["order_delivered_customer_date"].dt.normalize()
         delta = (delivered_day - df["order_estimated_delivery_date"]).dt.days
+        df["delivered_at"] = df["order_delivered_customer_date"]
 
     df["delta"] = delta.astype("Int64")
     df["y_clf"] = (df["delta"] > 0).astype("Int64")
@@ -336,31 +342,38 @@ TEST_SHARE = 0.25
 
 
 def add_splits(df: pd.DataFrame, dataset: Dataset, summary: dict) -> pd.DataFrame:
-    """group_id = la commande ; split_chrono = "train" ou "test".
+    """group_id = la commande ; split_chrono = "train", "test" ou "gap".
 
-    La coupure est le quantile 1 - TEST_SHARE des dates de commande, calculé avec une
-    date par commande : les 25 % de commandes les plus récentes vont au test. Toutes
-    les lignes d'une commande partagent sa date, donc son ensemble. Les partitions
-    aléatoires groupées, tirées avec plusieurs graines, sont faites en phase 4 à partir
-    de group_id.
+    Contrainte de précédence (section 3.2) : avec une coupure tau*, une commande va au
+    test si elle est passée à partir de tau*, et à l'entraînement si elle est livrée au
+    plus tard à tau*, c'est-à-dire si sa cible est déjà connue. Les commandes passées
+    avant tau* mais livrées après ("gap") ne vont dans aucun des deux ensembles.
+
+    tau* est le quantile 1 - TEST_SHARE des dates de commande, calculé avec une date
+    par commande. La partition se décide par commande, donc toutes ses lignes suivent.
+    Les partitions aléatoires groupées sont faites en phase 4 à partir de group_id.
     """
     df = df.copy()
-    order_date = df[ORDER_DATE[dataset]]
     df["group_id"] = df[ORDER_KEY[dataset]]
 
-    order_dates = order_date.groupby(df["group_id"]).first()
-    cut = order_dates.quantile(1 - TEST_SHARE)
-    df["split_chrono"] = np.where(order_date >= cut, "test", "train")
+    orders = df.groupby("group_id").agg(ordered_at=(ORDER_DATE[dataset], "first"), delivered_at=("delivered_at", "max"))
+    cut = orders["ordered_at"].quantile(1 - TEST_SHARE)
+    orders["split_chrono"] = np.select(
+        [orders["ordered_at"] >= cut, orders["delivered_at"] <= cut],
+        ["test", "train"],
+        default="gap",
+    )
+    df["split_chrono"] = df["group_id"].map(orders["split_chrono"])
 
     per_order = df.drop_duplicates("group_id")
     summary["chrono_cut"] = str(cut)
-    for split in ("train", "test"):
+    for split in ("train", "test", "gap"):
         part = per_order[per_order["split_chrono"] == split]
         summary[f"n_orders_{split}"] = len(part)
         summary[f"prevalence_{split}"] = round(float(part["y_clf"].mean()), 4)
     logger.info(
-        f"Coupure {cut} : {summary['n_orders_train']} / {summary['n_orders_test']} commandes, "
-        f"prévalence {summary['prevalence_train']} / {summary['prevalence_test']}"
+        f"Coupure {cut} : {summary['n_orders_train']} / {summary['n_orders_test']} / {summary['n_orders_gap']} "
+        f"commandes (train / test / gap), prévalence {summary['prevalence_train']} / {summary['prevalence_test']}"
     )
     return df
 
