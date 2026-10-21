@@ -1,0 +1,38 @@
+{
+  "dataset": "dataco",
+  "window_days": 90,
+  "min_orders": 10,
+  "region": {
+    "missing_rate_share": 0.0258,
+    "median_history_orders": 913.0,
+    "prevalence_by_quartile": [
+      0.5702,
+      0.5783,
+      0.5752,
+      0.5707
+    ],
+    "top_bottom_ratio": 1.0
+  },
+  "shipping_mode": {
+    "missing_rate_share": 0.0031,
+    "median_history_orders": 2889.0,
+    "prevalence_by_quartile": [
+      0.3981,
+      0.3987,
+      0.5759,
+      0.9199
+    ],
+    "top_bottom_ratio": 2.31
+  },
+  "mode_region": {
+    "missing_rate_share": 0.049,
+    "median_history_orders": 286.0,
+    "prevalence_by_quartile": [
+      0.3993,
+      0.3994,
+      0.5671,
+      0.9205
+    ],
+    "top_bottom_ratio": 2.31
+  }
+}

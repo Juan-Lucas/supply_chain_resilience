@@ -7,13 +7,15 @@ n'utilise que l'information disponible à chaque instant : il est fait une seule
 sert aux deux protocoles d'évaluation.
 """
 
+import json
+
 from loguru import logger
 import numpy as np
 import pandas as pd
 import typer
 
 from supply_chain_resilience.config import PROCESSED_DATA_DIR
-from supply_chain_resilience.preprocessing import ORDER_DATE, Dataset
+from supply_chain_resilience.preprocessing import ORDER_DATE, RESULTS_DIR, Dataset
 
 app = typer.Typer()
 
@@ -120,6 +122,33 @@ def add_history_features(df: pd.DataFrame, dataset: Dataset) -> pd.DataFrame:
 
 
 # ---------------------------------------------------------------------------
+# Résumé pour l'article (section 4.4)
+# ---------------------------------------------------------------------------
+
+
+def summarize_history(df: pd.DataFrame, dataset: Dataset) -> dict:
+    """Par entité : part de taux manquants, historique médian, prévalence par quartile du taux.
+
+    Calculé avec une ligne par commande. Quand beaucoup de taux sont égaux, qcut peut
+    former moins de quatre groupes ; top_bottom_ratio compare toujours le groupe le
+    plus haut au plus bas.
+    """
+    orders = df.drop_duplicates("group_id")
+    summary: dict = {"dataset": dataset.value, "window_days": HISTORY_WINDOW_DAYS, "min_orders": HISTORY_MIN_ORDERS}
+    for name in HISTORY_ENTITIES[dataset]:
+        rate = orders[f"hist_{name}_rate"]
+        groups = pd.qcut(rate, 4, labels=False, duplicates="drop")
+        prevalence = orders.groupby(groups)["y_clf"].mean()
+        summary[name] = {
+            "missing_rate_share": round(float(rate.isna().mean()), 4),
+            "median_history_orders": float(orders[f"hist_{name}_n"].median()),
+            "prevalence_by_quartile": [round(float(p), 4) for p in prevalence],
+            "top_bottom_ratio": round(float(prevalence.iloc[-1] / prevalence.iloc[0]), 2),
+        }
+    return summary
+
+
+# ---------------------------------------------------------------------------
 # Point d'entrée
 # ---------------------------------------------------------------------------
 
@@ -133,6 +162,10 @@ def main(dataset: Dataset = typer.Option(..., help="Jeu de données à enrichir.
     df = pd.read_parquet(input_path)
     df = add_history_features(df, dataset)
     df.to_parquet(output_path, index=False)
+
+    RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+    with open(RESULTS_DIR / f"{dataset.value}_features_summary.json", "w", encoding="utf-8") as f:
+        json.dump(summarize_history(df, dataset), f, ensure_ascii=False, indent=2)
 
     logger.success(f"{dataset.value} : {df.shape} écrit dans {output_path}")
 

@@ -5,7 +5,7 @@ import pandas as pd
 import pytest
 
 from supply_chain_resilience.config import PROCESSED_DATA_DIR
-from supply_chain_resilience.features import HISTORY_ENTITIES, add_history_features, history_rate
+from supply_chain_resilience.features import HISTORY_ENTITIES, add_history_features, history_rate, summarize_history
 from supply_chain_resilience.preprocessing import ORDER_DATE, Dataset
 
 
@@ -143,3 +143,16 @@ def test_olist_history_rates_are_informative(enriched):
         quartile = pd.qcut(orders[f"hist_{name}_rate"], 4, labels=False)
         prevalence = orders.groupby(quartile)["y_clf"].mean()
         assert prevalence.iloc[-1] > 2 * prevalence.iloc[0]
+
+
+def test_history_summary_matches_features(enriched):
+    """Le résumé (chiffres de la section 4.4) reprend les variables calculées."""
+    dataset, df = enriched
+    summary = summarize_history(df, dataset)
+    orders = df.drop_duplicates("group_id")
+    for name in HISTORY_ENTITIES[dataset]:
+        entry = summary[name]
+        assert entry["missing_rate_share"] == pytest.approx(orders[f"hist_{name}_rate"].isna().mean(), abs=1e-4)
+        assert entry["top_bottom_ratio"] == pytest.approx(
+            entry["prevalence_by_quartile"][-1] / entry["prevalence_by_quartile"][0], abs=0.01
+        )

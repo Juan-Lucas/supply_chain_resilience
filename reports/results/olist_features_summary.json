@@ -1,0 +1,37 @@
+{
+  "dataset": "olist",
+  "window_days": 90,
+  "min_orders": 10,
+  "seller": {
+    "missing_rate_share": 0.2878,
+    "median_history_orders": 27.0,
+    "prevalence_by_quartile": [
+      0.06,
+      0.076,
+      0.0849
+    ],
+    "top_bottom_ratio": 1.42
+  },
+  "customer_state": {
+    "missing_rate_share": 0.0083,
+    "median_history_orders": 2165.5,
+    "prevalence_by_quartile": [
+      0.0448,
+      0.0463,
+      0.0709,
+      0.1137
+    ],
+    "top_bottom_ratio": 2.54
+  },
+  "route": {
+    "missing_rate_share": 0.0552,
+    "median_history_orders": 564.0,
+    "prevalence_by_quartile": [
+      0.0427,
+      0.0478,
+      0.0635,
+      0.1201
+    ],
+    "top_bottom_ratio": 2.81
+  }
+}
