@@ -68,13 +68,13 @@ Fixés maintenant pour qu'on ne puisse pas les ajuster après coup.
 | Constat (vérifié le 14/10/2026) | Conséquence pour l'étude |
 |---|---|
 | DataCo : prévalence stable autour de 57 % sur 13 trimestres | Écart entre protocoles probablement faible : à rapporter tel quel |
-| DataCo : à partir d'octobre 2017, 1 ligne par commande au lieu de 3, et 8 à 20 produits par mois au lieu de 42 à 53 (vérifié le 19/10/2026) | Décalage des covariables sans dérive de prévalence : 8 043 des 15 725 commandes du test chronologique sont dans ce nouveau régime. À décrire au §5.1 |
+| DataCo : à partir d'octobre 2017, 1 ligne par commande au lieu de 3, et 8 à 20 produits par mois au lieu de 42 à 87 (42 à 53 de juin à septembre 2017 ; corrigé le 21/10/2026 par diagnostics.py) | Décalage des covariables sans dérive de prévalence : 8 043 des 15 725 commandes du test chronologique sont dans ce nouveau régime. À décrire au §5.1 |
 | DataCo : délai prévu fixé par le mode, First Class toujours en retard | Données probablement générées : menace à la validité |
 | Olist : prévalence de 3,4 % à 12,9 % selon le trimestre | Dérive forte : l'écart a le plus de chances d'apparaître ici |
 | Olist : la date estimée est une promesse commerciale | Menace à la validité de construit |
 | Aucun coût réel observé | Analyse de sensibilité sur r (section 3) |
 | Avec la coupure à 25 %, la prévalence d'Olist passe de 7,0 % (entraînement) à 4,0 % (test) après troncature ; DataCo reste à 57 %. Corrigé le 21/10/2026 : l'entraînement ne garde que les commandes livrées avant la coupure (contrainte de précédence, §3.2) ; 3 032 commandes Olist (prévalence 24,9 %) et 188 commandes DataCo, passées avant la coupure mais livrées après, ne vont dans aucun ensemble. Sans cette règle, la prévalence d'entraînement d'Olist serait de 7,8 % | Le test Olist subit un décalage de prévalence : à rapporter avec les résultats (§3.5, lien avec la dérive) |
-| Olist : les commandes passées juste avant la fin de l'extraction ne figurent que si elles sont déjà livrées ; les commandes encore en cours (1 107 « shipped ») sont exclues | Vérifié en phase 2 : le délai moyen par semaine d'achat passe de 8 jours à 5,0 puis 1,8 sur les deux dernières semaines. **Décidé (19/10/2026) :** fin d'observation = dernière approbation de commande (03/09/2018) ; on exclut les achats des 29 derniers jours (95e centile du délai de livraison), soit les achats à partir du 05/08/2018 (5 209 commandes). Restent 90 994 commandes, prévalence 6,87 % |
+| Olist : les commandes passées juste avant la fin de l'extraction ne figurent que si elles sont déjà livrées ; les commandes encore en cours (1 107 « shipped ») sont exclues | Vérifié en phase 2 : le délai moyen par semaine d'achat passe de 8,0 jours (semaine du 6 août 2018) à 5,0 puis 1,8 sur les deux dernières semaines. **Décidé (19/10/2026) :** fin d'observation = dernière approbation de commande (03/09/2018) ; on exclut les achats des 29 derniers jours (95e centile du délai de livraison), soit les achats à partir du 05/08/2018 (5 209 commandes). Restent 90 994 commandes, prévalence 6,87 % |
 
 ## 6. Ce que j'écris dans l'article
 

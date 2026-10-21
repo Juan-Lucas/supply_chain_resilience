@@ -1,0 +1,42 @@
+{
+  "dataco_cancellations": {
+    "n_canceled_lines": 7754,
+    "late_delivery_risk_values": [
+      0
+    ],
+    "n_indicator_disagreements": 4423
+  },
+  "dataco_rupture": {
+    "rupture_month": "2017-10",
+    "products_per_month_before": [
+      42,
+      87
+    ],
+    "products_per_month_after": [
+      8,
+      20
+    ],
+    "lines_per_order_before": [
+      2.95,
+      3.04
+    ],
+    "lines_per_order_after": [
+      1.0,
+      1.07
+    ]
+  },
+  "olist_shipping_limit": {
+    "share_same_time_as_approval": 0.7826,
+    "share_same_time_as_purchase": 0.0347,
+    "most_frequent_days_after_approval": 6.0
+  },
+  "olist_censoring": {
+    "median_weekly_mean_delivery_days": 11.6,
+    "last_weeks": {
+      "2018-08-06/2018-08-12": 8.04,
+      "2018-08-13/2018-08-19": 7.18,
+      "2018-08-20/2018-08-26": 5.04,
+      "2018-08-27/2018-09-02": 1.79
+    }
+  }
+}

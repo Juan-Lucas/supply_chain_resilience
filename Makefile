@@ -61,6 +61,7 @@ data:
 		$(PYTHON_INTERPRETER) -m $(PROJECT_NAME).preprocessing --dataset $$d && \
 		$(PYTHON_INTERPRETER) -m $(PROJECT_NAME).features --dataset $$d || exit 1; \
 	done
+	$(PYTHON_INTERPRETER) -m $(PROJECT_NAME).diagnostics
 
 ## Modeling : entraînement et Optuna -> models/ et reports/results/
 .PHONY: train
