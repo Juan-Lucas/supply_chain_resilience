@@ -552,7 +552,41 @@ Le calcul est vérifié de deux façons : sur des commandes tirées au hasard, e
 \subsection{Modélisation}
 \label{sec:modeling}
 
-\pending{Référence linéaire, forêt aléatoire, XGBoost, réglage par Optuna (rédigé en phase 4).}
+\paragraph{Modèles.} Nous comparons trois modèles pour chaque tâche. La référence linéaire est une régression logistique pénalisée en norme $\ell_2$ pour la classification ; pour la régression, c'est une régression ridge sur DataCo et une régression de Huber pénalisée sur Olist, pour la raison donnée plus bas. Les deux autres modèles sont des ensembles d'arbres, que la littérature désigne comme les plus performants sur des données tabulaires de taille moyenne (section~\ref{sec:rw-profond}) : la forêt aléatoire \cite{breiman2001random} et le gradient boosting d'arbres \cite{friedman2001greedy}, dans l'implémentation XGBoost \cite{chen2016xgboost}. Pour contenir le coût du réglage, la forêt est allégée : 200 arbres, chacun appris sur 30\,\% des lignes tirées au hasard, avec la racine carrée du nombre de variables candidates à chaque division. La même forêt sert pendant le réglage et pour l'ajustement final, de sorte que les hyperparamètres retenus sont ceux du modèle évalué.
+
+\paragraph{Pertes.} En classification, les trois modèles reçoivent les poids de l'équation~\eqref{eq:logloss}, qui donnent à chaque classe le même poids total ; la régression logistique et XGBoost minimisent l'entropie croisée pondérée, et la forêt applique ces poids à son critère de division. En régression, la section~\ref{sec:pertes} prévoit la perte de Huber si les retards ont une queue lourde. C'est le cas d'Olist, où le retard moyen (10,9 jours) dépasse nettement le retard médian (7 jours) et atteint 188 jours ; ce n'est pas le cas de DataCo, où le retard est borné entre 1 et 4 jours. Nous utilisons donc la perte de Huber~\eqref{eq:huber} sur Olist, sous sa forme exacte pour le modèle linéaire et sous sa forme lissée (pseudo-Huber) pour XGBoost, et la perte quadratique sur DataCo. La forêt aléatoire garde l'erreur quadratique sur les deux jeux, faute de critère de Huber dans son implémentation.
+
+\paragraph{Variables et prétraitement.} Les modèles reçoivent les variables connues à l'instant de commande, dont les variables d'historique (section~\ref{sec:preparation}) : 20 numériques et 11 catégorielles pour DataCo, 22 numériques et 4 catégorielles pour Olist. Sont écartés les identifiants, les codes qui doublent un libellé déjà retenu, la géographie fine (villes et codes postaux), déjà couverte par l'État, la région, les coordonnées ou la distance, et les dates, remplacées par le mois, le jour de la semaine et l'heure de la commande, ainsi que par le délai promis pour Olist. Le prétraitement appris fait partie du modèle et n'est ajusté que sur les données d'entraînement de chaque pli. Pour le modèle linéaire, les valeurs manquantes numériques sont remplacées par la médiane, avec un indicateur de valeur manquante, puis les variables sont centrées et réduites ; les variables catégorielles sont encodées en indicatrices. Pour les arbres, les catégories reçoivent un code entier et les valeurs manquantes sont laissées au modèle, qui les traite nativement. Dans les deux cas, une modalité qui représente moins de 0,5\,\% de l'entraînement, ou qui en est absente, est regroupée avec les autres modalités rares.
+
+\paragraph{Réglage.} Chaque modèle est réglé selon l'équation~\eqref{eq:hpo}, sur les $K = 4$ plis de son protocole (section~\ref{sec:partitions}). Le critère est la PR-AUC moyenne sur les plis en classification et la MAE moyenne en régression, c'est-à-dire les métriques principales fixées en section~\ref{sec:business}. Les espaces de recherche figurent au tableau~\ref{tab:espaces}. La recherche aléatoire et TPE explorent les intervalles ; la grille compte exactement $B = 30$ points. Pour XGBoost, trente points ne suffisent pas à couvrir sept hyperparamètres : la grille porte sur les trois principaux, le taux d'apprentissage, la profondeur et le nombre d'arbres, et laisse les quatre autres à leur valeur par défaut, ce qui est la limite habituelle de la recherche sur grille. Pour une même graine, les dix essais de démarrage de TPE coïncident avec les dix premiers essais de la recherche aléatoire : la comparaison de ces deux stratégies est appariée, et leur écart ne provient que des vingt essais guidés. Une fois le réglage terminé, le modèle est réajusté avec les meilleurs hyperparamètres sur tout l'entraînement du protocole, puis appliqué au test. Ses prédictions sur les plis de validation sont conservées : elles servent à choisir le seuil d'alerte (section~\ref{sec:imbalance}), qui n'est jamais choisi sur le test.
+
+\begin{table}[t]
+\centering
+\footnotesize
+\caption{Espaces de recherche des hyperparamètres. La recherche aléatoire et TPE tirent dans les intervalles (échelle logarithmique lorsque indiqué) ; la grille évalue le produit des valeurs listées, soit 30 points par modèle. Noms des hyperparamètres de scikit-learn et de XGBoost.}
+\label{tab:espaces}
+\begin{tabular}{@{}llll@{}}
+\toprule
+Modèle & Hyperparamètre & Intervalle & Valeurs de la grille \\
+\midrule
+Régression logistique & \texttt{C} & $[10^{-4}, 10^{2}]$, log & 30 valeurs régulières en log \\
+Ridge (DataCo) & \texttt{alpha} & $[10^{-3}, 10^{3}]$, log & 30 valeurs régulières en log \\
+\multirow{2}{*}{Huber (Olist)} & \texttt{alpha} & $[10^{-6}, 1]$, log & 6 valeurs régulières en log \\
+ & \texttt{epsilon} & $[1{,}1 ; 3]$ & 1,1 ; 1,35 ; 1,75 ; 2,25 ; 3 \\
+\midrule
+\multirow{2}{*}{Forêt aléatoire} & \texttt{max\_depth} & $\{4, \dots, 32\}$, log & 4, 6, 8, 12, 20, 32 \\
+ & \texttt{min\_samples\_leaf} & $\{1, \dots, 100\}$, log & 1, 3, 10, 30, 100 \\
+\midrule
+\multirow{7}{*}{XGBoost} & \texttt{learning\_rate} & $[0{,}01 ; 0{,}3]$, log & 0,05 ; 0,2 \\
+ & \texttt{max\_depth} & $\{3, \dots, 10\}$ & 3, 6, 9 \\
+ & \texttt{n\_estimators} & $\{100, \dots, 1000\}$, log & 100, 200, 400, 700, 1000 \\
+ & \texttt{subsample} & $[0{,}5 ; 1]$ & défaut (1) \\
+ & \texttt{colsample\_bytree} & $[0{,}5 ; 1]$ & défaut (1) \\
+ & \texttt{min\_child\_weight} & $[1 ; 50]$, log & défaut (1) \\
+ & \texttt{reg\_lambda} & $[10^{-3} ; 10]$, log & défaut (1) \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \subsection{Traitement du déséquilibre}
 \label{sec:imbalance}

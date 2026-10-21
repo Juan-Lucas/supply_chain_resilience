@@ -170,16 +170,19 @@ def run_study(
     X_train, y_train = select_features(train, dataset), train[TARGET[task]]
 
     space = search_space(dataset, model, task)
+    folds = [(f[in_task[f]], v[in_task[v]]) for f, v in folds]
 
-    def objective(trial: optuna.Trial) -> float:
-        params = suggest(trial, space, strategy)
-        values = []
+    def fold_predictions(params: dict) -> list[np.ndarray]:
+        preds = []
         for fit_rows, valid_rows in folds:
-            fit_rows, valid_rows = fit_rows[in_task[fit_rows]], valid_rows[in_task[valid_rows]]
             pipe = make_model_pipeline(dataset, model, task, params, seed)
             fit_pipeline(pipe, X_train.iloc[fit_rows], y_train.iloc[fit_rows], task)
-            pred = predict(pipe, X_train.iloc[valid_rows], task)
-            values.append(score(y_train.iloc[valid_rows], pred, task))
+            preds.append(predict(pipe, X_train.iloc[valid_rows], task))
+        return preds
+
+    def objective(trial: optuna.Trial) -> float:
+        preds = fold_predictions(suggest(trial, space, strategy))
+        values = [score(y_train.iloc[v], p, task) for (_, v), p in zip(folds, preds)]
         trial.set_user_attr("fold_values", values)
         return float(np.mean(values))
 
@@ -189,17 +192,23 @@ def run_study(
     study.optimize(objective, n_trials=n_trials)
     tuning_seconds = time.perf_counter() - start
 
-    # Ajustement final sur tout l'entraînement de la tâche
+    # Prédictions de validation du meilleur essai : le seuil d'alerte se choisit sur
+    # elles, jamais sur le test (section 3.6). Optuna ne garde pas les modèles des essais.
     start = time.perf_counter()
+    valid_preds = fold_predictions(study.best_params)
+
+    # Ajustement final sur tout l'entraînement de la tâche
     pipe = make_model_pipeline(dataset, model, task, study.best_params, seed)
     fit_pipeline(pipe, X_train[in_task], y_train[in_task], task)
     fit_seconds = time.perf_counter() - start
 
     # Régression : prédite sur tout le test, pour combiner ensuite avec le classifieur
-    train_rows = train[in_task]
     parts = [
-        ("train", train_rows, predict(pipe, X_train[in_task], task)),
-        ("test", test, predict(pipe, select_features(test, dataset), task)),
+        ("valid", train.iloc[v], p, k) for k, ((_, v), p) in enumerate(zip(folds, valid_preds), 1)
+    ]
+    parts += [
+        ("train", train[in_task], predict(pipe, X_train[in_task], task), 0),
+        ("test", test, predict(pipe, select_features(test, dataset), task), 0),
     ]
     predictions = pd.concat(
         [
@@ -209,12 +218,13 @@ def run_study(
                     "group_id": rows["group_id"].to_numpy(),
                     "ordered_at": rows[ORDER_DATE[dataset]].to_numpy(),
                     "set": name,
+                    "fold": fold,  # 1 à K pour la validation, 0 sinon
                     "y_clf": rows["y_clf"].to_numpy(),
                     "y_reg": rows["y_reg"].to_numpy(),
                     "pred": pred,
                 }
             )
-            for name, rows, pred in parts
+            for name, rows, pred, fold in parts
         ],
         ignore_index=True,
     )
@@ -234,7 +244,7 @@ def run_study(
         "best_value": study.best_value,
         "best_fold_values": study.best_trial.user_attrs["fold_values"],
         "tuning_seconds": round(tuning_seconds, 1),
-        "final_fit_seconds": round(fit_seconds, 1),
+        "refit_seconds": round(fit_seconds, 1),  # plis du meilleur essai et ajustement final
         "trials": [
             {
                 "number": t.number,

@@ -66,6 +66,22 @@ def test_study_predicts_only_its_own_test_rows(small_olist, protocol, task):
     assert len(record["best_fold_values"]) == 4
 
 
+@pytest.mark.parametrize("protocol", list(Protocol))
+def test_validation_predictions_are_those_of_the_best_trial(small_olist, protocol):
+    from supply_chain_resilience.train import score
+
+    df = small_olist
+    record, pred = run_study(
+        df, Dataset.olist, protocol, 0, Task.clf, Model.linear, Strategy.tpe, n_trials=3
+    )
+    valid = pred[pred["set"] == "valid"]
+    split = protocol_split(df, protocol, 0)
+    assert set(valid["row"]) <= set(df.index[split == "train"])  # jamais le test
+    assert sorted(valid["fold"].unique()) == [1, 2, 3, 4]
+    rescored = [score(g["y_clf"], g["pred"], Task.clf) for _, g in valid.groupby("fold")]
+    assert rescored == pytest.approx(record["best_fold_values"])
+
+
 @pytest.mark.parametrize("strategy", list(Strategy))
 def test_same_seed_gives_same_study(small_olist, strategy):
     args = (small_olist, Dataset.olist, Protocol.random, 1, Task.clf, Model.linear, strategy)
