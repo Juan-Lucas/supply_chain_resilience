@@ -23,5 +23,15 @@
   "prevalence_quarter_max": 0.1288,
   "delay_median": 7.0,
   "delay_mean": 10.91,
-  "delay_max": 188
+  "delay_max": 188,
+  "missing_orders": {
+    "total_weight_g": 19,
+    "total_volume_cm3": 16,
+    "distance_km": 453,
+    "product_category_name": 1332,
+    "product_photos_qty": 1332,
+    "product_name_lenght": 1332,
+    "product_description_lenght": 1332,
+    "payment_installments": 2
+  }
 }

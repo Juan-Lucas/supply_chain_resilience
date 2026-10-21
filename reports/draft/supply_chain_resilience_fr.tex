@@ -491,7 +491,59 @@ L'exploration des deux jeux poursuit trois objectifs : reconstruire les cibles d
 \subsection{Préparation des données}
 \label{sec:preparation}
 
-\pending{Table 2 (défaut, diagnostic, traitement, impact) et Algorithme 1 (historique sans fuite) (rédigé en phase 3).}
+La préparation distingue deux sortes d'opérations. Les opérations déterministes, qui ne s'appuient sur aucune statistique des données (filtres, construction des cibles, suppression de colonnes, agrégation, variables de date, partition), sont appliquées une fois pour toutes par le script de préparation. Les opérations apprises, comme l'imputation des valeurs manquantes ou l'encodage des variables catégorielles, sont au contraire intégrées au modèle et ajustées sur le seul ensemble d'entraînement de chaque partition (section~\ref{sec:modeling}) : les appliquer au jeu entier ferait fuiter de l'information du test vers l'entraînement \cite{kapoor2023leakage}. Le tableau~\ref{tab:preparation} récapitule les défauts traités, en les rattachant, lorsqu'il y a lieu, à la taxonomie des fuites de Kapoor et Narayanan \cite{kapoor2023leakage}.
+
+\begin{table}[t]
+\centering
+\footnotesize
+\caption{Défauts des données et traitements appliqués. Les codes entre crochets renvoient à la taxonomie des fuites de Kapoor et Narayanan \cite{kapoor2023leakage}.}
+\label{tab:preparation}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\begin{tabularx}{\textwidth}{@{}L{2.9cm}L{3.6cm}L{4.0cm}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Défaut & Diagnostic & Traitement & Impact \\
+\midrule
+Commandes annulées (DataCo) & 7\,754 lignes sans livraison ; l'indicateur de retard y vaut zéro & Lignes exclues & 172\,765 lignes, 62\,897 commandes \\
+Commandes non livrées (Olist) & Statut autre que livré, ou date de livraison absente & Commandes exclues & 2\,971 commandes retirées \\
+Année 2016 (Olist) & 267 commandes, trop peu pour représenter l'année & Commandes exclues & Période à partir de janvier 2017 \\
+Censure de fin de période (Olist) & Seules les commandes déjà livrées figurent dans l'extraction & Achats des 29 jours précédant la dernière approbation exclus & 5\,209 commandes retirées ; 90\,994 restent \\
+Variables postérieures à la prédiction [L2] & Durée réelle, statuts, dates d'expédition, d'approbation, de remise au transporteur et de livraison & Variables exclues (contrainte~\ref{ctr:dispo}) & Aucune variable connue après l'instant de prédiction \\
+Colonnes sans information (DataCo) & Colonnes vides, constantes ou très incomplètes, copies exactes d'autres colonnes, données personnelles & Colonnes exclues & 15 colonnes retirées, en plus des 5 variables postérieures \\
+Doublons [L1.4] & Aucune ligne en double & Aucun & -- \\
+Plusieurs articles par commande (Olist) & 10\,\% des commandes ont plusieurs articles, 1,3\,\% plusieurs vendeurs & Agrégation par commande ; article principal = le plus cher ; distance = maximum sur les articles & Une ligne par commande \\
+Valeurs impossibles (Olist) & Poids de 0\,g, nombre d'échéances nul & Remplacées par des valeurs manquantes & Traitées comme les autres valeurs manquantes \\
+Valeurs manquantes [L1.2] & Olist : catégorie (1\,332 commandes), distance (453), poids (19), échéances (2) ; DataCo : code postal (3) & Imputation apprise sur l'entraînement, dans le modèle & Pas d'information du test dans l'imputation \\
+Lignes d'une même commande (DataCo) [L3.2] & 2,75 lignes par commande, cible commune & Partition groupée par commande (contrainte~\ref{ctr:groupes}) & Aucune commande partagée entre entraînement et test \\
+Commandes en transit à la coupure [L3.1] & Passées avant la coupure, livrées après : cible inconnue à la coupure & Exclues des deux ensembles (contrainte~\ref{ctr:prec}) & DataCo : 188 commandes ; Olist : 3\,032, dont 24,9\,\% en retard \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Le dernier traitement du tableau mérite une remarque. Une commande en retard met, par définition, plus longtemps à être livrée ; elle a donc plus de chances d'être encore en transit à la date de coupure. Sur Olist, les commandes ainsi écartées sont en retard dans 24,9\,\% des cas, contre 6,9\,\% sur l'ensemble du jeu. Les conserver dans l'entraînement aurait porté sa prévalence de 7,0 à 7,8\,\%, avec des cibles qu'aucun modèle déployé n'aurait encore pu observer. C'est un cas de fuite par les exemples d'entraînement au sens de Kaufman et al. \cite{kaufman2012leakage}, qui ne passe par aucune variable.
+
+\paragraph{Variables d'historique.} Nous complétons les variables de chaque commande par le taux de retard passé de plusieurs entités, calculé selon les équations~\eqref{eq:hist} et~\eqref{eq:taux} avec une fenêtre $w = 90$ jours et un seuil $n_{\min} = 10$. Pour Olist, les entités sont le vendeur principal, l'État du client et la liaison entre l'État du vendeur et celui du client ; pour DataCo, qui ne renseigne ni vendeur ni transporteur, ce sont la région de commande, le mode d'expédition et leur croisement. Chaque entité fournit deux variables : le taux historique et le nombre de commandes sur lequel il repose, qui renseigne le modèle sur sa fiabilité. L'algorithme~\ref{alg:historique} en donne le calcul. Il ne fait intervenir que des commandes déjà livrées à l'instant de prédiction : la valeur obtenue est celle qu'un gestionnaire aurait pu calculer à cet instant, quel que soit le protocole d'évaluation. Il est donc exécuté une seule fois, avant toute partition. Sur DataCo, le calcul se fait au niveau de la commande, pour qu'une commande de plusieurs lignes ne compte qu'une fois.
+
+\begin{algorithm}[t]
+\caption{Taux de retard historique sans fuite d'une entité}
+\label{alg:historique}
+\begin{algorithmic}[1]
+\Require commandes $i$ avec instant de prédiction $\tau_i$, instant de livraison $t_i^{e}$, retard $y_i$ et entité $c_i$ ; fenêtre $w$ ; seuil $n_{\min}$
+\Ensure pour chaque commande, effectif $n_i = |\mathcal{H}_i(w)|$ et taux $h_i$
+\For{chaque entité $c$}
+  \State $L \gets$ les commandes de $c$, triées par $t^{e}$ croissant ; $S \gets$ les sommes cumulées de leurs $y$
+  \For{chaque commande $i$ de $c$}
+    \State $b \gets \#\{k \in L : t_k^{e} \le \tau_i\}$ ; $a \gets \#\{k \in L : t_k^{e} < \tau_i - w\}$ \Comment{recherche dichotomique}
+    \State $n_i \gets b - a$ ; $r_i \gets S_b - S_a$
+    \If{$\tau_i - w \le t_i^{e} \le \tau_i$} \Comment{$k \neq i$ : livraison le jour même}
+      \State $n_i \gets n_i - 1$ ; $r_i \gets r_i - y_i$
+    \EndIf
+    \State $h_i \gets r_i / n_i$ si $n_i \ge n_{\min}$, valeur manquante sinon
+  \EndFor
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+Le calcul est vérifié de deux façons : sur des commandes tirées au hasard, en comparant le résultat au calcul direct de la définition~\eqref{eq:hist}, et sur des cas construits à la main (commande encore en transit, livraison le jour même, fenêtre, seuil). Les variables obtenues sont informatives sur Olist : la prévalence du retard est environ 2,5 fois plus élevée dans le quartile supérieur du taux historique de l'État du client que dans le quartile inférieur \verif{rapport à produire par un script et à inscrire dans le fichier de résumé}. Sur DataCo, le taux par région est sans effet, ce qui concorde avec les indices de génération synthétique de la section~\ref{sec:data-understanding}.
 
 \subsection{Modélisation}
 \label{sec:modeling}
@@ -532,11 +584,11 @@ Unité d'observation & ligne de commande & commande \\
 Lignes retenues & 172\,765 & 90\,994 \\
 Commandes retenues & 62\,897 & 90\,994 \\
 Période (date de commande) & 01/2015 -- 01/2018 & 01/2017 -- 04/08/2018 \\
-Exclusions & annulations & non livrées, 2016, censure de fin de période \\
+Exclusions & annulations & non livrées, 2016, censure \\
 Délai de référence & fixé par le mode d'expédition & date estimée propre à la commande \\
 Prévalence du retard & 57,3\,\% & 6,9\,\% \\
 Prévalence par trimestre & 56,5 -- 58,7\,\% & 3,4 -- 12,9\,\% \\
-Retard : médiane / moyenne / maximum (jours) & 1 / 1,6 / 4 & 7 / 10,9 / 188 \\
+Retard en jours (médiane / moyenne / max.) & 1 / 1,6 / 4 & 7 / 10,9 / 188 \\
 \bottomrule
 \end{tabular}
 \end{table}

@@ -406,6 +406,7 @@ def save_outputs(df: pd.DataFrame, dataset: Dataset, summary: dict) -> None:
         delay_median=float(late.median()),
         delay_mean=round(float(late.mean()), 2),
         delay_max=int(late.max()),
+        missing_orders={col: int(n) for col, n in per_order.isna().sum().items() if n > 0},
     )
 
     PROCESSED_DATA_DIR.mkdir(parents=True, exist_ok=True)

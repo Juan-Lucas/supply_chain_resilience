@@ -18,5 +18,8 @@
   "prevalence_quarter_max": 0.5866,
   "delay_median": 1.0,
   "delay_mean": 1.62,
-  "delay_max": 4
+  "delay_max": 4,
+  "missing_orders": {
+    "Customer Zipcode": 3
+  }
 }
