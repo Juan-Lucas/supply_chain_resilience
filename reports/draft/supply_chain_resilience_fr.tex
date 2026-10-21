@@ -446,6 +446,8 @@ Trois stratégies de recherche sont comparées. La recherche sur grille évalue 
 \end{equation}
 Le prochain essai maximise le rapport $\ell(\boldsymbol\lambda)/g(\boldsymbol\lambda)$ des densités \eqref{eq:tpe}, ce qui revient à maximiser l'amélioration espérée \cite{bergstra2011algorithms}.
 
+Les trois stratégies reçoivent le même budget de $B = 30$ essais par étude, une étude désignant une combinaison de jeu de données, de tâche, de modèle, de protocole et de graine. La grille est construite pour compter exactement $B$ points ; la recherche aléatoire et TPE évaluent chacune $B$ configurations, les dix premières étant tirées au hasard pour TPE, comme le prévoit Optuna par défaut. À budget égal, la comparaison porte sur la qualité des hyperparamètres retenus et non sur le nombre d'évaluations accordé à chaque méthode, ce qui lève la limite relevée chez Kee et Ho (section~\ref{sec:rw-hpo}).
+
 % ============================================================================
 % Section 4 : Architecture proposée et méthodologie
 % ============================================================================
