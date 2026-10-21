@@ -278,6 +278,7 @@ def aggregate_olist(orders: pd.DataFrame, tables: dict[str, pd.DataFrame]) -> pd
                 "product_photos_qty",
                 "product_name_lenght",
                 "product_description_lenght",
+                "seller_id",
                 "seller_zip_code_prefix",
                 "seller_city",
                 "seller_state",

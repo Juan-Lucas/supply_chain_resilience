@@ -54,10 +54,13 @@ clean:
 # PIPELINE (CRISP-DM)                                                           #
 #################################################################################
 
-## Data Preparation : données brutes -> data/interim et data/processed
+## Data Preparation : données brutes -> data/processed/<jeu>.parquet, puis variables d'historique -> <jeu>_features.parquet
 .PHONY: data
 data:
-	for d in $(DATASETS); do $(PYTHON_INTERPRETER) -m $(PROJECT_NAME).preprocessing --dataset $$d; done
+	for d in $(DATASETS); do \
+		$(PYTHON_INTERPRETER) -m $(PROJECT_NAME).preprocessing --dataset $$d && \
+		$(PYTHON_INTERPRETER) -m $(PROJECT_NAME).features --dataset $$d || exit 1; \
+	done
 
 ## Modeling : entraînement et Optuna -> models/ et reports/results/
 .PHONY: train
