@@ -214,3 +214,6 @@ references/*.pdf
 !/docs/.gitkeep
 /references/*
 !/references/.gitkeep
+
+# Archive Overleaf générée à partir de reports/draft (copie, non versionnée)
+/reports/*_overleaf.zip
