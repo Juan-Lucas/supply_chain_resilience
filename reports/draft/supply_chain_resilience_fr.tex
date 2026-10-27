@@ -245,7 +245,7 @@ La cible $r$ n'est pas continue sur $\mathbb{R}_+$ : elle porte une masse de pro
   \E[r \mid \mathbf{x}] = p(\mathbf{x})\, m(\mathbf{x}).
   \label{eq:decomp}
 \end{equation}
-La décomposition~\eqref{eq:decomp} motive une architecture à deux modèles : un classifieur estime $p$, et un modèle de régression conditionnel au retard estime $m$, entraîné sur le sous-ensemble $\{i : y_i = 1\}$ où la cible est strictement positive. Nous retenons cette variante parce qu'elle sépare deux problèmes de nature différente, l'occurrence et l'ampleur, et qu'elle évite d'imposer à un même modèle de régression une masse en zéro. La régression directe de $r$ sur toutes les observations sert de point de comparaison \verif{valider ce choix avec le Prof. Merlec}.
+La décomposition~\eqref{eq:decomp} motive une architecture à deux modèles : un classifieur estime $p$, et un modèle de régression conditionnel au retard estime $m$, entraîné sur le sous-ensemble $\{i : y_i = 1\}$ où la cible est strictement positive. Nous retenons cette variante parce qu'elle sépare deux problèmes de nature différente, l'occurrence et l'ampleur, et qu'elle évite d'imposer à un même modèle de régression une masse en zéro. Elle correspond aussi à la décision : lorsqu'une alerte est émise, la date à annoncer dépend de l'ampleur du retard sachant qu'il survient, c'est-à-dire de $m(\mathbf{x})$, et non de l'espérance $\E[r \mid \mathbf{x}]$, que la masse en zéro tire vers le bas. Une régression directe de $r$ sur toutes les observations ne répondrait donc pas à la question posée ; nous ne la retenons pas (section~\ref{sec:articulation}).
 
 \subsection{Causalité temporelle et fuite d'information}
 \label{sec:causalite}
@@ -607,7 +607,27 @@ Une économie positive signifie que le modèle fait mieux que la meilleure déci
 \subsection{Articulation des deux tâches}
 \label{sec:articulation}
 
-\pending{Classifieur en amont, régression conditionnelle au retard, combinaison des deux sorties et Algorithme 2 (rédigé en phase 4).}
+Les deux modèles suivent la décomposition~\eqref{eq:decomp}. Le classifieur estime $p(\mathbf{x})$ sur toutes les commandes ; le modèle de régression estime $m(\mathbf{x})$, l'ampleur du retard sachant qu'il survient, et n'est entraîné que sur les commandes en retard de l'entraînement (section~\ref{sec:modeling}). Les deux sont réglés séparément, chacun selon son critère, mais sur les mêmes partitions : pour un protocole et une graine donnés, ils voient les mêmes commandes d'entraînement et de test.
+
+En déploiement, ils s'enchaînent selon l'algorithme~\ref{alg:decision}. Le classifieur décide s'il faut alerter, avec le seuil $\theta_r$ choisi sur la validation pour le rapport de coûts $r$ (section~\ref{sec:imbalance}) ; la régression n'intervient que pour les commandes alertées, et fixe la nouvelle date annoncée~\eqref{eq:date-annoncee}. Comme la régression est conditionnelle au retard, sa prédiction a un sens précisément pour les commandes que le classifieur désigne comme en retard. Une prédiction inférieure à un jour est portée à un jour, puisqu'une alerte annonce par définition un retard.
+
+\begin{algorithm}[t]
+\caption{Décision pour une commande à l'instant de prédiction}
+\label{alg:decision}
+\begin{algorithmic}[1]
+\Require variables $\mathbf{x}_i$ connues à $\tau_i$ ; date promise $t_i^{p}$ ; classifieur $\hat{p}$ ; modèle de régression conditionnelle $\hat{m}$ ; seuil $\theta_r$
+\Ensure alerte ou non ; date annoncée au client
+\State $\hat{p}_i \gets \hat{p}(\mathbf{x}_i)$
+\If{$\hat{p}_i \ge \theta_r$} \Comment{retard prédit}
+  \State $\hat{m}_i \gets \max\bigl(1,\, \hat{m}(\mathbf{x}_i)\bigr)$ \Comment{ampleur, en jours}
+  \State alerter le client et annoncer $\hat{t}_i = t_i^{p} + \hat{m}_i$ \Comment{équation~\eqref{eq:date-annoncee}}
+\Else
+  \State maintenir la date promise $t_i^{p}$
+\EndIf
+\end{algorithmic}
+\end{algorithm}
+
+Cette organisation donne à chaque modèle une évaluation propre. Le classifieur est jugé par la PR-AUC et, au seuil retenu, par le coût et l'économie~\eqref{eq:economie} ; la régression, par la MAE sur les commandes en retard (section~\ref{sec:metriques}). L'écart d'optimisme~\eqref{eq:delta-opt} se mesure ainsi séparément pour l'occurrence et pour l'ampleur du retard.
 
 % ============================================================================
 % Section 5 : Protocole expérimental
