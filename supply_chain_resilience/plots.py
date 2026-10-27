@@ -3,8 +3,10 @@
 - profil_derive.pdf : PR-AUC mensuelle sur le test chronologique, par modèle, avec la
   prévalence du mois (valeur d'un classifieur sans pouvoir discriminant) ;
 - economie_cout.pdf : économie S (éq. economie) en fonction du rapport de coûts r,
-  sous les deux protocoles, par jeu et par modèle.
+  sous les deux protocoles, par jeu et par modèle ;
+- courbes_pr_roc.pdf : courbes précision-rappel et ROC de XGBoost sur le test.
 Les figures montrent la stratégie de réglage TPE (Optuna), moyennée sur les graines.
+Avec --lang en, les mêmes figures sont produites en anglais (suffixe _en).
 """
 
 import json
@@ -24,28 +26,78 @@ app = typer.Typer()
 
 STRATEGY = "tpe"
 DATASET_LABEL = {Dataset.dataco: "DataCo", Dataset.olist: "Olist"}
-MODEL_LABEL = {"linear": "Linéaire", "rf": "Forêt aléatoire", "xgb": "XGBoost"}
-MONTHS_FR = [
-    "janv.",
-    "févr.",
-    "mars",
-    "avr.",
-    "mai",
-    "juin",
-    "juil.",
-    "août",
-    "sept.",
-    "oct.",
-    "nov.",
-    "déc.",
-]
+
+TEXT = {
+    "fr": {
+        "models": {"linear": "Linéaire", "rf": "Forêt aléatoire", "xgb": "XGBoost"},
+        "protocols": {"chrono": "Chronologique", "random": "Aléatoire"},
+        "months": [
+            "janv.",
+            "févr.",
+            "mars",
+            "avr.",
+            "mai",
+            "juin",
+            "juil.",
+            "août",
+            "sept.",
+            "oct.",
+            "nov.",
+            "déc.",
+        ],  # fmt: skip
+        "month_prevalence": "Prévalence du mois",
+        "drift_ylabel": "PR-AUC (test chronologique)",
+        "saving": "Économie $S$",
+        "cost_ratio": "Rapport de coûts $r$",
+        "pr_title": "précision-rappel",
+        "recall": "Rappel",
+        "precision": "Précision",
+        "fpr": "Taux de faux positifs",
+        "tpr": "Taux de vrais positifs",
+    },
+    "en": {
+        "models": {"linear": "Linear", "rf": "Random forest", "xgb": "XGBoost"},
+        "protocols": {"chrono": "Chronological", "random": "Random"},
+        "months": [
+            "Jan.",
+            "Feb.",
+            "Mar.",
+            "Apr.",
+            "May",
+            "June",
+            "July",
+            "Aug.",
+            "Sept.",
+            "Oct.",
+            "Nov.",
+            "Dec.",
+        ],  # fmt: skip
+        "month_prevalence": "Monthly prevalence",
+        "drift_ylabel": "PR-AUC (chronological test)",
+        "saving": "Saving $S$",
+        "cost_ratio": "Cost ratio $r$",
+        "pr_title": "precision-recall",
+        "recall": "Recall",
+        "precision": "Precision",
+        "fpr": "False positive rate",
+        "tpr": "True positive rate",
+    },
+}
+
+# Langue des figures, fixée par main.
+LANG = "fr"
+
+
+def tr(key: str):
+    return TEXT[LANG][key]
+
 
 # Palette catégorielle validée (ordre fixe) et encre du graphique
 SERIES = {"linear": "#2a78d6", "rf": "#eb6834", "xgb": "#1baf7a"}
 MARKERS = {"linear": "o", "rf": "s", "xgb": "^"}  # identité jamais portée par la couleur seule
 PROTOCOL_STYLE = {"chrono": ("#2a78d6", "-", "o"), "random": ("#eb6834", "--", "s")}
-PROTOCOL_LABEL = {"chrono": "Chronologique", "random": "Aléatoire"}
 INK, MUTED, GRID, AXIS = "#0b0b0b", "#52514e", "#e1e0d9", "#c3c2b7"
+MODELS = ("linear", "rf", "xgb")
 
 plt.rcParams.update(
     {
@@ -80,7 +132,7 @@ def load(dataset: Dataset) -> dict:
 
 def month_label(period: str) -> str:
     p = pd.Period(period, "M")
-    return f"{MONTHS_FR[p.month - 1]}\n{p.year}"
+    return f"{tr('months')[p.month - 1]}\n{p.year}"
 
 
 def drift_figure() -> plt.Figure:
@@ -90,24 +142,24 @@ def drift_figure() -> plt.Figure:
         prof = prof[(prof["strategy"] == STRATEGY) & (prof["task"] == "clf")]
         months = sorted(prof["month"].unique())
         x = range(len(months))
-        for model in MODEL_LABEL:
+        for model in MODELS:
             rows = prof[prof["model"] == model].set_index("month").loc[months]
             ax.plot(
                 x,
                 rows["pr_auc"],
                 color=SERIES[model],
                 marker=MARKERS[model],
-                label=MODEL_LABEL[model],
+                label=tr("models")[model],
                 markeredgecolor="white",
                 markeredgewidth=0.6,
             )
         prevalence = prof[prof["model"] == "xgb"].set_index("month").loc[months, "prevalence"]
         ax.plot(
-            x, prevalence, color=MUTED, linestyle=":", linewidth=1.2, label="Prévalence du mois"
+            x, prevalence, color=MUTED, linestyle=":", linewidth=1.2, label=tr("month_prevalence")
         )
         ax.set_xticks(list(x), [month_label(m) for m in months])
         ax.set_title(DATASET_LABEL[dataset], loc="left", color=INK)
-        ax.set_ylabel("PR-AUC (test chronologique)")
+        ax.set_ylabel(tr("drift_ylabel"))
         ax.set_ylim(bottom=0)
     axes[0].legend(loc="lower left", frameon=False)
     return fig
@@ -122,7 +174,7 @@ def savings_figure() -> plt.Figure:
         dec = dec[dec["strategy"] == STRATEGY]
         ratios = sorted(dec["cost_ratio"].unique())
         x = range(len(ratios))
-        for ax, model in zip(row, MODEL_LABEL):
+        for ax, model in zip(row, MODELS):
             for protocol, (color, style, marker) in PROTOCOL_STYLE.items():
                 s = dec[(dec["model"] == model) & (dec["protocol"] == protocol)]
                 stats = s.groupby("cost_ratio")["saving"].agg(["mean", "std"]).loc[ratios]
@@ -135,17 +187,17 @@ def savings_figure() -> plt.Figure:
                     marker=marker,
                     capsize=2,
                     elinewidth=0.8,
-                    label=PROTOCOL_LABEL[protocol],
+                    label=tr("protocols")[protocol],
                     markeredgecolor="white",
                     markeredgewidth=0.6,
                 )
             ax.axhline(0, color=AXIS, linewidth=0.9, zorder=0)
             ax.set_xticks(list(x), [str(r) for r in ratios])
-            ax.set_title(f"{DATASET_LABEL[dataset]}, {MODEL_LABEL[model]}", loc="left", color=INK)
+            ax.set_title(f"{DATASET_LABEL[dataset]}, {tr('models')[model]}", loc="left", color=INK)
             if model == "linear":
-                ax.set_ylabel("Économie $S$")
+                ax.set_ylabel(tr("saving"))
             if dataset is Dataset.olist:
-                ax.set_xlabel("Rapport de coûts $r$")
+                ax.set_xlabel(tr("cost_ratio"))
     axes[0, 0].legend(loc="upper right", frameon=False)
     return fig
 
@@ -162,28 +214,17 @@ def curves_figure() -> plt.Figure:
         ax_pr, ax_roc = row
         for protocol, (color, style, _) in PROTOCOL_STYLE.items():
             c = curves[curves["protocol"] == protocol].iloc[0]
-            ax_pr.plot(
-                c["grid"],
-                c["pr_precision"],
-                color=color,
-                linestyle=style,
-                label=PROTOCOL_LABEL[protocol],
-            )
+            label = tr("protocols")[protocol]
+            ax_pr.plot(c["grid"], c["pr_precision"], color=color, linestyle=style, label=label)
             ax_pr.axhline(c["prevalence"], color=color, linestyle=":", linewidth=1.0)
-            ax_roc.plot(
-                c["grid"],
-                c["roc_tpr"],
-                color=color,
-                linestyle=style,
-                label=PROTOCOL_LABEL[protocol],
-            )
+            ax_roc.plot(c["grid"], c["roc_tpr"], color=color, linestyle=style, label=label)
         ax_roc.plot([0, 1], [0, 1], color=AXIS, linewidth=0.9, zorder=0)
-        ax_pr.set_title(f"{DATASET_LABEL[dataset]}, précision-rappel", loc="left", color=INK)
+        ax_pr.set_title(f"{DATASET_LABEL[dataset]}, {tr('pr_title')}", loc="left", color=INK)
         ax_roc.set_title(f"{DATASET_LABEL[dataset]}, ROC", loc="left", color=INK)
-        ax_pr.set_xlabel("Rappel")
-        ax_pr.set_ylabel("Précision")
-        ax_roc.set_xlabel("Taux de faux positifs")
-        ax_roc.set_ylabel("Taux de vrais positifs")
+        ax_pr.set_xlabel(tr("recall"))
+        ax_pr.set_ylabel(tr("precision"))
+        ax_roc.set_xlabel(tr("fpr"))
+        ax_roc.set_ylabel(tr("tpr"))
         for ax in row:
             ax.set_xlim(0, 1)
             ax.set_ylim(0, 1.02)
@@ -192,7 +233,12 @@ def curves_figure() -> plt.Figure:
 
 
 @app.command()
-def main():
+def main(lang: str = typer.Option("fr", help="fr ou en")):
+    global LANG
+    if lang not in TEXT:
+        raise typer.BadParameter("fr ou en")
+    LANG = lang
+    suffix = "" if lang == "fr" else "_en"
     FIGURES_DIR.mkdir(parents=True, exist_ok=True)
     for name, build in [
         ("profil_derive", drift_figure),
@@ -201,9 +247,9 @@ def main():
     ]:
         fig = build()
         for ext in ("pdf", "png"):
-            fig.savefig(FIGURES_DIR / f"{name}.{ext}", dpi=200)
+            fig.savefig(FIGURES_DIR / f"{name}{suffix}.{ext}", dpi=200)
         plt.close(fig)
-        logger.info(f"{FIGURES_DIR / name}.pdf")
+        logger.info(f"{FIGURES_DIR / name}{suffix}.pdf")
 
 
 if __name__ == "__main__":

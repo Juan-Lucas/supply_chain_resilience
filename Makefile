@@ -78,6 +78,8 @@ evaluate:
 figures:
 	$(PYTHON_INTERPRETER) -m $(PROJECT_NAME).plots
 	$(PYTHON_INTERPRETER) -m $(PROJECT_NAME).tables
+	$(PYTHON_INTERPRETER) -m $(PROJECT_NAME).plots --lang en
+	$(PYTHON_INTERPRETER) -m $(PROJECT_NAME).tables --lang en
 
 ## Pipeline complet, de bout en bout
 .PHONY: all

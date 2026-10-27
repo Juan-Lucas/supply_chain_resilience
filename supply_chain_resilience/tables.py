@@ -16,17 +16,29 @@ from supply_chain_resilience.preprocessing import RESULTS_DIR, Dataset
 
 app = typer.Typer()
 
-TABLES_DIR = REPORTS_DIR / "draft" / "tables"
+DRAFT_DIR = REPORTS_DIR / "draft"
 STRATEGY = "tpe"
 MAIN_COST_RATIO = 5
 DATASET_LABEL = {Dataset.dataco: "DataCo", Dataset.olist: "Olist"}
-MODEL_LABEL = {"linear": "Linéaire", "rf": "Forêt aléatoire", "xgb": "XGBoost"}
+MODEL_LABELS = {
+    "fr": {"linear": "Linéaire", "rf": "Forêt aléatoire", "xgb": "XGBoost"},
+    "en": {"linear": "Linear", "rf": "Random forest", "xgb": "XGBoost"},
+}
 STRATEGY_LABEL = {"grid": "Grille", "random": "Aléatoire", "tpe": "TPE"}
+
+# Langue des tableaux : "fr" (article français) ou "en" (article anglais), fixée par main.
+LANG = "fr"
+
+
+def model_labels() -> dict:
+    return MODEL_LABELS[LANG]
 
 
 def num(x: float, digits: int = 3) -> str:
-    """Nombre au format français, signe moins typographique."""
-    s = f"{abs(x):.{digits}f}".replace(".", "{,}")
+    """Virgule décimale en français, point en anglais ; signe moins typographique."""
+    s = f"{abs(x):.{digits}f}"
+    if LANG == "fr":
+        s = s.replace(".", "{,}")
     return f"$-${s}" if x < 0 and float(f"{abs(x):.{digits}f}") != 0 else s
 
 
@@ -37,7 +49,8 @@ def mean_sd(values: pd.Series, digits: int = 3) -> str:
 def gap_cell(row: pd.Series, digits: int = 3) -> str:
     star = "" if row["excludes_zero"] else "\\textsuperscript{ns}"
     return (
-        f"{num(row['delta_mean'], digits)} [{num(row['ci_low'], digits)} ; "
+        f"{num(row['delta_mean'], digits)} [{num(row['ci_low'], digits)}"
+        f"{' ;' if LANG == 'fr' else ','} "
         f"{num(row['ci_high'], digits)}]{star}"
     )
 
@@ -62,7 +75,7 @@ def models_table() -> str:
         m = frame(dataset, "metrics")
         m = m[(m["strategy"] == STRATEGY) & (m["protocol"] == "chrono")]
         lines.append(f"\\multicolumn{{7}}{{@{{}}l}}{{\\textit{{{DATASET_LABEL[dataset]}}}}} \\\\")
-        for model, label in MODEL_LABEL.items():
+        for model, label in model_labels().items():
             c = m[(m["task"] == "clf") & (m["model"] == model)]
             r = m[(m["task"] == "reg") & (m["model"] == model)]
             ct, cr = c[c["set"] == "test"], c[c["set"] == "train"]
@@ -86,14 +99,21 @@ def gaps_table() -> str:
         m = m[(m["strategy"] == STRATEGY) & (m["set"] == "test")]
         prev = m[m["task"] == "clf"].groupby("protocol")["prevalence"].mean()
         delay = m[m["task"] == "reg"].groupby("protocol")["delay_mean"].mean()
+        words = (
+            ("prévalence du test", "retard moyen", "j")
+            if LANG == "fr"
+            else ("test prevalence", "mean delay", "d")
+        )
+        percent = "\\,\\%" if LANG == "fr" else "\\%"  # espace fine en français seulement
         context = (  # chronologique / aléatoire
-            f"prévalence du test {num(100 * prev['chrono'], 1)} / {num(100 * prev['random'], 1)}\\,\\%,"
-            f" retard moyen {num(delay['chrono'], 2)} / {num(delay['random'], 2)} j"
+            f"{words[0]} {num(100 * prev['chrono'], 1)} / {num(100 * prev['random'], 1)}"
+            f"{percent},"
+            f" {words[1]} {num(delay['chrono'], 2)} / {num(delay['random'], 2)} {words[2]}"
         )
         lines.append(
             f"\\multicolumn{{4}}{{@{{}}l}}{{\\textit{{{DATASET_LABEL[dataset]}}} -- {context}}} \\\\"
         )
-        for model, label in MODEL_LABEL.items():
+        for model, label in model_labels().items():
             cells = [
                 gap_cell(g.loc[(model, k)], d)
                 for k, d in (("pr_auc", 3), ("roc_auc", 3), ("mae", 3))
@@ -114,7 +134,7 @@ def decision_table() -> str:
         g = g[(g["strategy"] == STRATEGY) & (g["cost_ratio"] == MAIN_COST_RATIO)]
         g = g.set_index(["model", "metric"])
         lines.append(f"\\multicolumn{{6}}{{@{{}}l}}{{\\textit{{{DATASET_LABEL[dataset]}}}}} \\\\")
-        for model, label in MODEL_LABEL.items():
+        for model, label in model_labels().items():
             s = d[d["model"] == model].groupby("protocol")[["f1", "saving"]].mean()
             lines.append(
                 f"{label} & {num(s.loc['chrono', 'f1'])} & {num(s.loc['random', 'f1'])}"
@@ -133,7 +153,7 @@ def strategies_table() -> str:
         m = frame(dataset, "metrics")
         m = m[(m["protocol"] == "chrono") & (m["set"] == "test")]
         lines.append(f"\\multicolumn{{7}}{{@{{}}l}}{{\\textit{{{DATASET_LABEL[dataset]}}}}} \\\\")
-        for model, label in MODEL_LABEL.items():
+        for model, label in model_labels().items():
             clf = m[(m["task"] == "clf") & (m["model"] == model)].groupby("strategy")["pr_auc"]
             reg = m[(m["task"] == "reg") & (m["model"] == model)].groupby("strategy")["mae"]
             cells = [num(clf.mean()[s]) for s in STRATEGY_LABEL] + [
@@ -146,15 +166,20 @@ def strategies_table() -> str:
 
 
 @app.command()
-def main():
-    TABLES_DIR.mkdir(parents=True, exist_ok=True)
+def main(lang: str = typer.Option("fr", help="fr ou en")):
+    global LANG
+    if lang not in MODEL_LABELS:
+        raise typer.BadParameter("fr ou en")
+    LANG = lang
+    tables_dir = DRAFT_DIR / ("tables" if lang == "fr" else "tables_en")
+    tables_dir.mkdir(parents=True, exist_ok=True)
     for name, build in [
         ("modeles", models_table),
         ("ecart", gaps_table),
         ("decision", decision_table),
         ("strategies", strategies_table),
     ]:
-        path = TABLES_DIR / f"{name}.tex"
+        path = tables_dir / f"{name}.tex"
         header = "% Généré par supply_chain_resilience/tables.py : ne pas modifier à la main.\n"
         path.write_text(header + build(), encoding="utf-8")
         logger.info(path)

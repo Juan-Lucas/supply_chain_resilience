@@ -57,11 +57,11 @@ Dans l'ordre :
 | `make data` | cibles, filtres, censure d'Olist, variables d'historique, diagnostics | quelques minutes |
 | `make train` | réglage et entraînement : 180 études par jeu (2 protocoles × 2 tâches × 3 modèles × 3 stratégies × 5 graines) | 55 h (Olist) et 87 h (DataCo) de calcul sur un processeur à 4 cœurs |
 | `make evaluate` | métriques, écart d'optimisme, profil de dérive, seuil et coût | quelques minutes |
-| `make figures` | figures et tableaux de la section 6 de l'article | moins d'une minute |
+| `make figures` | figures et tableaux de la section 6, en français et en anglais | moins d'une minute |
 | `make test` | tests automatiques (fuite, précédence, groupes, budgets de réglage) | environ 7 minutes |
 
 `make train` peut être interrompu et relancé : une étude terminée est sautée, et une étude refaite donne le même résultat (graines fixées). Pour un seul jeu : `python -m supply_chain_resilience.train --dataset olist`.
 
 Sans relancer l'entraînement, `make figures` régénère les tableaux et les figures à partir des fichiers versionnés de `reports/results/`.
 
-L'article se compile avec `latexmk -pdf supply_chain_resilience_fr.tex` dans `reports/draft/`.
+L'article se compile dans `reports/draft/` : `latexmk -pdf supply_chain_resilience.tex` pour l'article (anglais), `latexmk -pdf supply_chain_resilience_fr.tex` pour la version de travail en français.
