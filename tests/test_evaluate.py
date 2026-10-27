@@ -89,3 +89,46 @@ def test_monthly_profile_skips_months_with_one_class():
     profile = monthly_profile(pred, Task.clf)
     assert list(profile["month"]) == ["2018-05"]
     assert profile.loc[0, "prevalence"] == 0.5
+
+
+# ---------------------------------------------------------------------------
+# Seuil d'alerte et coût
+# ---------------------------------------------------------------------------
+
+
+def brute_force_cost(y, s, r):
+    candidates = np.r_[np.unique(s), np.inf]
+    costs = [r * ((s < t) & (y == 1)).sum() + ((s >= t) & (y == 0)).sum() for t in candidates]
+    return min(costs)
+
+
+@pytest.mark.parametrize("r", [1, 2, 5, 10])
+def test_best_threshold_reaches_the_minimum_cost(r):
+    from supply_chain_resilience.evaluate import best_threshold
+
+    rng = np.random.default_rng(r)
+    y = (rng.random(400) < 0.1).astype(int)
+    s = np.round(rng.random(400) * 0.5 + 0.4 * y, 2)  # arrondi : beaucoup d'ex aequo
+    t = best_threshold(y, s, r)
+    cost = r * ((s < t) & (y == 1)).sum() + ((s >= t) & (y == 0)).sum()
+    assert cost == brute_force_cost(y, s, r)
+
+
+def test_no_alert_when_alerting_never_pays():
+    from supply_chain_resilience.evaluate import best_threshold
+
+    y = np.array([0, 0, 0, 1])
+    s = np.array([0.9, 0.8, 0.7, 0.1])  # le seul retard a le score le plus bas
+    assert best_threshold(y, s, cost_ratio=1) == np.inf
+
+
+def test_decision_metrics_on_a_small_case():
+    from supply_chain_resilience.evaluate import decision_metrics
+
+    y = np.array([1, 1, 0, 0, 0])
+    s = np.array([0.9, 0.2, 0.8, 0.1, 0.1])
+    out = decision_metrics(y, s, threshold=0.5, cost_ratio=5)  # VP 1, FP 1, FN 1
+    assert out["precision"] == 0.5 and out["recall"] == 0.5 and out["f1"] == 0.5
+    assert out["cost_per_1000"] == pytest.approx(1000 * (5 * 1 + 1) / 5)
+    assert out["trivial_cost_per_1000"] == pytest.approx(1000 * 3 / 5)  # tout alerter : 3 FP
+    assert out["saving"] == pytest.approx(1 - 6 / 3)

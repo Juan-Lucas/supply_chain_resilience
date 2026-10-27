@@ -4,8 +4,9 @@ Lit les prédictions de train.py (data/predictions/<jeu>/<étude>.parquet) et é
 reports/results/<jeu>_evaluation.json, source des chiffres des résultats de l'article :
 - métriques de chaque étude sur l'entraînement et sur le test (section 3.5) ;
 - écart d'optimisme Delta par graine, sa moyenne et son intervalle à 95 % (éq. ic-delta) ;
-- profil de dérive mensuel sur le test chronologique (section 3.3).
-Le seuil d'alerte, le F1 et le coût sont calculés à part (section 4.6).
+- profil de dérive mensuel sur le test chronologique (section 3.3) ;
+- seuil d'alerte choisi sur les plis de validation regroupés, puis F1 et coût sur le
+  test pour chaque rapport de coûts r (sections 3.6 et 4.6).
 """
 
 import itertools
@@ -120,22 +121,19 @@ def confidence_interval(values) -> tuple[float, float, float, float]:
     return float(mean), float(sd), float(mean - half), float(mean + half)
 
 
-def optimism_gaps(table: pd.DataFrame) -> pd.DataFrame:
-    """Delta sur le test, par (tâche, modèle, stratégie, métrique), apparié par graine."""
-    test = table[table["set"] == "test"]
+def paired_gaps(table: pd.DataFrame, keys: list[str], metrics_of) -> pd.DataFrame:
+    """Delta par groupe et par métrique, apparié par graine (même graine, deux protocoles)."""
     rows = []
-    for (task, model, strategy), group in test.groupby(["task", "model", "strategy"]):
-        metrics = CLF_METRICS if task == Task.clf.value else REG_METRICS
+    for key, group in table.groupby(keys):
+        key = dict(zip(keys, key))
         wide = group.pivot(index="seed", columns="protocol")
-        for metric in metrics:
+        for metric in metrics_of(key):
             chrono, random = wide[(metric, "chrono")], wide[(metric, "random")]
             gaps = [optimism_gap(c, r, metric) for c, r in zip(chrono, random)]
             mean, sd, low, high = confidence_interval(gaps)
             rows.append(
                 {
-                    "task": task,
-                    "model": model,
-                    "strategy": strategy,
+                    **key,
                     "metric": metric,
                     "chrono_mean": float(chrono.mean()),
                     "random_mean": float(random.mean()),
@@ -148,6 +146,103 @@ def optimism_gaps(table: pd.DataFrame) -> pd.DataFrame:
                 }
             )
     return pd.DataFrame(rows)
+
+
+def optimism_gaps(table: pd.DataFrame) -> pd.DataFrame:
+    """Delta sur le test, par (tâche, modèle, stratégie, métrique)."""
+    test = table[table["set"] == "test"]
+    return paired_gaps(
+        test,
+        ["task", "model", "strategy"],
+        lambda key: CLF_METRICS if key["task"] == Task.clf.value else REG_METRICS,
+    )
+
+
+# ---------------------------------------------------------------------------
+# Seuil d'alerte et coût (sections 3.6 et 4.6)
+# ---------------------------------------------------------------------------
+
+
+def best_threshold(y_true, score, cost_ratio: float) -> float:
+    """Seuil qui minimise C = r FN + FP (c_FP = 1) ; alerte si score >= seuil.
+
+    Les seuils candidats sont les scores observés, plus +inf (aucune alerte).
+    """
+    y_true, score = np.asarray(y_true, int), np.asarray(score, float)
+    order = np.argsort(-score, kind="mergesort")
+    s, y = score[order], y_true[order]
+    tp, fp = np.cumsum(y), np.cumsum(1 - y)
+    last = np.r_[s[1:] != s[:-1], True]  # dernier rang de chaque score : ex aequo ensemble
+    costs = cost_ratio * (y.sum() - tp[last]) + fp[last]
+    candidates = s[last]
+    no_alert = cost_ratio * y.sum()
+    if no_alert <= costs.min():
+        return float("inf")
+    return float(candidates[np.argmin(costs)])
+
+
+def decision_metrics(y_true, score, threshold: float, cost_ratio: float) -> dict:
+    """Effet du seuil sur le test : qualité des alertes et coût pour 1 000 expéditions."""
+    y_true = np.asarray(y_true, int)
+    alert = np.asarray(score, float) >= threshold
+    tp = int((alert & (y_true == 1)).sum())
+    fp = int((alert & (y_true == 0)).sum())
+    fn = int((~alert & (y_true == 1)).sum())
+    n, positives = len(y_true), int(y_true.sum())
+    precision = tp / (tp + fp) if tp + fp else 0.0
+    recall = tp / positives if positives else 0.0
+    f1 = 2 * tp / (2 * tp + fp + fn) if tp + fp + fn else 0.0
+    cost = cost_ratio * fn + fp
+    trivial = min(cost_ratio * positives, n - positives)  # ne jamais alerter, ou toujours
+    return {
+        "threshold": threshold if np.isfinite(threshold) else None,
+        "never_alert": not np.isfinite(threshold),  # la validation dit de ne jamais alerter
+        "precision": precision,
+        "recall": recall,
+        "f1": f1,
+        "alert_rate": float(alert.mean()),
+        "cost_per_1000": 1000 * cost / n,
+        "trivial_cost_per_1000": 1000 * trivial / n,
+        "saving": 1 - cost / trivial if trivial else 0.0,
+    }
+
+
+COST_RATIOS = (1, 2, 5, 10)
+DECISION_METRICS = {
+    "f1": True,
+    "precision": True,
+    "recall": True,
+    "cost_per_1000": False,
+    "saving": True,
+}
+HIGHER_IS_BETTER.update(DECISION_METRICS)
+
+
+def decision_table(dataset: Dataset, seeds=SEEDS) -> pd.DataFrame:
+    """Seuil choisi sur les K plis de validation regroupés, appliqué au test (option B)."""
+    records = []
+    for seed, protocol, model, strategy in itertools.product(seeds, Protocol, Model, Strategy):
+        pred = load_predictions(dataset, study_name(protocol, seed, Task.clf, model, strategy))
+        valid, test = pred[pred["set"] == "valid"], pred[pred["set"] == "test"]
+        for r in COST_RATIOS:
+            threshold = best_threshold(valid["y_clf"], valid["pred"], r)
+            records.append(
+                {
+                    "protocol": protocol.value,
+                    "seed": seed,
+                    "model": model.value,
+                    "strategy": strategy.value,
+                    "cost_ratio": r,
+                    **decision_metrics(test["y_clf"], test["pred"], threshold, r),
+                }
+            )
+    return pd.DataFrame(records)
+
+
+def decision_gaps(decisions: pd.DataFrame) -> pd.DataFrame:
+    return paired_gaps(
+        decisions, ["model", "strategy", "cost_ratio"], lambda key: DECISION_METRICS
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -197,13 +292,17 @@ def main(dataset: Dataset = typer.Option(..., help="Jeu de données")):
     table = metrics_table(dataset)
     gaps = optimism_gaps(table)
     profiles = drift_profiles(dataset)
+    decisions = decision_table(dataset)
     summary = {
         "dataset": dataset.value,
         "seeds": SEEDS,
         "confidence": CONFIDENCE,
+        "cost_ratios": list(COST_RATIOS),
         "metrics": records(table),
         "optimism_gaps": records(gaps),
         "drift_profiles": records(profiles),
+        "decisions": records(decisions),
+        "decision_gaps": records(decision_gaps(decisions)),
     }
     out = RESULTS_DIR / f"{dataset.value}_evaluation.json"
     out.write_text(json.dumps(summary, indent=2, ensure_ascii=False), encoding="utf-8")
