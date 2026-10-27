@@ -73,7 +73,13 @@ def set_metrics(rows: pd.DataFrame, task: Task) -> dict:
         out = classification_metrics(rows["y_clf"], rows["pred"])
         return {**out, "n": len(rows), "prevalence": float(rows["y_clf"].mean())}
     late = rows[rows["y_clf"] == 1]
-    return {**regression_metrics(late["y_reg"], late["pred"]), "n": len(late)}
+    return {
+        **regression_metrics(late["y_reg"], late["pred"]),
+        "n": len(late),
+        # la MAE dépend de la distribution du retard : à rapporter avec elle
+        "delay_mean": float(late["y_reg"].mean()),
+        "delay_median": float(late["y_reg"].median()),
+    }
 
 
 def load_predictions(dataset: Dataset, name: str) -> pd.DataFrame:

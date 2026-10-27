@@ -29,7 +29,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -45,7 +47,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -61,7 +65,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -77,7 +83,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -93,7 +101,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -109,7 +119,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -125,7 +137,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -141,7 +155,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -157,7 +173,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -173,7 +191,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -189,7 +209,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -205,7 +227,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -221,7 +245,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -237,7 +263,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -253,7 +281,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -269,7 +299,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -285,7 +317,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -301,7 +335,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -317,7 +353,9 @@
       "mae": 6.7590808593,
       "rmse": 14.1491036454,
       "r2": -0.004877654,
-      "smape": 69.3968469672
+      "smape": 69.3968469672,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -333,7 +371,9 @@
       "mae": 5.1937499822,
       "rmse": 9.6238761617,
       "r2": 7.14889e-05,
-      "smape": 67.839694637
+      "smape": 67.839694637,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -349,7 +389,9 @@
       "mae": 6.7476964357,
       "rmse": 14.1742068085,
       "r2": -0.0084464998,
-      "smape": 69.3173524428
+      "smape": 69.3173524428,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -365,7 +407,9 @@
       "mae": 5.1699718554,
       "rmse": 9.643738326,
       "r2": -0.0040601601,
-      "smape": 67.6286762239
+      "smape": 67.6286762239,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -381,7 +425,9 @@
       "mae": 6.796034074,
       "rmse": 14.0886653824,
       "r2": 0.003688733,
-      "smape": 69.6648094938
+      "smape": 69.6648094938,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -397,7 +443,9 @@
       "mae": 5.2595630176,
       "rmse": 9.5873037409,
       "r2": 0.0076568568,
-      "smape": 68.3928722193
+      "smape": 68.3928722193,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -413,7 +461,9 @@
       "mae": 7.354815946,
       "rmse": 13.3019110235,
       "r2": 0.1118559516,
-      "smape": 73.6042166323
+      "smape": 73.6042166323,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -429,7 +479,9 @@
       "mae": 6.1960499964,
       "rmse": 9.7043073642,
       "r2": -0.0167120872,
-      "smape": 76.1827085788
+      "smape": 76.1827085788,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -445,7 +497,9 @@
       "mae": 7.4331397189,
       "rmse": 13.4702803773,
       "r2": 0.0892302372,
-      "smape": 74.1558380525
+      "smape": 74.1558380525,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -461,7 +515,9 @@
       "mae": 6.2319839948,
       "rmse": 9.7157907859,
       "r2": -0.0191197277,
-      "smape": 76.5468366008
+      "smape": 76.5468366008,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -477,7 +533,9 @@
       "mae": 7.3761484012,
       "rmse": 13.4041811723,
       "r2": 0.0981466741,
-      "smape": 73.6853188226
+      "smape": 73.6853188226,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -493,7 +551,9 @@
       "mae": 6.1817859093,
       "rmse": 9.7003148415,
       "r2": -0.0158756728,
-      "smape": 76.0607456652
+      "smape": 76.0607456652,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -509,7 +569,9 @@
       "mae": 6.4500894137,
       "rmse": 14.0586829463,
       "r2": 0.0079247699,
-      "smape": 66.1352946383
+      "smape": 66.1352946383,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -525,7 +587,9 @@
       "mae": 5.3435359236,
       "rmse": 9.7549662994,
       "r2": -0.0273547814,
-      "smape": 69.3574117265
+      "smape": 69.3574117265,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -541,7 +605,9 @@
       "mae": 6.6736469326,
       "rmse": 14.1378109637,
       "r2": -0.0032742683,
-      "smape": 68.3682078966
+      "smape": 68.3682078966,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -557,7 +623,9 @@
       "mae": 5.470366145,
       "rmse": 9.6549973857,
       "r2": -0.0064060081,
-      "smape": 70.3700224246
+      "smape": 70.3700224246,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -573,7 +641,9 @@
       "mae": 6.4643156113,
       "rmse": 13.9617598182,
       "r2": 0.0215567125,
-      "smape": 65.9392483722
+      "smape": 65.9392483722,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -589,7 +659,9 @@
       "mae": 5.3850453578,
       "rmse": 9.633925124,
       "r2": -0.0020177919,
-      "smape": 69.3477010225
+      "smape": 69.3477010225,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "random",
@@ -605,7 +677,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -621,7 +695,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -637,7 +713,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -653,7 +731,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -669,7 +749,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -685,7 +767,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -701,7 +785,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -717,7 +803,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -733,7 +821,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -749,7 +839,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -765,7 +857,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -781,7 +875,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -797,7 +893,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -813,7 +911,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -829,7 +929,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -845,7 +947,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -861,7 +965,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -877,7 +983,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -893,7 +1001,9 @@
       "mae": 6.410810226,
       "rmse": 13.4842957323,
       "r2": -0.0209248101,
-      "smape": 68.6945982432
+      "smape": 68.6945982432,
+      "delay_mean": 9.7499388902,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -909,7 +1019,9 @@
       "mae": 6.5968823703,
       "rmse": 14.0570667147,
       "r2": -0.0176787218,
-      "smape": 69.5990567543
+      "smape": 69.5990567543,
+      "delay_mean": 9.8853276353,
+      "delay_median": 7.0
     },
     {
       "protocol": "random",
@@ -925,7 +1037,9 @@
       "mae": 6.4286180674,
       "rmse": 13.3993283154,
       "r2": -0.0080992172,
-      "smape": 68.8355499414
+      "smape": 68.8355499414,
+      "delay_mean": 9.7499388902,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -941,7 +1055,9 @@
       "mae": 6.6037130482,
       "rmse": 13.9828569236,
       "r2": -0.0069620651,
-      "smape": 69.5307559896
+      "smape": 69.5307559896,
+      "delay_mean": 9.8853276353,
+      "delay_median": 7.0
     },
     {
       "protocol": "random",
@@ -957,7 +1073,9 @@
       "mae": 6.4093465209,
       "rmse": 13.4785406855,
       "r2": -0.0200535423,
-      "smape": 68.6719032032
+      "smape": 68.6719032032,
+      "delay_mean": 9.7499388902,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -973,7 +1091,9 @@
       "mae": 6.598603011,
       "rmse": 14.0513321615,
       "r2": -0.016848571,
-      "smape": 69.6421740591
+      "smape": 69.6421740591,
+      "delay_mean": 9.8853276353,
+      "delay_median": 7.0
     },
     {
       "protocol": "random",
@@ -989,7 +1109,9 @@
       "mae": 6.9590497804,
       "rmse": 12.7559949739,
       "r2": 0.0863793662,
-      "smape": 72.7316416751
+      "smape": 72.7316416751,
+      "delay_mean": 9.7499388902,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -1005,7 +1127,9 @@
       "mae": 7.3003740628,
       "rmse": 13.6722253806,
       "r2": 0.037280652,
-      "smape": 74.1940340682
+      "smape": 74.1940340682,
+      "delay_mean": 9.8853276353,
+      "delay_median": 7.0
     },
     {
       "protocol": "random",
@@ -1021,7 +1145,9 @@
       "mae": 6.8472913405,
       "rmse": 12.5155165114,
       "r2": 0.1205021634,
-      "smape": 71.8321880571
+      "smape": 71.8321880571,
+      "delay_mean": 9.7499388902,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -1037,7 +1163,9 @@
       "mae": 7.3043908105,
       "rmse": 13.6386444022,
       "r2": 0.0420040024,
-      "smape": 74.0396474623
+      "smape": 74.0396474623,
+      "delay_mean": 9.8853276353,
+      "delay_median": 7.0
     },
     {
       "protocol": "random",
@@ -1053,7 +1181,9 @@
       "mae": 6.8472913405,
       "rmse": 12.5155165114,
       "r2": 0.1205021634,
-      "smape": 71.8321880571
+      "smape": 71.8321880571,
+      "delay_mean": 9.7499388902,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -1069,7 +1199,9 @@
       "mae": 7.3043908105,
       "rmse": 13.6386444022,
       "r2": 0.0420040024,
-      "smape": 74.0396474623
+      "smape": 74.0396474623,
+      "delay_mean": 9.8853276353,
+      "delay_median": 7.0
     },
     {
       "protocol": "random",
@@ -1085,7 +1217,9 @@
       "mae": 6.1939487796,
       "rmse": 13.3113827687,
       "r2": 0.0050905316,
-      "smape": 66.0054112885
+      "smape": 66.0054112885,
+      "delay_mean": 9.7499388902,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -1101,7 +1235,9 @@
       "mae": 6.5974676263,
       "rmse": 14.0678387096,
       "r2": -0.0192390232,
-      "smape": 69.6078678558
+      "smape": 69.6078678558,
+      "delay_mean": 9.8853276353,
+      "delay_median": 7.0
     },
     {
       "protocol": "random",
@@ -1117,7 +1253,9 @@
       "mae": 6.2664863994,
       "rmse": 13.410246961,
       "r2": -0.0097428164,
-      "smape": 66.848901752
+      "smape": 66.848901752,
+      "delay_mean": 9.7499388902,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -1133,7 +1271,9 @@
       "mae": 6.571757608,
       "rmse": 14.1220517511,
       "r2": -0.0271098153,
-      "smape": 68.9780945903
+      "smape": 68.9780945903,
+      "delay_mean": 9.8853276353,
+      "delay_median": 7.0
     },
     {
       "protocol": "random",
@@ -1149,7 +1289,9 @@
       "mae": 6.2664863994,
       "rmse": 13.410246961,
       "r2": -0.0097428164,
-      "smape": 66.848901752
+      "smape": 66.848901752,
+      "delay_mean": 9.7499388902,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -1165,7 +1307,9 @@
       "mae": 6.571757608,
       "rmse": 14.1220517511,
       "r2": -0.0271098153,
-      "smape": 68.9780945903
+      "smape": 68.9780945903,
+      "delay_mean": 9.8853276353,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -1181,7 +1325,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -1197,7 +1343,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -1213,7 +1361,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -1229,7 +1379,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -1245,7 +1397,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -1261,7 +1415,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -1277,7 +1433,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -1293,7 +1451,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -1309,7 +1469,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -1325,7 +1487,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -1341,7 +1505,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -1357,7 +1523,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -1373,7 +1541,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -1389,7 +1559,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -1405,7 +1577,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -1421,7 +1595,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -1437,7 +1613,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -1453,7 +1631,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -1469,7 +1649,9 @@
       "mae": 6.7590808593,
       "rmse": 14.1491036454,
       "r2": -0.004877654,
-      "smape": 69.3968469672
+      "smape": 69.3968469672,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -1485,7 +1667,9 @@
       "mae": 5.1937499822,
       "rmse": 9.6238761617,
       "r2": 7.14889e-05,
-      "smape": 67.839694637
+      "smape": 67.839694637,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -1501,7 +1685,9 @@
       "mae": 6.7288211247,
       "rmse": 14.22819739,
       "r2": -0.0161436231,
-      "smape": 69.1556624705
+      "smape": 69.1556624705,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -1517,7 +1703,9 @@
       "mae": 5.1402330768,
       "rmse": 9.6984119198,
       "r2": -0.015477141,
-      "smape": 67.5506266483
+      "smape": 67.5506266483,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -1533,7 +1721,9 @@
       "mae": 6.767412837,
       "rmse": 14.1325953837,
       "r2": -0.002534169,
-      "smape": 69.4573308128
+      "smape": 69.4573308128,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -1549,7 +1739,9 @@
       "mae": 5.209296882,
       "rmse": 9.6134610955,
       "r2": 0.0022345854,
-      "smape": 67.9792887257
+      "smape": 67.9792887257,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -1565,7 +1757,9 @@
       "mae": 7.4500195636,
       "rmse": 13.47489055,
       "r2": 0.0886067128,
-      "smape": 74.441624999
+      "smape": 74.441624999,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -1581,7 +1775,9 @@
       "mae": 6.2905262272,
       "rmse": 9.7296839929,
       "r2": -0.0220364155,
-      "smape": 77.1714212645
+      "smape": 77.1714212645,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -1597,7 +1793,9 @@
       "mae": 7.4666118794,
       "rmse": 13.5805690726,
       "r2": 0.0742552232,
-      "smape": 74.4860634535
+      "smape": 74.4860634535,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -1613,7 +1811,9 @@
       "mae": 6.2235859714,
       "rmse": 9.6888390149,
       "r2": -0.0134734586,
-      "smape": 76.6477964724
+      "smape": 76.6477964724,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -1629,7 +1829,9 @@
       "mae": 7.4637587661,
       "rmse": 13.5533164376,
       "r2": 0.0779669484,
-      "smape": 74.4782784449
+      "smape": 74.4782784449,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -1645,7 +1847,9 @@
       "mae": 6.2415786824,
       "rmse": 9.7036964633,
       "r2": -0.0165840841,
-      "smape": 76.7689265834
+      "smape": 76.7689265834,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -1661,7 +1865,9 @@
       "mae": 6.4500894137,
       "rmse": 14.0586829463,
       "r2": 0.0079247699,
-      "smape": 66.1352946383
+      "smape": 66.1352946383,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -1677,7 +1883,9 @@
       "mae": 5.3435359236,
       "rmse": 9.7549662994,
       "r2": -0.0273547814,
-      "smape": 69.3574117265
+      "smape": 69.3574117265,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -1693,7 +1901,9 @@
       "mae": 6.1699751903,
       "rmse": 13.8538591197,
       "r2": 0.0366216841,
-      "smape": 62.6848171558
+      "smape": 62.6848171558,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -1709,7 +1919,9 @@
       "mae": 5.3641113591,
       "rmse": 9.7134818148,
       "r2": -0.0186353948,
-      "smape": 69.2341521174
+      "smape": 69.2341521174,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -1725,7 +1937,9 @@
       "mae": 6.3735198641,
       "rmse": 13.9634599503,
       "r2": 0.0213184067,
-      "smape": 64.9500781467
+      "smape": 64.9500781467,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -1741,7 +1955,9 @@
       "mae": 5.3516499934,
       "rmse": 9.6902244349,
       "r2": -0.0137633152,
-      "smape": 69.1409321944
+      "smape": 69.1409321944,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "random",
@@ -1757,7 +1973,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -1773,7 +1991,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -1789,7 +2009,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -1805,7 +2027,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -1821,7 +2045,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -1837,7 +2063,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -1853,7 +2081,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -1869,7 +2099,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -1885,7 +2117,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -1901,7 +2135,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -1917,7 +2153,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -1933,7 +2171,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -1949,7 +2189,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -1965,7 +2207,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -1981,7 +2225,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -1997,7 +2243,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -2013,7 +2261,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -2029,7 +2279,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -2045,7 +2297,9 @@
       "mae": 6.5335881288,
       "rmse": 13.8150771002,
       "r2": -0.0178127133,
-      "smape": 68.5644377785
+      "smape": 68.5644377785,
+      "delay_mean": 9.9124051872,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -2061,7 +2315,9 @@
       "mae": 6.2552183773,
       "rmse": 12.9888635156,
       "r2": -0.012562206,
-      "smape": 70.0576274658
+      "smape": 70.0576274658,
+      "delay_mean": 9.4133522727,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -2077,7 +2333,9 @@
       "mae": 6.5381661009,
       "rmse": 13.7774903247,
       "r2": -0.0122819072,
-      "smape": 68.6421919637
+      "smape": 68.6421919637,
+      "delay_mean": 9.9124051872,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -2093,7 +2351,9 @@
       "mae": 6.2652634941,
       "rmse": 12.9600800007,
       "r2": -0.0080794725,
-      "smape": 70.1391101955
+      "smape": 70.1391101955,
+      "delay_mean": 9.4133522727,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -2109,7 +2369,9 @@
       "mae": 6.5358261945,
       "rmse": 13.800129682,
       "r2": -0.015611431,
-      "smape": 68.5995245046
+      "smape": 68.5995245046,
+      "delay_mean": 9.9124051872,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -2125,7 +2387,9 @@
       "mae": 6.2546739719,
       "rmse": 12.9761380123,
       "r2": -0.0105791146,
-      "smape": 70.0540473616
+      "smape": 70.0540473616,
+      "delay_mean": 9.4133522727,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -2141,7 +2405,9 @@
       "mae": 7.1456284901,
       "rmse": 13.0908962962,
       "r2": 0.0860971952,
-      "smape": 73.199398054
+      "smape": 73.199398054,
+      "delay_mean": 9.9124051872,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -2157,7 +2423,9 @@
       "mae": 7.0592290112,
       "rmse": 12.7206851337,
       "r2": 0.0288184742,
-      "smape": 74.6887612439
+      "smape": 74.6887612439,
+      "delay_mean": 9.4133522727,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -2173,7 +2441,9 @@
       "mae": 7.0376141975,
       "rmse": 12.9299525147,
       "r2": 0.1084307012,
-      "smape": 72.293388348
+      "smape": 72.293388348,
+      "delay_mean": 9.9124051872,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -2189,7 +2459,9 @@
       "mae": 7.0544150043,
       "rmse": 12.6771835646,
       "r2": 0.0354495135,
-      "smape": 74.5261664243
+      "smape": 74.5261664243,
+      "delay_mean": 9.4133522727,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -2205,7 +2477,9 @@
       "mae": 6.9758752859,
       "rmse": 12.8494005725,
       "r2": 0.1195048225,
-      "smape": 71.7787917595
+      "smape": 71.7787917595,
+      "delay_mean": 9.9124051872,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -2221,7 +2495,9 @@
       "mae": 7.0480887983,
       "rmse": 12.6689760213,
       "r2": 0.0366980601,
-      "smape": 74.4409705264
+      "smape": 74.4409705264,
+      "delay_mean": 9.4133522727,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -2237,7 +2513,9 @@
       "mae": 6.3140740272,
       "rmse": 13.6117380682,
       "r2": 0.0119284107,
-      "smape": 65.9828534102
+      "smape": 65.9828534102,
+      "delay_mean": 9.9124051872,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -2253,7 +2531,9 @@
       "mae": 6.2257133204,
       "rmse": 13.0219655943,
       "r2": -0.0177298057,
-      "smape": 69.4843963977
+      "smape": 69.4843963977,
+      "delay_mean": 9.4133522727,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -2269,7 +2549,9 @@
       "mae": 6.2888686309,
       "rmse": 13.6712285448,
       "r2": 0.0032727487,
-      "smape": 65.430454047
+      "smape": 65.430454047,
+      "delay_mean": 9.9124051872,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -2285,7 +2567,9 @@
       "mae": 6.2325809342,
       "rmse": 13.0072783111,
       "r2": -0.0154353355,
-      "smape": 69.5571717258
+      "smape": 69.5571717258,
+      "delay_mean": 9.4133522727,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -2301,7 +2585,9 @@
       "mae": 6.4283753823,
       "rmse": 13.7782480351,
       "r2": -0.0123932537,
-      "smape": 67.1941925002
+      "smape": 67.1941925002,
+      "delay_mean": 9.9124051872,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -2317,7 +2603,9 @@
       "mae": 6.2200411052,
       "rmse": 13.0520324165,
       "r2": -0.0224349676,
-      "smape": 69.3810540588
+      "smape": 69.3810540588,
+      "delay_mean": 9.4133522727,
+      "delay_median": 6.0
     },
     {
       "protocol": "chrono",
@@ -2333,7 +2621,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -2349,7 +2639,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -2365,7 +2657,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -2381,7 +2675,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -2397,7 +2693,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -2413,7 +2711,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -2429,7 +2729,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -2445,7 +2747,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -2461,7 +2765,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -2477,7 +2783,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -2493,7 +2801,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -2509,7 +2819,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -2525,7 +2837,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -2541,7 +2855,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -2557,7 +2873,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -2573,7 +2891,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -2589,7 +2909,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -2605,7 +2927,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -2621,7 +2945,9 @@
       "mae": 6.7590808593,
       "rmse": 14.1491036454,
       "r2": -0.004877654,
-      "smape": 69.3968469672
+      "smape": 69.3968469672,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -2637,7 +2963,9 @@
       "mae": 5.1937499822,
       "rmse": 9.6238761617,
       "r2": 7.14889e-05,
-      "smape": 67.839694637
+      "smape": 67.839694637,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -2653,7 +2981,9 @@
       "mae": 6.7394098478,
       "rmse": 14.1920019675,
       "r2": -0.0109802191,
-      "smape": 69.2525030834
+      "smape": 69.2525030834,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -2669,7 +2999,9 @@
       "mae": 5.1583851597,
       "rmse": 9.6657521758,
       "r2": -0.0086493466,
-      "smape": 67.6117949199
+      "smape": 67.6117949199,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -2685,7 +3017,9 @@
       "mae": 6.7808154949,
       "rmse": 14.1106487817,
       "r2": 0.0005770974,
-      "smape": 69.5545133414
+      "smape": 69.5545133414,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -2701,7 +3035,9 @@
       "mae": 5.2334417424,
       "rmse": 9.598924212,
       "r2": 0.0052498227,
-      "smape": 68.1771918494
+      "smape": 68.1771918494,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -2717,7 +3053,9 @@
       "mae": 7.462309849,
       "rmse": 13.4504521069,
       "r2": 0.0919095724,
-      "smape": 74.5358407873
+      "smape": 74.5358407873,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -2733,7 +3071,9 @@
       "mae": 6.3072198635,
       "rmse": 9.7369842574,
       "r2": -0.0235706761,
-      "smape": 77.2489542543
+      "smape": 77.2489542543,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -2749,7 +3089,9 @@
       "mae": 7.4082676517,
       "rmse": 13.4210727774,
       "r2": 0.0958722571,
-      "smape": 74.0309418219
+      "smape": 74.0309418219,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -2765,7 +3107,9 @@
       "mae": 6.1764329681,
       "rmse": 9.6999717248,
       "r2": -0.0158038076,
-      "smape": 76.0923000619
+      "smape": 76.0923000619,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -2781,7 +3125,9 @@
       "mae": 7.4909455521,
       "rmse": 13.5892197124,
       "r2": 0.0730754736,
-      "smape": 74.6302640972
+      "smape": 74.6302640972,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -2797,7 +3143,9 @@
       "mae": 6.2566824159,
       "rmse": 9.7078192238,
       "r2": -0.0174480895,
-      "smape": 76.8288622367
+      "smape": 76.8288622367,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -2813,7 +3161,9 @@
       "mae": 6.4500894137,
       "rmse": 14.0586829463,
       "r2": 0.0079247699,
-      "smape": 66.1352946383
+      "smape": 66.1352946383,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -2829,7 +3179,9 @@
       "mae": 5.3435359236,
       "rmse": 9.7549662994,
       "r2": -0.0273547814,
-      "smape": 69.3574117265
+      "smape": 69.3574117265,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -2845,7 +3197,9 @@
       "mae": 6.2871412325,
       "rmse": 13.8239098957,
       "r2": 0.0407824376,
-      "smape": 64.0676862534
+      "smape": 64.0676862534,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -2861,7 +3215,9 @@
       "mae": 5.2815511008,
       "rmse": 9.7111475388,
       "r2": -0.018145871,
-      "smape": 68.4254082682
+      "smape": 68.4254082682,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -2877,7 +3233,9 @@
       "mae": 6.4164406408,
       "rmse": 13.9342382522,
       "r2": 0.0254103458,
-      "smape": 65.4066434132
+      "smape": 65.4066434132,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -2893,7 +3251,9 @@
       "mae": 5.3049307256,
       "rmse": 9.6193269189,
       "r2": 0.0010166055,
-      "smape": 68.6171293233
+      "smape": 68.6171293233,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "random",
@@ -2909,7 +3269,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -2925,7 +3287,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -2941,7 +3305,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -2957,7 +3323,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -2973,7 +3341,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -2989,7 +3359,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -3005,7 +3377,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -3021,7 +3395,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -3037,7 +3413,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -3053,7 +3431,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -3069,7 +3449,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -3085,7 +3467,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -3101,7 +3485,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -3117,7 +3503,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -3133,7 +3521,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -3149,7 +3539,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -3165,7 +3557,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -3181,7 +3575,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -3197,7 +3593,9 @@
       "mae": 6.4521431534,
       "rmse": 13.5102777032,
       "r2": -0.0124958787,
-      "smape": 68.8366758859
+      "smape": 68.8366758859,
+      "delay_mean": 9.8016204272,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -3213,7 +3611,9 @@
       "mae": 6.4811213485,
       "rmse": 13.88522313,
       "r2": -0.026924854,
-      "smape": 68.9193874312
+      "smape": 68.9193874312,
+      "delay_mean": 9.735583685,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -3229,7 +3629,9 @@
       "mae": 6.4546872988,
       "rmse": 13.4905165173,
       "r2": -0.0095361339,
-      "smape": 68.859762001
+      "smape": 68.859762001,
+      "delay_mean": 9.8016204272,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -3245,7 +3647,9 @@
       "mae": 6.4894748891,
       "rmse": 13.8632468713,
       "r2": -0.0236767813,
-      "smape": 68.9706834162
+      "smape": 68.9706834162,
+      "delay_mean": 9.735583685,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -3261,7 +3665,9 @@
       "mae": 6.4543412702,
       "rmse": 13.4987302889,
       "r2": -0.0107658309,
-      "smape": 68.8630860418
+      "smape": 68.8630860418,
+      "delay_mean": 9.8016204272,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -3277,7 +3683,9 @@
       "mae": 6.4839677754,
       "rmse": 13.871661485,
       "r2": -0.0249198464,
-      "smape": 68.922391847
+      "smape": 68.922391847,
+      "delay_mean": 9.735583685,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -3293,7 +3701,9 @@
       "mae": 7.0519474458,
       "rmse": 12.8654065628,
       "r2": 0.0818540094,
-      "smape": 73.1705772939
+      "smape": 73.1705772939,
+      "delay_mean": 9.8016204272,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -3309,7 +3719,9 @@
       "mae": 7.2432550908,
       "rmse": 13.4055961385,
       "r2": 0.0427944636,
-      "smape": 74.1676825872
+      "smape": 74.1676825872,
+      "delay_mean": 9.735583685,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -3325,7 +3737,9 @@
       "mae": 6.7393354848,
       "rmse": 12.3993193652,
       "r2": 0.1471740547,
-      "smape": 70.6544232477
+      "smape": 70.6544232477,
+      "delay_mean": 9.8016204272,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -3341,7 +3755,9 @@
       "mae": 7.2459458849,
       "rmse": 13.3461017792,
       "r2": 0.051271813,
-      "smape": 73.8824593395
+      "smape": 73.8824593395,
+      "delay_mean": 9.735583685,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -3357,7 +3773,9 @@
       "mae": 6.9833228127,
       "rmse": 12.7705358859,
       "r2": 0.0953450671,
-      "smape": 72.6015615396
+      "smape": 72.6015615396,
+      "delay_mean": 9.8016204272,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -3373,7 +3791,9 @@
       "mae": 7.240275271,
       "rmse": 13.3779420949,
       "r2": 0.0467395774,
-      "smape": 74.058332342
+      "smape": 74.058332342,
+      "delay_mean": 9.735583685,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -3389,7 +3809,9 @@
       "mae": 6.2281464956,
       "rmse": 13.3908887153,
       "r2": 0.0053197066,
-      "smape": 65.8633834861
+      "smape": 65.8633834861,
+      "delay_mean": 9.8016204272,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -3405,7 +3827,9 @@
       "mae": 6.5235831743,
       "rmse": 13.8939856476,
       "r2": -0.0282213814,
-      "smape": 69.4364330036
+      "smape": 69.4364330036,
+      "delay_mean": 9.735583685,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -3421,7 +3845,9 @@
       "mae": 6.3451984528,
       "rmse": 13.5467189981,
       "r2": -0.0179652587,
-      "smape": 67.4095955987
+      "smape": 67.4095955987,
+      "delay_mean": 9.8016204272,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -3437,7 +3863,9 @@
       "mae": 6.4682503211,
       "rmse": 13.9228393242,
       "r2": -0.0324964359,
-      "smape": 68.6971492456
+      "smape": 68.6971492456,
+      "delay_mean": 9.735583685,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -3453,7 +3881,9 @@
       "mae": 6.3451984528,
       "rmse": 13.5467189981,
       "r2": -0.0179652587,
-      "smape": 67.4095955987
+      "smape": 67.4095955987,
+      "delay_mean": 9.8016204272,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -3469,7 +3899,9 @@
       "mae": 6.4682503211,
       "rmse": 13.9228393242,
       "r2": -0.0324964359,
-      "smape": 68.6971492456
+      "smape": 68.6971492456,
+      "delay_mean": 9.735583685,
+      "delay_median": 6.0
     },
     {
       "protocol": "chrono",
@@ -3485,7 +3917,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -3501,7 +3935,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -3517,7 +3953,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -3533,7 +3971,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -3549,7 +3989,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -3565,7 +4007,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -3581,7 +4025,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -3597,7 +4043,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -3613,7 +4061,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -3629,7 +4079,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -3645,7 +4097,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -3661,7 +4115,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -3677,7 +4133,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -3693,7 +4151,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -3709,7 +4169,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -3725,7 +4187,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -3741,7 +4205,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -3757,7 +4223,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -3773,7 +4241,9 @@
       "mae": 6.7590808593,
       "rmse": 14.1491036454,
       "r2": -0.004877654,
-      "smape": 69.3968469672
+      "smape": 69.3968469672,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -3789,7 +4259,9 @@
       "mae": 5.1937499822,
       "rmse": 9.6238761617,
       "r2": 7.14889e-05,
-      "smape": 67.839694637
+      "smape": 67.839694637,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -3805,7 +4277,9 @@
       "mae": 6.7415910595,
       "rmse": 14.1844372479,
       "r2": -0.009902747,
-      "smape": 69.2668629167
+      "smape": 69.2668629167,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -3821,7 +4295,9 @@
       "mae": 5.1631171403,
       "rmse": 9.6607082105,
       "r2": -0.0075969164,
-      "smape": 67.6571663058
+      "smape": 67.6571663058,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -3837,7 +4313,9 @@
       "mae": 6.7807170303,
       "rmse": 14.1093613322,
       "r2": 0.0007594629,
-      "smape": 69.5528917138
+      "smape": 69.5528917138,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -3853,7 +4331,9 @@
       "mae": 5.2339462671,
       "rmse": 9.5999795623,
       "r2": 0.0050310758,
-      "smape": 68.2007654326
+      "smape": 68.2007654326,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -3869,7 +4349,9 @@
       "mae": 7.4600094065,
       "rmse": 13.4703634819,
       "r2": 0.0892189993,
-      "smape": 74.4856349141
+      "smape": 74.4856349141,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -3885,7 +4367,9 @@
       "mae": 6.2433561766,
       "rmse": 9.7195755011,
       "r2": -0.0199138636,
-      "smape": 76.712236135
+      "smape": 76.712236135,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -3901,7 +4385,9 @@
       "mae": 7.236181404,
       "rmse": 13.3697624881,
       "r2": 0.1027722088,
-      "smape": 72.551353085
+      "smape": 72.551353085,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -3917,7 +4403,9 @@
       "mae": 6.1086244281,
       "rmse": 9.6815663779,
       "r2": -0.0119525626,
-      "smape": 75.4510250616
+      "smape": 75.4510250616,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -3933,7 +4421,9 @@
       "mae": 7.236181404,
       "rmse": 13.3697624881,
       "r2": 0.1027722088,
-      "smape": 72.551353085
+      "smape": 72.551353085,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -3949,7 +4439,9 @@
       "mae": 6.1086244281,
       "rmse": 9.6815663779,
       "r2": -0.0119525626,
-      "smape": 75.4510250616
+      "smape": 75.4510250616,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -3965,7 +4457,9 @@
       "mae": 6.4500894137,
       "rmse": 14.0586829463,
       "r2": 0.0079247699,
-      "smape": 66.1352946383
+      "smape": 66.1352946383,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -3981,7 +4475,9 @@
       "mae": 5.3435359236,
       "rmse": 9.7549662994,
       "r2": -0.0273547814,
-      "smape": 69.3574117265
+      "smape": 69.3574117265,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -3997,7 +4493,9 @@
       "mae": 6.4781680663,
       "rmse": 14.107618089,
       "r2": 0.0010063645,
-      "smape": 66.2054334096
+      "smape": 66.2054334096,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -4013,7 +4511,9 @@
       "mae": 5.2216994121,
       "rmse": 9.7156903133,
       "r2": -0.01909865,
-      "smape": 68.1932297071
+      "smape": 68.1932297071,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -4029,7 +4529,9 @@
       "mae": 6.2042774033,
       "rmse": 13.881102731,
       "r2": 0.0328289921,
-      "smape": 63.0512135711
+      "smape": 63.0512135711,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -4045,7 +4547,9 @@
       "mae": 5.3190074746,
       "rmse": 9.7025218779,
       "r2": -0.0163379938,
-      "smape": 68.8462968464
+      "smape": 68.8462968464,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "random",
@@ -4061,7 +4565,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -4077,7 +4583,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -4093,7 +4601,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -4109,7 +4619,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -4125,7 +4637,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -4141,7 +4655,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -4157,7 +4673,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -4173,7 +4691,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -4189,7 +4709,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -4205,7 +4727,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -4221,7 +4745,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -4237,7 +4763,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -4253,7 +4781,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -4269,7 +4799,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -4285,7 +4817,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -4301,7 +4835,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -4317,7 +4853,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -4333,7 +4871,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -4349,7 +4889,9 @@
       "mae": 6.5286503965,
       "rmse": 14.0734824807,
       "r2": -0.0186230387,
-      "smape": 68.7398711649
+      "smape": 68.7398711649,
+      "delay_mean": 9.8548026806,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -4365,7 +4907,9 @@
       "mae": 6.2682188691,
       "rmse": 12.406316179,
       "r2": -0.0362129802,
-      "smape": 69.4477018342
+      "smape": 69.4477018342,
+      "delay_mean": 9.5914051842,
+      "delay_median": 7.0
     },
     {
       "protocol": "random",
@@ -4381,7 +4925,9 @@
       "mae": 6.54268889,
       "rmse": 14.0129242926,
       "r2": -0.0098756304,
-      "smape": 68.8854071323
+      "smape": 68.8854071323,
+      "delay_mean": 9.8548026806,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -4397,7 +4943,9 @@
       "mae": 6.2754972439,
       "rmse": 12.3406144783,
       "r2": -0.0252668329,
-      "smape": 69.3457911962
+      "smape": 69.3457911962,
+      "delay_mean": 9.5914051842,
+      "delay_median": 7.0
     },
     {
       "protocol": "random",
@@ -4413,7 +4961,9 @@
       "mae": 6.5328371695,
       "rmse": 14.054525831,
       "r2": -0.0158807643,
-      "smape": 68.7982955759
+      "smape": 68.7982955759,
+      "delay_mean": 9.8548026806,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -4429,7 +4979,9 @@
       "mae": 6.2673297429,
       "rmse": 12.3836100329,
       "r2": -0.0324234794,
-      "smape": 69.3695654787
+      "smape": 69.3695654787,
+      "delay_mean": 9.5914051842,
+      "delay_median": 7.0
     },
     {
       "protocol": "random",
@@ -4445,7 +4997,9 @@
       "mae": 7.1399559803,
       "rmse": 13.3357170393,
       "r2": 0.0853749646,
-      "smape": 73.279614392
+      "smape": 73.279614392,
+      "delay_mean": 9.8548026806,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -4461,7 +5015,9 @@
       "mae": 6.865460477,
       "rmse": 11.9326535466,
       "r2": 0.0414000523,
-      "smape": 73.0739171528
+      "smape": 73.0739171528,
+      "delay_mean": 9.5914051842,
+      "delay_median": 7.0
     },
     {
       "protocol": "random",
@@ -4477,7 +5033,9 @@
       "mae": 7.0358717177,
       "rmse": 13.118441335,
       "r2": 0.1149357152,
-      "smape": 72.3900033126
+      "smape": 72.3900033126,
+      "delay_mean": 9.8548026806,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -4493,7 +5051,9 @@
       "mae": 6.8868892612,
       "rmse": 11.9346939433,
       "r2": 0.0410721971,
-      "smape": 73.0494915407
+      "smape": 73.0494915407,
+      "delay_mean": 9.5914051842,
+      "delay_median": 7.0
     },
     {
       "protocol": "random",
@@ -4509,7 +5069,9 @@
       "mae": 6.9332169517,
       "rmse": 12.9688107756,
       "r2": 0.1350108734,
-      "smape": 71.5554696295
+      "smape": 71.5554696295,
+      "delay_mean": 9.8548026806,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -4525,7 +5087,9 @@
       "mae": 6.8919363061,
       "rmse": 11.9656414202,
       "r2": 0.0360926186,
-      "smape": 72.9769970717
+      "smape": 72.9769970717,
+      "delay_mean": 9.5914051842,
+      "delay_median": 7.0
     },
     {
       "protocol": "random",
@@ -4541,7 +5105,9 @@
       "mae": 6.3012851116,
       "rmse": 13.8905999922,
       "r2": 0.007678614,
-      "smape": 66.093065613
+      "smape": 66.093065613,
+      "delay_mean": 9.8548026806,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -4557,7 +5123,9 @@
       "mae": 6.2506470242,
       "rmse": 12.3766166657,
       "r2": -0.0312577325,
-      "smape": 69.0571236241
+      "smape": 69.0571236241,
+      "delay_mean": 9.5914051842,
+      "delay_median": 7.0
     },
     {
       "protocol": "random",
@@ -4573,7 +5141,9 @@
       "mae": 6.364462201,
       "rmse": 14.0419837853,
       "r2": -0.0140684601,
-      "smape": 66.604378868
+      "smape": 66.604378868,
+      "delay_mean": 9.8548026806,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -4589,7 +5159,9 @@
       "mae": 6.2366773876,
       "rmse": 12.3878204357,
       "r2": -0.0331256427,
-      "smape": 68.8433624153
+      "smape": 68.8433624153,
+      "delay_mean": 9.5914051842,
+      "delay_median": 7.0
     },
     {
       "protocol": "random",
@@ -4605,7 +5177,9 @@
       "mae": 6.4286082105,
       "rmse": 14.08004761,
       "r2": -0.0195736139,
-      "smape": 67.4209479417
+      "smape": 67.4209479417,
+      "delay_mean": 9.8548026806,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -4621,7 +5195,9 @@
       "mae": 6.2460510723,
       "rmse": 12.3855934562,
       "r2": -0.0327542226,
-      "smape": 68.9885708152
+      "smape": 68.9885708152,
+      "delay_mean": 9.5914051842,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -4637,7 +5213,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -4653,7 +5231,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -4669,7 +5249,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -4685,7 +5267,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -4701,7 +5285,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -4717,7 +5303,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -4733,7 +5321,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -4749,7 +5339,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -4765,7 +5357,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -4781,7 +5375,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -4797,7 +5393,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -4813,7 +5411,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -4829,7 +5429,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -4845,7 +5447,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -4861,7 +5465,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -4877,7 +5483,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -4893,7 +5501,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -4909,7 +5519,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "chrono",
@@ -4925,7 +5537,9 @@
       "mae": 6.7590808593,
       "rmse": 14.1491036454,
       "r2": -0.004877654,
-      "smape": 69.3968469672
+      "smape": 69.3968469672,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -4941,7 +5555,9 @@
       "mae": 5.1937499822,
       "rmse": 9.6238761617,
       "r2": 7.14889e-05,
-      "smape": 67.839694637
+      "smape": 67.839694637,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -4957,7 +5573,9 @@
       "mae": 6.7238531171,
       "rmse": 14.2593369325,
       "r2": -0.0205963127,
-      "smape": 69.1029766243
+      "smape": 69.1029766243,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -4973,7 +5591,9 @@
       "mae": 5.1243983931,
       "rmse": 9.70732552,
       "r2": -0.0173446048,
-      "smape": 67.3352012755
+      "smape": 67.3352012755,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -4989,7 +5609,9 @@
       "mae": 6.7417945084,
       "rmse": 14.1896695674,
       "r2": -0.0106479451,
-      "smape": 69.2738154426
+      "smape": 69.2738154426,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -5005,7 +5627,9 @@
       "mae": 5.1586331537,
       "rmse": 9.6573887747,
       "r2": -0.0069046114,
-      "smape": 67.5383858895
+      "smape": 67.5383858895,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -5021,7 +5645,9 @@
       "mae": 7.4793438024,
       "rmse": 13.479478552,
       "r2": 0.0879859751,
-      "smape": 74.5891193353
+      "smape": 74.5891193353,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -5037,7 +5663,9 @@
       "mae": 6.2827564303,
       "rmse": 9.7203498277,
       "r2": -0.0200763764,
-      "smape": 76.9954103782
+      "smape": 76.9954103782,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -5053,7 +5681,9 @@
       "mae": 7.2504376508,
       "rmse": 13.3747194634,
       "r2": 0.1021067728,
-      "smape": 72.6497831582
+      "smape": 72.6497831582,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -5069,7 +5699,9 @@
       "mae": 6.1758795844,
       "rmse": 9.6978881171,
       "r2": -0.0153674539,
-      "smape": 75.9163123235
+      "smape": 75.9163123235,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -5085,7 +5717,9 @@
       "mae": 7.2662743456,
       "rmse": 13.3721407599,
       "r2": 0.1024529748,
-      "smape": 72.7777062151
+      "smape": 72.7777062151,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -5101,7 +5735,9 @@
       "mae": 6.1937153852,
       "rmse": 9.7301548906,
       "r2": -0.0221353471,
-      "smape": 75.982571971
+      "smape": 75.982571971,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -5117,7 +5753,9 @@
       "mae": 6.4500894137,
       "rmse": 14.0586829463,
       "r2": 0.0079247699,
-      "smape": 66.1352946383
+      "smape": 66.1352946383,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -5133,7 +5771,9 @@
       "mae": 5.3435359236,
       "rmse": 9.7549662994,
       "r2": -0.0273547814,
-      "smape": 69.3574117265
+      "smape": 69.3574117265,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -5149,7 +5789,9 @@
       "mae": 6.5668554352,
       "rmse": 14.2030457123,
       "r2": -0.0125542538,
-      "smape": 67.264234487
+      "smape": 67.264234487,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -5165,7 +5807,9 @@
       "mae": 5.2865412508,
       "rmse": 9.6963836226,
       "r2": -0.0150524376,
-      "smape": 68.5774742026
+      "smape": 68.5774742026,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "chrono",
@@ -5181,7 +5825,9 @@
       "mae": 6.3067071933,
       "rmse": 13.8645570446,
       "r2": 0.0351332717,
-      "smape": 64.3141057249
+      "smape": 64.3141057249,
+      "delay_mean": 10.1830893598,
+      "delay_median": 7.0
     },
     {
       "protocol": "chrono",
@@ -5197,7 +5843,9 @@
       "mae": 5.4375911922,
       "rmse": 9.6389477643,
       "r2": -0.0030628669,
-      "smape": 69.9437928854
+      "smape": 69.9437928854,
+      "delay_mean": 7.7973856209,
+      "delay_median": 5.0
     },
     {
       "protocol": "random",
@@ -5213,7 +5861,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -5229,7 +5879,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -5245,7 +5897,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -5261,7 +5915,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -5277,7 +5933,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -5293,7 +5951,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -5309,7 +5969,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -5325,7 +5987,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -5341,7 +6005,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -5357,7 +6023,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -5373,7 +6041,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -5389,7 +6059,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -5405,7 +6077,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -5421,7 +6095,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -5437,7 +6113,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -5453,7 +6131,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -5469,7 +6149,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -5485,7 +6167,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "protocol": "random",
@@ -5501,7 +6185,9 @@
       "mae": 6.4033388419,
       "rmse": 13.8057184266,
       "r2": -0.0234837177,
-      "smape": 68.2619509828
+      "smape": 68.2619509828,
+      "delay_mean": 9.7183168317,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -5517,7 +6203,9 @@
       "mae": 6.6341257001,
       "rmse": 13.3146035177,
       "r2": -0.0366442459,
-      "smape": 70.8883384826
+      "smape": 70.8883384826,
+      "delay_mean": 9.9683848797,
+      "delay_median": 7.0
     },
     {
       "protocol": "random",
@@ -5533,7 +6221,9 @@
       "mae": 6.4040185562,
       "rmse": 13.7997796577,
       "r2": -0.0226033686,
-      "smape": 68.2745081583
+      "smape": 68.2745081583,
+      "delay_mean": 9.7183168317,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -5549,7 +6239,9 @@
       "mae": 6.6338622535,
       "rmse": 13.3120108777,
       "r2": -0.0362405712,
-      "smape": 70.8746637949
+      "smape": 70.8746637949,
+      "delay_mean": 9.9683848797,
+      "delay_median": 7.0
     },
     {
       "protocol": "random",
@@ -5565,7 +6257,9 @@
       "mae": 6.4048970518,
       "rmse": 13.7967427366,
       "r2": -0.0221533289,
-      "smape": 68.2904197658
+      "smape": 68.2904197658,
+      "delay_mean": 9.7183168317,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -5581,7 +6275,9 @@
       "mae": 6.6316981763,
       "rmse": 13.3086036987,
       "r2": -0.0357101923,
-      "smape": 70.8393551084
+      "smape": 70.8393551084,
+      "delay_mean": 9.9683848797,
+      "delay_median": 7.0
     },
     {
       "protocol": "random",
@@ -5597,7 +6293,9 @@
       "mae": 7.0103172641,
       "rmse": 13.0895433524,
       "r2": 0.0799489896,
-      "smape": 72.9856862342
+      "smape": 72.9856862342,
+      "delay_mean": 9.7183168317,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -5613,7 +6311,9 @@
       "mae": 7.1867169093,
       "rmse": 12.7465204226,
       "r2": 0.0499279178,
-      "smape": 73.7251280022
+      "smape": 73.7251280022,
+      "delay_mean": 9.9683848797,
+      "delay_median": 7.0
     },
     {
       "protocol": "random",
@@ -5629,7 +6329,9 @@
       "mae": 6.944989687,
       "rmse": 12.9902006817,
       "r2": 0.0938613901,
-      "smape": 72.4194887752
+      "smape": 72.4194887752,
+      "delay_mean": 9.7183168317,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -5645,7 +6347,9 @@
       "mae": 7.202847671,
       "rmse": 12.7222056253,
       "r2": 0.0535491064,
-      "smape": 73.6969086852
+      "smape": 73.6969086852,
+      "delay_mean": 9.9683848797,
+      "delay_median": 7.0
     },
     {
       "protocol": "random",
@@ -5661,7 +6365,9 @@
       "mae": 6.944989687,
       "rmse": 12.9902006817,
       "r2": 0.0938613901,
-      "smape": 72.4194887752
+      "smape": 72.4194887752,
+      "delay_mean": 9.7183168317,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -5677,7 +6383,9 @@
       "mae": 7.202847671,
       "rmse": 12.7222056253,
       "r2": 0.0535491064,
-      "smape": 73.6969086852
+      "smape": 73.6969086852,
+      "delay_mean": 9.9683848797,
+      "delay_median": 7.0
     },
     {
       "protocol": "random",
@@ -5693,7 +6401,9 @@
       "mae": 6.1963975744,
       "rmse": 13.6368534996,
       "r2": 0.0014006828,
-      "smape": 65.6036193551
+      "smape": 65.6036193551,
+      "delay_mean": 9.7183168317,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -5709,7 +6419,9 @@
       "mae": 6.6491949836,
       "rmse": 13.3094624012,
       "r2": -0.0358438495,
-      "smape": 70.7289189502
+      "smape": 70.7289189502,
+      "delay_mean": 9.9683848797,
+      "delay_median": 7.0
     },
     {
       "protocol": "random",
@@ -5725,7 +6437,9 @@
       "mae": 6.2523884301,
       "rmse": 13.7175702146,
       "r2": -0.0104557478,
-      "smape": 66.4491280508
+      "smape": 66.4491280508,
+      "delay_mean": 9.7183168317,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -5741,7 +6455,9 @@
       "mae": 6.6066896385,
       "rmse": 13.2938782314,
       "r2": -0.0334195118,
-      "smape": 70.3664684123
+      "smape": 70.3664684123,
+      "delay_mean": 9.9683848797,
+      "delay_median": 7.0
     },
     {
       "protocol": "random",
@@ -5757,7 +6473,9 @@
       "mae": 6.2704320247,
       "rmse": 13.7431273311,
       "r2": -0.0142244023,
-      "smape": 66.5789534598
+      "smape": 66.5789534598,
+      "delay_mean": 9.7183168317,
+      "delay_median": 6.0
     },
     {
       "protocol": "random",
@@ -5773,7 +6491,9 @@
       "mae": 6.5906550217,
       "rmse": 13.3162350895,
       "r2": -0.0368983222,
-      "smape": 70.0470085807
+      "smape": 70.0470085807,
+      "delay_mean": 9.9683848797,
+      "delay_median": 7.0
     }
   ],
   "optimism_gaps": [
@@ -6871,7 +7591,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -6885,7 +7607,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -6899,7 +7623,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -6913,7 +7639,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -6927,7 +7655,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -6941,7 +7671,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -6955,7 +7687,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -6969,7 +7703,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -6983,7 +7719,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -6997,7 +7735,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7011,7 +7751,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7025,7 +7767,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7039,7 +7783,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7053,7 +7799,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7067,7 +7815,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7081,7 +7831,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7095,7 +7847,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7109,7 +7863,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7123,7 +7879,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7137,7 +7895,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7151,7 +7911,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7165,7 +7927,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7179,7 +7943,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7193,7 +7959,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7207,7 +7975,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7221,7 +7991,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7235,7 +8007,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7249,7 +8023,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7263,7 +8039,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7277,7 +8055,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7291,7 +8071,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7305,7 +8087,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7319,7 +8103,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7333,7 +8119,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7347,7 +8135,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7361,7 +8151,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7375,7 +8167,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7389,7 +8183,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7403,7 +8199,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7417,7 +8215,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7431,7 +8231,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7445,7 +8247,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7459,7 +8263,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7473,7 +8279,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "clf",
@@ -7487,7 +8295,9 @@
       "mae": null,
       "rmse": null,
       "r2": null,
-      "smape": null
+      "smape": null,
+      "delay_mean": null,
+      "delay_median": null
     },
     {
       "task": "reg",
@@ -7501,7 +8311,9 @@
       "mae": 5.8824439319,
       "rmse": 8.4852768449,
       "r2": -0.0007800102,
-      "smape": 71.9852708241
+      "smape": 71.9852708241,
+      "delay_mean": 8.7176470588,
+      "delay_median": 6.0
     },
     {
       "task": "reg",
@@ -7515,7 +8327,9 @@
       "mae": 4.5480702114,
       "rmse": 8.9087834401,
       "r2": 0.0070574369,
-      "smape": 65.0934208163
+      "smape": 65.0934208163,
+      "delay_mean": 7.1038374718,
+      "delay_median": 5.0
     },
     {
       "task": "reg",
@@ -7529,7 +8343,9 @@
       "mae": 9.3323144129,
       "rmse": 16.9183599253,
       "r2": -0.1377320423,
-      "smape": 76.0905519115
+      "smape": 76.0905519115,
+      "delay_mean": 13.3521126761,
+      "delay_median": 8.0
     },
     {
       "task": "reg",
@@ -7543,7 +8359,9 @@
       "mae": 5.8581975631,
       "rmse": 10.0437126693,
       "r2": -0.0620280019,
-      "smape": 70.6513026117
+      "smape": 70.6513026117,
+      "delay_mean": 8.4230769231,
+      "delay_median": 6.0
     },
     {
       "task": "reg",
@@ -7557,7 +8375,9 @@
       "mae": 3.3509930574,
       "rmse": 4.6887638237,
       "r2": 0.0403829638,
-      "smape": 65.0793342898
+      "smape": 65.0793342898,
+      "delay_mean": 5.1351351351,
+      "delay_median": 4.0
     },
     {
       "task": "reg",
@@ -7571,7 +8391,9 @@
       "mae": 5.8513358878,
       "rmse": 8.5520324409,
       "r2": -0.0166063613,
-      "smape": 71.7924187822
+      "smape": 71.7924187822,
+      "delay_mean": 8.7176470588,
+      "delay_median": 6.0
     },
     {
       "task": "reg",
@@ -7585,7 +8407,9 @@
       "mae": 4.5154176966,
       "rmse": 8.9522466891,
       "r2": -0.0026600955,
-      "smape": 65.0012136679
+      "smape": 65.0012136679,
+      "delay_mean": 7.1038374718,
+      "delay_median": 5.0
     },
     {
       "task": "reg",
@@ -7599,7 +8423,9 @@
       "mae": 9.3454046703,
       "rmse": 17.0044040544,
       "r2": -0.1493397617,
-      "smape": 76.5711997418
+      "smape": 76.5711997418,
+      "delay_mean": 13.3521126761,
+      "delay_median": 8.0
     },
     {
       "task": "reg",
@@ -7613,7 +8439,9 @@
       "mae": 5.8177005611,
       "rmse": 10.1107240874,
       "r2": -0.0762567838,
-      "smape": 70.4136099863
+      "smape": 70.4136099863,
+      "delay_mean": 8.4230769231,
+      "delay_median": 6.0
     },
     {
       "task": "reg",
@@ -7627,7 +8455,9 @@
       "mae": 3.2209185085,
       "rmse": 4.6697408976,
       "r2": 0.0481480425,
-      "smape": 63.392476868
+      "smape": 63.392476868,
+      "delay_mean": 5.1351351351,
+      "delay_median": 4.0
     },
     {
       "task": "reg",
@@ -7641,7 +8471,9 @@
       "mae": 5.9032264327,
       "rmse": 8.465707791,
       "r2": 0.0038153362,
-      "smape": 72.1320636399
+      "smape": 72.1320636399,
+      "delay_mean": 8.7176470588,
+      "delay_median": 6.0
     },
     {
       "task": "reg",
@@ -7655,7 +8487,9 @@
       "mae": 4.5724551498,
       "rmse": 8.9035629653,
       "r2": 0.0082173095,
-      "smape": 65.2694383041
+      "smape": 65.2694383041,
+      "delay_mean": 7.1038374718,
+      "delay_median": 5.0
     },
     {
       "task": "reg",
@@ -7669,7 +8503,9 @@
       "mae": 9.3276817967,
       "rmse": 16.8775903084,
       "r2": -0.1322685546,
-      "smape": 75.9816707702
+      "smape": 75.9816707702,
+      "delay_mean": 13.3521126761,
+      "delay_median": 8.0
     },
     {
       "task": "reg",
@@ -7683,7 +8519,9 @@
       "mae": 5.8798015113,
       "rmse": 10.0254997496,
       "r2": -0.0581918284,
-      "smape": 70.8041747949
+      "smape": 70.8041747949,
+      "delay_mean": 8.4230769231,
+      "delay_median": 6.0
     },
     {
       "task": "reg",
@@ -7697,7 +8535,9 @@
       "mae": 3.4088663341,
       "rmse": 4.7107442984,
       "r2": 0.0313388505,
-      "smape": 65.8505927537
+      "smape": 65.8505927537,
+      "delay_mean": 5.1351351351,
+      "delay_median": 4.0
     },
     {
       "task": "reg",
@@ -7711,7 +8551,9 @@
       "mae": 6.7525729072,
       "rmse": 8.6070255487,
       "r2": -0.0297106858,
-      "smape": 78.6280091927
+      "smape": 78.6280091927,
+      "delay_mean": 8.7176470588,
+      "delay_median": 6.0
     },
     {
       "task": "reg",
@@ -7725,7 +8567,9 @@
       "mae": 5.7092013981,
       "rmse": 9.2417649392,
       "r2": -0.0685596066,
-      "smape": 74.2147879198
+      "smape": 74.2147879198,
+      "delay_mean": 7.1038374718,
+      "delay_median": 5.0
     },
     {
       "task": "reg",
@@ -7739,7 +8583,9 @@
       "mae": 9.7664085436,
       "rmse": 16.3314013136,
       "r2": -0.0601652265,
-      "smape": 78.8177196323
+      "smape": 78.8177196323,
+      "delay_mean": 13.3521126761,
+      "delay_median": 8.0
     },
     {
       "task": "reg",
@@ -7753,7 +8599,9 @@
       "mae": 6.7297243404,
       "rmse": 9.7962366902,
       "r2": -0.0103370416,
-      "smape": 78.1961968659
+      "smape": 78.1961968659,
+      "delay_mean": 8.4230769231,
+      "delay_median": 6.0
     },
     {
       "task": "reg",
@@ -7767,7 +8615,9 @@
       "mae": 4.9909247779,
       "rmse": 5.8028899933,
       "r2": -0.470145826,
-      "smape": 82.3247862008
+      "smape": 82.3247862008,
+      "delay_mean": 5.1351351351,
+      "delay_median": 4.0
     },
     {
       "task": "reg",
@@ -7781,7 +8631,9 @@
       "mae": 6.6777778884,
       "rmse": 8.5647301958,
       "r2": -0.0196306888,
-      "smape": 78.0443446165
+      "smape": 78.0443446165,
+      "delay_mean": 8.7176470588,
+      "delay_median": 6.0
     },
     {
       "task": "reg",
@@ -7795,7 +8647,9 @@
       "mae": 5.6329036226,
       "rmse": 9.2091871292,
       "r2": -0.0610460319,
-      "smape": 73.5533368979
+      "smape": 73.5533368979,
+      "delay_mean": 7.1038374718,
+      "delay_median": 5.0
     },
     {
       "task": "reg",
@@ -7809,7 +8663,9 @@
       "mae": 9.7816818845,
       "rmse": 16.3793314048,
       "r2": -0.0663993303,
-      "smape": 78.7950604513
+      "smape": 78.7950604513,
+      "delay_mean": 13.3521126761,
+      "delay_median": 8.0
     },
     {
       "task": "reg",
@@ -7823,7 +8679,9 @@
       "mae": 6.6637870491,
       "rmse": 9.7858032692,
       "r2": -0.0081913716,
-      "smape": 77.5621950208
+      "smape": 77.5621950208,
+      "delay_mean": 8.4230769231,
+      "delay_median": 6.0
     },
     {
       "task": "reg",
@@ -7837,7 +8695,9 @@
       "mae": 4.7992444153,
       "rmse": 5.6504490278,
       "r2": -0.3940521453,
-      "smape": 80.5661321889
+      "smape": 80.5661321889,
+      "delay_mean": 5.1351351351,
+      "delay_median": 4.0
     },
     {
       "task": "reg",
@@ -7851,7 +8711,9 @@
       "mae": 6.6860781969,
       "rmse": 8.5523953854,
       "r2": -0.0166839937,
-      "smape": 78.1322848063
+      "smape": 78.1322848063,
+      "delay_mean": 8.7176470588,
+      "delay_median": 6.0
     },
     {
       "task": "reg",
@@ -7865,7 +8727,9 @@
       "mae": 5.6452208857,
       "rmse": 9.2200826462,
       "r2": -0.0635583685,
-      "smape": 73.6306211069
+      "smape": 73.6306211069,
+      "delay_mean": 7.1038374718,
+      "delay_median": 5.0
     },
     {
       "task": "reg",
@@ -7879,7 +8743,9 @@
       "mae": 9.7578164846,
       "rmse": 16.3708283574,
       "r2": -0.0652974471,
-      "smape": 78.5907527583
+      "smape": 78.5907527583,
+      "delay_mean": 13.3521126761,
+      "delay_median": 8.0
     },
     {
       "task": "reg",
@@ -7893,7 +8759,9 @@
       "mae": 6.6845739168,
       "rmse": 9.8004725859,
       "r2": -0.0112170312,
-      "smape": 77.6927684349
+      "smape": 77.6927684349,
+      "delay_mean": 8.4230769231,
+      "delay_median": 6.0
     },
     {
       "task": "reg",
@@ -7907,7 +8775,9 @@
       "mae": 4.8290123972,
       "rmse": 5.6739678199,
       "r2": -0.4057524189,
-      "smape": 80.8006009684
+      "smape": 80.8006009684,
+      "delay_mean": 5.1351351351,
+      "delay_median": 4.0
     },
     {
       "task": "reg",
@@ -7921,7 +8791,9 @@
       "mae": 6.1540938013,
       "rmse": 8.7457473421,
       "r2": -0.0631644416,
-      "smape": 76.0531877936
+      "smape": 76.0531877936,
+      "delay_mean": 8.7176470588,
+      "delay_median": 6.0
     },
     {
       "task": "reg",
@@ -7935,7 +8807,9 @@
       "mae": 4.7442002773,
       "rmse": 9.0507477764,
       "r2": -0.0248404252,
-      "smape": 66.3830852864
+      "smape": 66.3830852864,
+      "delay_mean": 7.1038374718,
+      "delay_median": 5.0
     },
     {
       "task": "reg",
@@ -7949,7 +8823,9 @@
       "mae": 9.6742158003,
       "rmse": 17.041209306,
       "r2": -0.154314871,
-      "smape": 80.0609640054
+      "smape": 80.0609640054,
+      "delay_mean": 13.3521126761,
+      "delay_median": 8.0
     },
     {
       "task": "reg",
@@ -7963,7 +8839,9 @@
       "mae": 5.8529306994,
       "rmse": 10.1157304029,
       "r2": -0.077313,
-      "smape": 70.3388291978
+      "smape": 70.3388291978,
+      "delay_mean": 8.4230769231,
+      "delay_median": 6.0
     },
     {
       "task": "reg",
@@ -7977,7 +8855,9 @@
       "mae": 3.3901655373,
       "rmse": 4.8982285341,
       "r2": -0.0472715896,
-      "smape": 67.4150567844
+      "smape": 67.4150567844,
+      "delay_mean": 5.1351351351,
+      "delay_median": 4.0
     },
     {
       "task": "reg",
@@ -7991,7 +8871,9 @@
       "mae": 6.1714646188,
       "rmse": 8.7655315523,
       "r2": -0.0680776956,
-      "smape": 74.6590417238
+      "smape": 74.6590417238,
+      "delay_mean": 8.7176470588,
+      "delay_median": 6.0
     },
     {
       "task": "reg",
@@ -8005,7 +8887,9 @@
       "mae": 4.7039954851,
       "rmse": 8.948926996,
       "r2": -0.0019191287,
-      "smape": 65.823686659
+      "smape": 65.823686659,
+      "delay_mean": 7.1038374718,
+      "delay_median": 5.0
     },
     {
       "task": "reg",
@@ -8019,7 +8903,9 @@
       "mae": 9.6956940819,
       "rmse": 17.1587816369,
       "r2": -0.1703496696,
-      "smape": 79.6825754643
+      "smape": 79.6825754643,
+      "delay_mean": 13.3521126761,
+      "delay_median": 8.0
     },
     {
       "task": "reg",
@@ -8033,7 +8919,9 @@
       "mae": 5.8554488684,
       "rmse": 10.0430741323,
       "r2": -0.0619259128,
-      "smape": 71.0765159963
+      "smape": 71.0765159963,
+      "delay_mean": 8.4230769231,
+      "delay_median": 6.0
     },
     {
       "task": "reg",
@@ -8047,7 +8935,9 @@
       "mae": 3.3643576635,
       "rmse": 4.6989719067,
       "r2": 0.0359391074,
-      "smape": 66.2886731542
+      "smape": 66.2886731542,
+      "delay_mean": 5.1351351351,
+      "delay_median": 4.0
     },
     {
       "task": "reg",
@@ -8061,7 +8951,9 @@
       "mae": 6.13926048,
       "rmse": 8.6581828653,
       "r2": -0.0421779433,
-      "smape": 74.103032054
+      "smape": 74.103032054,
+      "delay_mean": 8.7176470588,
+      "delay_median": 6.0
     },
     {
       "task": "reg",
@@ -8075,7 +8967,9 @@
       "mae": 4.7606289839,
       "rmse": 8.9414257678,
       "r2": -0.0002450516,
-      "smape": 66.2390693079
+      "smape": 66.2390693079,
+      "delay_mean": 7.1038374718,
+      "delay_median": 5.0
     },
     {
       "task": "reg",
@@ -8089,7 +8983,9 @@
       "mae": 9.6740544937,
       "rmse": 17.0722766056,
       "r2": -0.1585967663,
-      "smape": 79.2543638894
+      "smape": 79.2543638894,
+      "delay_mean": 13.3521126761,
+      "delay_median": 8.0
     },
     {
       "task": "reg",
@@ -8103,7 +8999,9 @@
       "mae": 5.8890561562,
       "rmse": 9.9749223336,
       "r2": -0.0475727917,
-      "smape": 71.2845156395
+      "smape": 71.2845156395,
+      "delay_mean": 8.4230769231,
+      "delay_median": 6.0
     },
     {
       "task": "reg",
@@ -8117,7 +9015,9 @@
       "mae": 3.4015921868,
       "rmse": 4.6772246591,
       "r2": 0.0449986654,
-      "smape": 66.7529185585
+      "smape": 66.7529185585,
+      "delay_mean": 5.1351351351,
+      "delay_median": 4.0
     }
   ],
   "decisions": [

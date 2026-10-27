@@ -73,10 +73,11 @@ train:
 evaluate:
 	for d in $(DATASETS); do $(PYTHON_INTERPRETER) -m $(PROJECT_NAME).evaluate --dataset $$d; done
 
-## Figures de l'article -> reports/figures/
+## Figures et tableaux de la section 6 -> reports/figures/ et reports/draft/tables/
 .PHONY: figures
 figures:
 	$(PYTHON_INTERPRETER) -m $(PROJECT_NAME).plots
+	$(PYTHON_INTERPRETER) -m $(PROJECT_NAME).tables
 
 ## Pipeline complet, de bout en bout
 .PHONY: all
