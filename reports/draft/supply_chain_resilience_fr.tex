@@ -764,7 +764,7 @@ Modèle & PR-AUC test & ROC-AUC test & PR-AUC ent. & MAE test & $R^2$ test & MAE
 \subsection{L'évaluation aléatoire surestime fortement la performance sur Olist}
 \label{sec:res-ecart}
 
-Le tableau~\ref{tab:ecart} répond à RQ1. Sur Olist, le partitionnement aléatoire surestime fortement la performance en classification. Pour XGBoost, la PR-AUC estimée passe de 0,067 sous le protocole chronologique à 0,279 sous le protocole aléatoire, soit un écart de 0,212, dont l'intervalle à 95\,\% va de 0,196 à 0,229 ; la forêt aléatoire présente un écart du même ordre. Une partie de cet écart tient à la prévalence, plus élevée dans le test aléatoire (6,3\,\%) que dans le test chronologique (4,0\,\%), à laquelle la PR-AUC est sensible (équation~\eqref{eq:prec-bayes}). Mais la ROC-AUC, qui ne dépend pas de la prévalence, recule elle aussi, de 0,791 à 0,647 pour XGBoost et de 0,783 à 0,580 pour la forêt aléatoire. L'écart ne se réduit donc pas à un effet de prévalence. Il est plus faible pour la référence linéaire (0,064 en PR-AUC), ce qui est cohérent avec la seconde source d'optimisme de la section~\ref{sec:protocoles} : un modèle flexible tire davantage parti d'observations de test entrelacées avec celles de l'entraînement.
+Le tableau~\ref{tab:ecart} répond à RQ1. Sur Olist, le partitionnement aléatoire surestime fortement la performance en classification. Pour XGBoost, la PR-AUC estimée passe de 0,067 sous le protocole chronologique à 0,279 sous le protocole aléatoire, soit un écart de 0,212, dont l'intervalle à 95\,\% va de 0,196 à 0,229 ; la forêt aléatoire présente un écart du même ordre. Une partie de cet écart tient à la prévalence, plus élevée dans le test aléatoire (6,3\,\%) que dans le test chronologique (4,0\,\%), à laquelle la PR-AUC est sensible (équation~\eqref{eq:prec-bayes}). Mais la ROC-AUC, qui ne dépend pas de la prévalence, recule elle aussi, de 0,791 à 0,647 pour XGBoost et de 0,783 à 0,580 pour la forêt aléatoire. L'écart ne se réduit donc pas à un effet de prévalence. La figure~\ref{fig:courbes} le montre sur toute l'étendue des seuils : sur Olist, la courbe précision-rappel chronologique de XGBoost reste proche de la prévalence, avec une précision de 0,085 pour un rappel de 0,2, contre 0,431 sous le protocole aléatoire ; sur DataCo, les courbes des deux protocoles se superposent. L'écart est plus faible pour la référence linéaire (0,064 en PR-AUC), ce qui est cohérent avec la seconde source d'optimisme de la section~\ref{sec:protocoles} : un modèle flexible tire davantage parti d'observations de test entrelacées avec celles de l'entraînement.
 
 En régression, l'écart sur la MAE d'Olist est négatif : la MAE chronologique est plus faible. Ce n'est pas un pessimisme du protocole aléatoire. Les commandes en retard du test chronologique ont un retard moyen de 7,80 jours, contre 9,72 dans le test aléatoire ; la MAE compare ici deux ensembles de difficulté différente. Comme le $R^2$ reste proche de zéro sous les deux protocoles, aucun d'eux ne fait de la régression un outil utile sur ce jeu, et nous n'interprétons pas cet écart comme un effet du protocole.
 
@@ -783,6 +783,13 @@ Modèle & $\Delta$ PR-AUC & $\Delta$ ROC-AUC & $\Delta$ MAE (jours) \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{../figures/courbes_pr_roc.pdf}
+\caption{Courbes précision-rappel (à gauche) et ROC (à droite) de XGBoost sur le test, sous les deux protocoles, moyennées sur les cinq graines. La précision est interpolée : à chaque rappel, la meilleure précision atteinte à un rappel au moins égal. Les lignes pointillées horizontales donnent la prévalence de chaque test, c'est-à-dire la précision d'un classifieur sans pouvoir discriminant ; la diagonale est la courbe ROC d'un tel classifieur.}
+\label{fig:courbes}
+\end{figure}
 
 \subsection{La performance mensuelle suit la prévalence}
 \label{sec:res-derive}

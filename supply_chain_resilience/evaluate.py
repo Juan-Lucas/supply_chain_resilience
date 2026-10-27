@@ -19,8 +19,10 @@ from scipy import stats
 from sklearn.metrics import (
     average_precision_score,
     mean_absolute_error,
+    precision_recall_curve,
     r2_score,
     roc_auc_score,
+    roc_curve,
 )
 import typer
 
@@ -286,6 +288,57 @@ def drift_profiles(dataset: Dataset, seeds=SEEDS) -> pd.DataFrame:
 
 
 # ---------------------------------------------------------------------------
+# Courbes précision-rappel et ROC sur le test
+# ---------------------------------------------------------------------------
+
+CURVE_GRID = np.linspace(0, 1, 101)
+CURVE_STRATEGY = Strategy.tpe
+
+
+def pr_curve(y_true, score, grid=CURVE_GRID) -> np.ndarray:
+    """Précision interpolée : au rappel r, la meilleure précision atteinte à un rappel >= r."""
+    precision, recall, _ = precision_recall_curve(y_true, score)
+    order = np.argsort(recall)
+    recall, precision = recall[order], precision[order]
+    envelope = np.maximum.accumulate(precision[::-1])[::-1]
+    idx = np.searchsorted(recall, grid, side="left").clip(max=len(recall) - 1)
+    return envelope[idx]
+
+
+def roc_curve_on_grid(y_true, score, grid=CURVE_GRID) -> np.ndarray:
+    """Taux de vrais positifs en fonction du taux de faux positifs, sur la grille."""
+    fpr, tpr, _ = roc_curve(y_true, score)
+    return np.interp(grid, fpr, tpr)
+
+
+def curve_table(dataset: Dataset, seeds=SEEDS) -> pd.DataFrame:
+    """Courbes moyennes sur les graines, par protocole et modèle (classification, TPE)."""
+    rows = []
+    for protocol, model in itertools.product(Protocol, Model):
+        pr, roc, prevalence = [], [], []
+        for seed in seeds:
+            pred = load_predictions(
+                dataset, study_name(protocol, seed, Task.clf, model, CURVE_STRATEGY)
+            )
+            test = pred[pred["set"] == "test"]
+            pr.append(pr_curve(test["y_clf"], test["pred"]))
+            roc.append(roc_curve_on_grid(test["y_clf"], test["pred"]))
+            prevalence.append(test["y_clf"].mean())
+        rows.append(
+            {
+                "protocol": protocol.value,
+                "model": model.value,
+                "strategy": CURVE_STRATEGY.value,
+                "prevalence": float(np.mean(prevalence)),
+                "grid": [float(g) for g in CURVE_GRID],
+                "pr_precision": [float(v) for v in np.mean(pr, axis=0)],
+                "roc_tpr": [float(v) for v in np.mean(roc, axis=0)],
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+# ---------------------------------------------------------------------------
 # Sortie
 # ---------------------------------------------------------------------------
 
@@ -323,6 +376,7 @@ def main(dataset: Dataset = typer.Option(..., help="Jeu de données")):
         "metrics": records(table),
         "optimism_gaps": records(gaps),
         "drift_profiles": records(profiles),
+        "test_curves": records(curve_table(dataset)),
         "decisions": records(decisions),
         "decision_gaps": records(decision_gaps(decisions)),
     }

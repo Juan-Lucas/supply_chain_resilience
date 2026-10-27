@@ -114,7 +114,9 @@ def drift_figure() -> plt.Figure:
 
 
 def savings_figure() -> plt.Figure:
-    fig, axes = plt.subplots(2, 3, figsize=(7.0, 4.0), sharex=True, sharey="row", constrained_layout=True)
+    fig, axes = plt.subplots(
+        2, 3, figsize=(7.0, 4.0), sharex=True, sharey="row", constrained_layout=True
+    )
     for row, dataset in zip(axes, Dataset):
         dec = pd.DataFrame(load(dataset)["decisions"])
         dec = dec[dec["strategy"] == STRATEGY]
@@ -148,10 +150,55 @@ def savings_figure() -> plt.Figure:
     return fig
 
 
+CURVE_MODEL = "xgb"
+
+
+def curves_figure() -> plt.Figure:
+    """Courbes précision-rappel et ROC de XGBoost sur le test, sous les deux protocoles."""
+    fig, axes = plt.subplots(2, 2, figsize=(7.0, 5.4), constrained_layout=True)
+    for row, dataset in zip(axes, Dataset):
+        curves = pd.DataFrame(load(dataset)["test_curves"])
+        curves = curves[(curves["strategy"] == STRATEGY) & (curves["model"] == CURVE_MODEL)]
+        ax_pr, ax_roc = row
+        for protocol, (color, style, _) in PROTOCOL_STYLE.items():
+            c = curves[curves["protocol"] == protocol].iloc[0]
+            ax_pr.plot(
+                c["grid"],
+                c["pr_precision"],
+                color=color,
+                linestyle=style,
+                label=PROTOCOL_LABEL[protocol],
+            )
+            ax_pr.axhline(c["prevalence"], color=color, linestyle=":", linewidth=1.0)
+            ax_roc.plot(
+                c["grid"],
+                c["roc_tpr"],
+                color=color,
+                linestyle=style,
+                label=PROTOCOL_LABEL[protocol],
+            )
+        ax_roc.plot([0, 1], [0, 1], color=AXIS, linewidth=0.9, zorder=0)
+        ax_pr.set_title(f"{DATASET_LABEL[dataset]}, précision-rappel", loc="left", color=INK)
+        ax_roc.set_title(f"{DATASET_LABEL[dataset]}, ROC", loc="left", color=INK)
+        ax_pr.set_xlabel("Rappel")
+        ax_pr.set_ylabel("Précision")
+        ax_roc.set_xlabel("Taux de faux positifs")
+        ax_roc.set_ylabel("Taux de vrais positifs")
+        for ax in row:
+            ax.set_xlim(0, 1)
+            ax.set_ylim(0, 1.02)
+    axes[0, 1].legend(loc="lower right", frameon=False)
+    return fig
+
+
 @app.command()
 def main():
     FIGURES_DIR.mkdir(parents=True, exist_ok=True)
-    for name, build in [("profil_derive", drift_figure), ("economie_cout", savings_figure)]:
+    for name, build in [
+        ("profil_derive", drift_figure),
+        ("economie_cout", savings_figure),
+        ("courbes_pr_roc", curves_figure),
+    ]:
         fig = build()
         for ext in ("pdf", "png"):
             fig.savefig(FIGURES_DIR / f"{name}.{ext}", dpi=200)

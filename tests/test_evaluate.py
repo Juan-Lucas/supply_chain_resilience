@@ -132,3 +132,28 @@ def test_decision_metrics_on_a_small_case():
     assert out["cost_per_1000"] == pytest.approx(1000 * (5 * 1 + 1) / 5)
     assert out["trivial_cost_per_1000"] == pytest.approx(1000 * 3 / 5)  # tout alerter : 3 FP
     assert out["saving"] == pytest.approx(1 - 6 / 3)
+
+
+# ---------------------------------------------------------------------------
+# Courbes précision-rappel et ROC
+# ---------------------------------------------------------------------------
+
+
+def test_curves_of_a_perfect_classifier():
+    from supply_chain_resilience.evaluate import pr_curve, roc_curve_on_grid
+
+    y = np.array([0, 0, 0, 1, 1])
+    s = np.array([0.1, 0.2, 0.3, 0.8, 0.9])
+    assert np.allclose(pr_curve(y, s), 1.0)
+    roc = roc_curve_on_grid(y, s)
+    assert roc[0] == 1.0 and np.allclose(roc, 1.0)
+
+
+def test_pr_curve_of_an_uninformative_classifier_is_near_the_prevalence():
+    from supply_chain_resilience.evaluate import pr_curve
+
+    rng = np.random.default_rng(0)
+    y = (rng.random(20000) < 0.1).astype(int)
+    curve = pr_curve(y, rng.random(20000))
+    assert curve[-1] == pytest.approx(0.1, abs=0.01)  # rappel 1 : tout alerter
+    assert np.all(np.diff(curve) <= 1e-12)  # précision interpolée décroissante
