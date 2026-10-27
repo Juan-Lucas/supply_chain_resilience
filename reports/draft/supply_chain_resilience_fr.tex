@@ -122,7 +122,7 @@ Anticiper les retards de livraison permet de prévenir le client et de réorgani
 
 Le respect des délais de livraison est l'un des piliers de la performance d'une chaîne logistique. Il conditionne la satisfaction du client, la disponibilité des stocks et la planification des ressources en entrepôt. Un retard ne reste jamais local : il se propage en aval, immobilise du stock, provoque des ruptures et peut déclencher des pénalités contractuelles. Son coût est mesurable. Pour l'entreprise, l'annonce publique d'un retard de production ou d'expédition s'accompagne, sur les deux jours qui l'entourent, d'une baisse anormale moyenne de 10,28\,\% du cours de l'action, d'après 519 annonces d'entreprises cotées aux États-Unis entre 1989 et 2000 \cite{hendricks2003effect}. Pour la relation client, chez un détaillant en ligne, les clients fidèles livrés avec un à sept jours de retard réduisent ensuite la fréquence et le montant de leurs achats davantage qu'un groupe témoin livré à temps \cite{rao2011failure}. La résilience d'une chaîne d'approvisionnement ne se limite donc pas à sa capacité d'absorber une perturbation une fois qu'elle s'est produite ; elle suppose aussi de l'anticiper, afin de laisser au gestionnaire le temps d'agir : choisir un autre transporteur, réallouer du stock ou prévenir le client.
 
-Anticiper un retard est difficile, car ses causes sont multiples, interdépendantes et changeantes : conditions météorologiques, congestion portuaire, formalités douanières, fiabilité inégale des transporteurs, état des infrastructures. Leurs effets ne s'additionnent pas simplement, et leur poids relatif évolue dans le temps (saisonnalité, perturbations ponctuelles, changements de réseau ou de transporteur). Un modèle linéaire saisit mal ces interactions, ce qui justifie le recours à l'apprentissage automatique, et en particulier aux méthodes d'ensemble d'arbres de décision \cite{breiman2001random,friedman2001greedy,chen2016xgboost}.
+Anticiper un retard est difficile, car ses causes sont multiples, interdépendantes et changeantes : conditions météorologiques, congestion portuaire, formalités douanières, fiabilité inégale des transporteurs, état des infrastructures. Leurs effets ne s'additionnent pas simplement, et leur poids relatif évolue dans le temps (saisonnalité, perturbations ponctuelles, changements de réseau ou de transporteur). Un modèle linéaire saisit mal ces interactions, ce qui motive le recours à l'apprentissage automatique, et en particulier aux méthodes d'ensemble d'arbres de décision \cite{breiman2001random,friedman2001greedy,chen2016xgboost}, que nous confrontons néanmoins à une référence linéaire.
 
 Une littérature récente applique l'apprentissage supervisé à la prédiction des retards et des risques logistiques, avec des modèles allant des régressions classiques aux réseaux profonds \cite{rezki2024machine,douaioui2024deep,zogaan2025leveraging,widayanti2026predicting}. Elle établit qu'un modèle entraîné sur l'historique des expéditions peut produire des alertes exploitables. La manière dont ces performances sont \emph{estimées} reste en revanche peu discutée. Le partitionnement aléatoire des observations en ensembles d'entraînement et de test suppose que les données sont indépendantes et identiquement distribuées : le modèle est alors évalué sur des expéditions dont il a vu, à l'entraînement, des voisines proches dans le temps. Or les chaînes logistiques ne vérifient pas cette hypothèse, car elles subissent des variations saisonnières, des ruptures de régime et des changements structurels. Dans d'autres domaines, des travaux montrent que ce type de partitionnement peut conduire à des estimations trop optimistes : détection de logiciels malveillants \cite{pendlebury2019tesseract}, modélisation en chimie \cite{sheridan2013time}, prévision de séries temporelles \cite{cerqueira2020evaluating,hewamalage2023forecast}. L'ampleur de l'écart dépend toutefois de la stationnarité des données \cite{cerqueira2020evaluating} : il doit donc être mesuré, et non supposé. Plus généralement, la fuite d'information, y compris temporelle, compte parmi les causes de non-reproductibilité des travaux d'apprentissage automatique appliqué \cite{kapoor2023leakage,kaufman2012leakage}. À notre connaissance, l'effet du protocole d'évaluation n'a pas été étudié de façon systématique pour la prédiction des retards de livraison, sur plusieurs jeux de données publics.
 
@@ -267,7 +267,7 @@ Toute caractéristique hors de $\mathcal{J}_{\mathrm{adm}}$ est une variable de 
 
 La contrainte~\ref{ctr:dispo}, qui définit l'ensemble~\eqref{eq:adm}, élimine formellement les variables postérieures à $\tau_i$, comme la durée réelle d'expédition ou le statut final de livraison. Elle s'applique de la même façon aux deux jeux de données. Elle transcrit la règle que Kaufman et al. appellent \emph{no-time-machine} : une variable n'est légitime que si elle est observable avant l'instant où la prédiction de la cible est demandée \cite{kaufman2012leakage}. Une variable qui l'enfreint relève de la catégorie des variables illégitimes de la taxonomie de Kapoor et Narayanan \cite{kapoor2023leakage}.
 
-\paragraph{Caractéristiques d'historique.} Une caractéristique calculée à partir du passé, comme le taux de retard antérieur d'un transporteur, demande une attention particulière. Pour un transporteur $c_i$ et une fenêtre de largeur $w$, définissons l'ensemble des expéditions \emph{déjà livrées} à l'instant $\tau_i$ :
+\paragraph{Caractéristiques d'historique.} Une caractéristique calculée à partir du passé, comme le taux de retard antérieur d'un vendeur ou d'un mode d'expédition, demande une attention particulière. Pour une entité $c_i$ (vendeur, région, mode d'expédition) et une fenêtre de largeur $w$, définissons l'ensemble des expéditions \emph{déjà livrées} à l'instant $\tau_i$ :
 \begin{equation}
   \mathcal{H}_i(w) = \bigl\{\, k \neq i \;:\; c_k = c_i,\ t_k^{e} \le \tau_i,\ \tau_i - t_k^{e} \le w \,\bigr\},
   \label{eq:hist}
@@ -281,7 +281,7 @@ et le taux de retard historique
   \end{cases}
   \label{eq:taux}
 \end{equation}
-La condition de l'équation~\eqref{eq:hist} porte sur $t_k^{e} \le \tau_i$ (la livraison de $k$ est connue avant $\tau_i$) et non sur $\tau_k < \tau_i$ : une expédition passée mais encore en transit n'a pas de cible connue, et l'inclure ferait fuiter l'information. Le seuil $n_{\min}$ de l'équation~\eqref{eq:taux} évite d'estimer un taux sur trop peu d'observations ; les transporteurs récents reçoivent alors une valeur manquante, traitée dans la méthodologie (section~\ref{sec:framework}).
+La condition de l'équation~\eqref{eq:hist} porte sur $t_k^{e} \le \tau_i$ (la livraison de $k$ est connue avant $\tau_i$) et non sur $\tau_k < \tau_i$ : une expédition passée mais encore en transit n'a pas de cible connue, et l'inclure ferait fuiter l'information. Le seuil $n_{\min}$ de l'équation~\eqref{eq:taux} évite d'estimer un taux sur trop peu d'observations ; les entités récentes reçoivent alors une valeur manquante, traitée dans la méthodologie (section~\ref{sec:framework}).
 
 \paragraph{Partition chronologique.} Fixons une date de coupure $\tau^\star$.
 \begin{contrainte}[Précédence entre entraînement et test]
@@ -289,11 +289,11 @@ La condition de l'équation~\eqref{eq:hist} porte sur $t_k^{e} \le \tau_i$ (la l
 Les ensembles d'entraînement et de test sont
 \begin{equation}
   \mathcal{D}_{\mathrm{ent}} = \{\, i : t_i^{e} \le \tau^\star \,\}, \qquad
-  \mathcal{D}_{\mathrm{test}} = \{\, i : \tau_i > \tau^\star \,\}.
+  \mathcal{D}_{\mathrm{test}} = \{\, i : \tau_i \ge \tau^\star \,\}.
   \label{eq:split}
 \end{equation}
 \end{contrainte}
-Dans \eqref{eq:split}, une expédition est donc utilisée pour l'entraînement seulement si sa cible est connue à $\tau^\star$, ce qui reproduit les conditions réelles de déploiement. Les deux ensembles sont disjoints puisque $\tau_i < t_i^{e}$. Les expéditions telles que $\tau_i \le \tau^\star < t_i^{e}$, déjà prédites mais pas encore livrées à la date de coupure, n'appartiennent à aucun ensemble ; leur effectif sera rapporté dans le protocole expérimental (section~\ref{sec:design}).
+Dans \eqref{eq:split}, une expédition est donc utilisée pour l'entraînement seulement si sa cible est connue à $\tau^\star$, ce qui reproduit les conditions réelles de déploiement. Les deux ensembles sont disjoints puisque $\tau_i < t_i^{e}$. Les expéditions telles que $\tau_i < \tau^\star < t_i^{e}$, déjà prédites mais pas encore livrées à la date de coupure, n'appartiennent à aucun ensemble ; leur effectif sera rapporté dans le protocole expérimental (section~\ref{sec:design}).
 
 La contrainte~\ref{ctr:prec} porte sur les exemples d'entraînement, et non sur les variables. Kaufman et al. montrent que la contrainte~\ref{ctr:dispo} ne suffit pas lorsque les données ne sont pas stationnaires : des exemples d'entraînement postérieurs aux cibles évaluées créent une fuite, même si chacune de leurs variables est légitime \cite{kaufman2012leakage}. Le remède qu'ils proposent est précisément une séparation par une coupure dans le temps. Kapoor et Narayanan rangent dans la \emph{fuite temporelle} toute évaluation dont l'ensemble de test contient des données antérieures à l'ensemble d'entraînement, lorsque le modèle sert à prédire un événement futur \cite{kapoor2023leakage}. Une partition aléatoire produit exactement cette situation ; c'est ce qui en fait le protocole de comparaison de cet article.
 
@@ -354,7 +354,7 @@ On distingue alors trois formes de dérive \cite{morenotorres2012unifying,gama20
 \end{equation}
 où $n_c$ est le nombre d'observations de la classe $c$. Avec les poids de l'équation~\eqref{eq:logloss}, chaque classe contribue au total pour le même poids $n/2$, puisque $w_1 n_1 = w_0 n_0 = n/2$. La pondération n'a d'effet marqué que lorsque la classe positive est minoritaire ; elle est complétée par l'ajustement du seuil de décision (section~\ref{sec:imbalance}).
 
-\paragraph{Régression.} Notons $e_i = r_i - \hat{r}_i$ l'erreur de prédiction. La perte quadratique $e^2$ donne un poids quadratique aux retards extrêmes. Si les retards ont une queue lourde, ce que l'analyse exploratoire des données devra confirmer (section~\ref{sec:design}), nous lui préférons la perte de Huber \cite{huber1964robust},
+\paragraph{Régression.} Notons $e_i = r_i - \hat{r}_i$ l'erreur de prédiction. La perte quadratique $e^2$ donne un poids quadratique aux retards extrêmes. Lorsque les retards ont une queue lourde, ce que l'analyse exploratoire vérifie pour chaque jeu (section~\ref{sec:data-understanding}), nous lui préférons la perte de Huber \cite{huber1964robust} ; ce choix est fait jeu par jeu en section~\ref{sec:modeling},
 \begin{equation}
   \ell_\kappa(e) =
   \begin{cases}
@@ -404,10 +404,10 @@ Le MAPE est indéfini lorsque $r_i = 0$, ce qui est le cas de toutes les livrais
   \mathrm{sMAPE} = \frac{100}{n_1} \sum_{i:\,y_i=1} \frac{|e_i|}{\bigl(|r_i|+|\hat{r}_i|\bigr)/2}.
 \end{equation*}
 
-\paragraph{Variabilité.} Pour une métrique $M$ calculée sur $K$ plis, nous rapportons la moyenne et l'écart-type
+\paragraph{Variabilité.} Pour une métrique $M$ calculée sur $S$ répétitions de l'expérience, qui diffèrent par leur graine aléatoire (section~\ref{sec:partitions}), nous rapportons la moyenne et l'écart-type
 \begin{equation*}
-  \bar{M} = \frac{1}{K}\sum_{k=1}^{K} M_k, \qquad
-  s = \sqrt{\frac{1}{K-1}\sum_{k=1}^{K} \bigl(M_k-\bar{M}\bigr)^{2}},
+  \bar{M} = \frac{1}{S}\sum_{s=1}^{S} M_s, \qquad
+  \mathrm{sd}(M) = \sqrt{\frac{1}{S-1}\sum_{s=1}^{S} \bigl(M_s-\bar{M}\bigr)^{2}},
 \end{equation*}
 jamais une valeur unique.
 
@@ -424,7 +424,7 @@ Si les probabilités sont bien calibrées, prédire un retard coûte en espéran
   \theta^\star = \frac{c_{\mathrm{FP}}}{c_{\mathrm{FP}} + c_{\mathrm{FN}}}.
   \label{eq:seuil}
 \end{equation}
-En pratique, les probabilités étant rarement calibrées, on n'applique pas directement \eqref{eq:seuil} : le seuil est choisi en minimisant l'équation~\eqref{eq:cout} sur un ensemble de validation, jamais sur le test. Comme les coûts réels ne sont pas observés dans nos jeux de données, nous les traitons comme des hypothèses illustratives. La différence de coût entre les deux protocoles, $C_{\mathrm{chr}}(\theta) - C_{\text{alé}}(\theta)$, traduit l'écart d'optimisme en conséquence décisionnelle ; elle répond à RQ2.
+En pratique, les probabilités étant rarement calibrées, on n'applique pas directement \eqref{eq:seuil} : le seuil est choisi en minimisant l'équation~\eqref{eq:cout} sur un ensemble de validation, jamais sur le test. Comme les coûts réels ne sont pas observés dans nos jeux de données, nous les traitons comme des hypothèses illustratives. La comparaison du coût obtenu sous les deux protocoles traduit l'écart d'optimisme en conséquence décisionnelle et répond à RQ2 ; comme les deux ensembles de test n'ont pas la même prévalence, ce coût est rapporté à celui d'une politique sans modèle (section~\ref{sec:imbalance}).
 
 \subsection{Optimisation des hyperparamètres}
 \label{sec:hpo}
@@ -739,7 +739,7 @@ Sauf mention contraire, les résultats portent sur la stratégie de réglage TPE
 
 Le tableau~\ref{tab:modeles} donne les performances en conditions de déploiement, c'est-à-dire sous le protocole chronologique. Sur DataCo, les ensembles d'arbres dépassent la référence linéaire en classification : leur PR-AUC atteint 0,860 pour la forêt aléatoire et 0,859 pour XGBoost, contre 0,841, pour une prévalence de 57,3\,\% dans le test. La forêt aléatoire surapprend nettement, avec une PR-AUC de 0,974 à l'entraînement. En régression, les trois modèles se valent, avec une erreur absolue moyenne de 0,48 à 0,49 jour et un $R^2$ de 0,42 à 0,43.
 
-Sur Olist, les trois classifieurs sont faibles : leur PR-AUC, de 0,051 à 0,075, dépasse à peine la prévalence du test, 4,0\,\%. La référence linéaire y fait mieux que les deux ensembles d'arbres. La régression conditionnelle n'apprend presque rien : son $R^2$ reste compris entre $-$0,017 et 0,003, si bien que l'ampleur d'un retard n'est pas mieux prédite par les variables disponibles que par sa moyenne.
+Sur Olist, les trois classifieurs sont faibles : leur PR-AUC, de 0,051 à 0,075, dépasse à peine la prévalence du test, 4,0\,\%. La référence linéaire y fait mieux que les deux ensembles d'arbres. La régression conditionnelle n'apprend presque rien : son $R^2$ reste compris entre $-$0,017 et 0,003, si bien que l'ampleur d'un retard n'est pas mieux prédite par les variables disponibles que par sa moyenne. Au regard du critère de succès fixé avant les expériences (section~\ref{sec:business}), qui exige de dépasser à la fois la prévalence et la référence linéaire, les ensembles d'arbres sont utiles sur DataCo, mais aucun ne l'est sur Olist en conditions de déploiement ; seule la référence linéaire y dépasse la prévalence, et de peu.
 
 À budget égal de trente essais, les trois stratégies de réglage conduisent à des performances de test presque identiques : sur DataCo, elles coïncident à la troisième décimale ; sur Olist, le plus grand écart est celui de XGBoost, dont la PR-AUC vaut 0,060 avec la grille contre 0,068 avec la recherche aléatoire et 0,067 avec TPE. Le choix de la stratégie ne modifie donc aucune des conclusions qui suivent.
 
