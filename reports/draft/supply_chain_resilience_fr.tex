@@ -349,7 +349,7 @@ On distingue alors trois formes de dérive \cite{morenotorres2012unifying,gama20
   \qquad w_1 = \frac{n}{2\,n_1}, \quad w_0 = \frac{n}{2\,n_0},
   \label{eq:logloss}
 \end{equation}
-où $n_c$ est le nombre d'observations de la classe $c$. Avec les poids de l'équation~\eqref{eq:logloss}, chaque classe contribue au total pour le même poids $n/2$, puisque $w_1 n_1 = w_0 n_0 = n/2$. La pondération n'a d'effet marqué que lorsque la classe positive est minoritaire ; elle est comparée au sur-échantillonnage et à l'ajustement du seuil dans la méthodologie (section~\ref{sec:framework}).
+où $n_c$ est le nombre d'observations de la classe $c$. Avec les poids de l'équation~\eqref{eq:logloss}, chaque classe contribue au total pour le même poids $n/2$, puisque $w_1 n_1 = w_0 n_0 = n/2$. La pondération n'a d'effet marqué que lorsque la classe positive est minoritaire ; elle est complétée par l'ajustement du seuil de décision (section~\ref{sec:imbalance}).
 
 \paragraph{Régression.} Notons $e_i = r_i - \hat{r}_i$ l'erreur de prédiction. La perte quadratique $e^2$ donne un poids quadratique aux retards extrêmes. Si les retards ont une queue lourde, ce que l'analyse exploratoire des données devra confirmer (section~\ref{sec:design}), nous lui préférons la perte de Huber \cite{huber1964robust},
 \begin{equation}
@@ -591,7 +591,18 @@ Ridge (DataCo) & \texttt{alpha} & $[10^{-3}, 10^{3}]$, log & 30 valeurs réguli�
 \subsection{Traitement du déséquilibre}
 \label{sec:imbalance}
 
-\pending{Pondération des classes et ajustement du seuil sur Olist (rédigé en phase 4).}
+Le déséquilibre est traité à deux niveaux : à l'apprentissage, par la pondération des classes, et à la décision, par le choix du seuil d'alerte.
+
+\paragraph{Pondération.} Les trois classifieurs reçoivent les poids de l'équation~\eqref{eq:logloss} (section~\ref{sec:modeling}). Nous n'appliquons pas de sur-échantillonnage : dupliquer les commandes en retard revient, en espérance, à les pondérer, et la duplication ferait apparaître une même commande plusieurs fois dans l'entraînement, ce que la contrainte~\ref{ctr:groupes} cherche précisément à maîtriser. La pondération a un revers : elle déplace les probabilités prédites vers la classe minoritaire, les retards sur Olist et les livraisons à l'heure sur DataCo, de sorte que $\hat{p}$ n'est plus calibrée. Le seuil théorique $\theta^\star$ de l'équation~\eqref{eq:seuil} ne s'applique donc pas tel quel, et le seuil est choisi empiriquement.
+
+\paragraph{Choix du seuil.} Pour chaque modèle et chaque valeur de $r \in \{1, 2, 5, 10\}$, avec $c_{\mathrm{FP}} = 1$ et $c_{\mathrm{FN}} = r$, le seuil minimise le coût~\eqref{eq:cout} sur les prédictions de validation du meilleur essai, les $K$ plis étant regroupés. Les seuils candidats sont les scores observés, auxquels s'ajoute l'option de ne jamais alerter, retenue lorsque aucune alerte ne réduit le coût. Le seuil est ensuite appliqué sans modification au test. Les deux protocoles suivent la même règle : l'écart de coût entre eux provient ainsi du partitionnement, et non d'une règle de seuil différente. Nous avons écarté l'alternative qui consiste à ne retenir, pour le protocole chronologique, que le dernier pli de validation. Plus proche du test dans le temps, ce pli est aussi plus petit, et sa prévalence peut différer fortement de celle du test ; le seuil serait alors calé sur une période particulière.
+
+\paragraph{Économie par rapport à une politique sans modèle.} Le coût brut dépend de la prévalence de l'ensemble évalué, qui n'est pas la même dans les deux protocoles (section~\ref{sec:partitions}). Nous le rapportons donc à celui de la meilleure politique constante sur le même ensemble, ne jamais alerter ou toujours alerter, $C_0 = \min(r\, n_1,\; n_0)$, et définissons l'économie
+\begin{equation}
+  S(\theta) = 1 - \frac{C(\theta)}{C_0}.
+  \label{eq:economie}
+\end{equation}
+Une économie positive signifie que le modèle fait mieux que la meilleure décision prise sans lui ; une économie négative, qu'il fait moins bien. La politique constante est choisie en connaissant la prévalence de l'ensemble évalué : c'est une référence exigeante, légèrement favorable à l'absence de modèle. L'écart d'optimisme sur l'économie, $\Delta_S = S_{\text{alé}} - S_{\mathrm{chr}}$, traduit l'écart de l'équation~\eqref{eq:delta-opt} en conséquence pour la décision. Nous rapportons aussi, au seuil retenu, la précision, le rappel, le $F_1$ et la part de commandes alertées.
 
 \subsection{Articulation des deux tâches}
 \label{sec:articulation}
