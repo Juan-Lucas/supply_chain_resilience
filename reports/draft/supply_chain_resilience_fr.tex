@@ -68,6 +68,9 @@
 \makeatletter\newcommand{\tablerows}[1]{\@@input #1 }\makeatother
 \newcommand{\tbd}{\textcolor{red}{\textit{À DÉFINIR}}}
 \newcommand{\verif}[1]{\textcolor{orange!80!black}{[à vérifier : #1]}}
+% Schéma du pipeline (figure 1)
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,fit,backgrounds,calc}
 % Cadre de figure provisoire (à remplacer par \includegraphics)
 \newcommand{\phfig}[2][6cm]{%
   \fbox{\parbox[c][#1][c]{0.92\textwidth}{\centering\textit{#2}}}}
@@ -461,7 +464,48 @@ Notre démarche suit les six phases du processus CRISP-DM \cite{wirth2000crisp} 
 \subsection{Vue d'ensemble}
 \label{sec:pipeline}
 
-\pending{Figure 1 : le pipeline selon les six phases CRISP-DM, de l'ingestion des données brutes à la règle de décision (rédigé en phase 3).}
+La figure~\ref{fig:pipeline} résume la démarche. Les deux premières phases fixent l'objectif, les coûts et les cibles ; la préparation produit, une seule fois et sans fuite, les variables communes aux deux protocoles. La chaîne se dédouble ensuite : chaque protocole partitionne les mêmes commandes, règle les modèles sur ses propres plis et les évalue sur son propre test. L'évaluation confronte les deux estimations, et la règle de décision traduit leur écart en coût.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[
+  font=\scriptsize,
+  box/.style={draw=black!55, rounded corners=2pt, align=center, inner sep=3pt, minimum height=10mm, fill=white},
+  chrono/.style={box, draw=blue!60!black, fill=blue!6},
+  alea/.style={box, draw=orange!70!black, fill=orange!8},
+  note/.style={font=\scriptsize\itshape, text=black!65, align=center},
+  arr/.style={-{Stealth[length=2mm]}, thick, black!65},
+]
+% Phases 1 et 2, puis préparation
+\node[box] (metier) {\textbf{1. Métier}\\objectif, coûts $r$,\\critères de succès};
+\node[box, below=4mm of metier] (donnees) {\textbf{2. Données}\\DataCo, Olist :\\cibles, dérive, fuites};
+\node[box, anchor=west] (prep) at ($(metier.east)!0.5!(donnees.east) + (6mm,0)$) {\textbf{3. Préparation}\\filtres, agrégation,\\historique sans fuite};
+% Deux protocoles
+\node[chrono, anchor=south west] (pchr) at ($(prep.east) + (6mm,2mm)$) {\textbf{Chronologique}\\coupure $\tau^\star$, précédence,\\plis à fenêtre croissante};
+\node[alea, anchor=north west] (pale) at ($(prep.east) + (6mm,-2mm)$) {\textbf{Aléatoire}\\mêmes commandes,\\tirage et plis groupés};
+\coordinate (col) at ($(pchr.east) + (5mm,0)$);
+% Modélisation
+\node[chrono, anchor=west] (mchr) at (col |- pchr) {\textbf{4. Modélisation}\\réglage ($B = 30$),\\réajustement};
+\node[alea, anchor=west] (male) at (col |- pale) {\textbf{4. Modélisation}\\réglage ($B = 30$),\\réajustement};
+% Évaluation et décision
+\node[box, anchor=west] (eval) at ($(mchr.east)!0.5!(male.east) + (6mm,0)$) {\textbf{5. Évaluation}\\écart $\Delta$ et IC,\\profil de dérive,\\économie $S$};
+\node[box, below=5mm of eval] (decision) {\textbf{6. Déploiement}\\alerte si $\hat p \ge \theta_r$,\\date annoncée};
+% Flèches
+\draw[arr] (metier) -- (donnees);
+\draw[arr] (metier.east) -- ++(4mm,0) |- (prep.west);
+\draw[arr] (donnees.east) -- ++(4mm,0) |- (prep.west);
+\draw[arr] (prep.east) -- ++(4mm,0) |- (pchr.west);
+\draw[arr] (prep.east) -- ++(4mm,0) |- (pale.west);
+\draw[arr] (pchr.east) -- (pchr.east -| mchr.west);
+\draw[arr] (pale.east) -- (pale.east -| male.west);
+\draw[arr] (mchr.east) -- ++(4mm,0) |- (eval.west);
+\draw[arr] (male.east) -- ++(4mm,0) |- (eval.west);
+\draw[arr] (eval) -- (decision);
+\node[note, above=1mm of pchr] {partition et plis de réglage};
+\end{tikzpicture}
+\caption{Démarche selon les six phases de CRISP-DM. Après la préparation, la chaîne se dédouble : les deux protocoles portent sur les mêmes commandes et ne diffèrent que par la manière de les partager ; l'évaluation mesure l'écart entre leurs estimations et la règle de décision le traduit en coût.}
+\label{fig:pipeline}
+\end{figure}
 
 \subsection{Compréhension du métier}
 \label{sec:business}
