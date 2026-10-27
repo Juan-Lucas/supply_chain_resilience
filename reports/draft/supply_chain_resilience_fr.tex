@@ -107,7 +107,7 @@ Mupasa Kalunga Jean-Luc$^{1}$ \qquad Mpyana Mwamba Merlec$^{2}$\\[0.5em]
 
 % Le résumé s'écrit en dernier, une fois les résultats connus.
 \begin{abstract}
-Anticiper les retards de livraison permet de prévenir le client et de réorganiser la chaîne logistique, et les modèles d'apprentissage automatique qui les prédisent rapportent souvent de bonnes performances. Mais ces performances sont généralement estimées en partageant les données au hasard entre entraînement et test, ce qui suppose une distribution stable dans le temps. Cet article mesure l'effet du protocole d'évaluation sur la fiabilité estimée de ces modèles. Sur deux jeux de données publics, DataCo et Olist, nous prédisons l'occurrence du retard par classification et son ampleur par régression, avec une référence linéaire, une forêt aléatoire et XGBoost, réglés à budget égal par trois stratégies de recherche et sous une contrainte de causalité temporelle qui exclut toute fuite d'information. Nous comparons un partitionnement aléatoire et un partitionnement chronologique, qui reproduit les conditions de déploiement, mesurons l'écart d'optimisme qui les sépare sur cinq graines, et le traduisons en coût de décision. Sur Olist, dont la prévalence des retards dérive, le partitionnement aléatoire surestime fortement la performance : la PR-AUC de XGBoost passe de 0,067 en conditions de déploiement à 0,279, et la ROC-AUC recule elle aussi, ce qui écarte un simple effet de prévalence. Pour un faux négatif cinq fois plus coûteux qu'une fausse alerte, l'évaluation aléatoire promet une économie de 19,6\,\% par rapport à la meilleure politique sans modèle, quand le modèle coûte en réalité 22,3\,\% de plus. Sur DataCo, dont la prévalence est stable, les deux protocoles s'accordent. L'écart d'optimisme dépend donc de la stationnarité des données, et peut inverser la décision de déployer un système d'alerte : l'évaluation de ces modèles doit respecter l'ordre du temps.
+Les modèles d'apprentissage automatique qui prédisent les retards de livraison sont généralement évalués en partageant les données au hasard entre entraînement et test, ce qui suppose une distribution stable dans le temps. Sur deux jeux de données publics, DataCo et Olist, nous comparons ce partitionnement aléatoire à un partitionnement chronologique qui reproduit les conditions de déploiement, pour la classification et la régression du retard, avec une référence linéaire, une forêt aléatoire et XGBoost réglés à budget égal et sans fuite d'information. Sur Olist, dont la prévalence des retards dérive, l'évaluation aléatoire surestime fortement la performance : la PR-AUC de XGBoost passe de 0,067 en conditions de déploiement à 0,279, et la ROC-AUC, insensible à la prévalence, recule elle aussi. Pour un faux négatif cinq fois plus coûteux qu'une fausse alerte, l'évaluation aléatoire promet une économie de 19,6\,\% par rapport à la meilleure politique sans modèle, alors que le modèle coûte en réalité 22,3\,\% de plus ; sur DataCo, dont la prévalence est stable, les deux protocoles s'accordent. L'écart d'optimisme dépend donc de la stationnarité des données et peut inverser la décision de déployer un système d'alerte, ce qui impose d'évaluer ces modèles dans l'ordre du temps.
 \end{abstract}
 
 \noindent\textbf{Mots-clés :} résilience de la chaîne d'approvisionnement ; prédiction des retards de livraison ; validation temporelle ; dérive de distribution ; gradient boosting ; optimisation d'hyperparamètres.
@@ -150,7 +150,7 @@ Le reste de l'article est organisé comme suit. La section~\ref{sec:relwork} pr�
 \section{Travaux connexes}
 \label{sec:relwork}
 
-Nous organisons cette revue par angle plutôt que par article : la prédiction du risque de retard par apprentissage supervisé (section~\ref{sec:rw-supervise}), les approches profondes et temporelles (section~\ref{sec:rw-profond}), le choix des modèles et l'optimisation des hyperparamètres (section~\ref{sec:rw-hpo}), les protocoles d'évaluation (section~\ref{sec:rw-protocoles}) et les jeux de données (section~\ref{sec:rw-donnees}). Le tableau~\ref{tab:litterature} en donne la synthèse, et la section~\ref{sec:rw-lacune} en tire la lacune que traite cet article.
+Nous organisons cette revue par angle plutôt que par article : la prédiction du risque de retard par apprentissage supervisé (section~\ref{sec:rw-supervise}), les approches profondes et temporelles (section~\ref{sec:rw-profond}), le choix des modèles et l'optimisation des hyperparamètres (section~\ref{sec:rw-hpo}), les protocoles d'évaluation (section~\ref{sec:rw-protocoles}) et les jeux de données (section~\ref{sec:rw-donnees}). Le tableau~\ref{tab:litterature} en donne la synthèse, et la section~\ref{sec:rw-lacune} en tire la lacune que traite cet article. Pour certains travaux, seul le résumé a pu être consulté \cite{rezki2024machine,widayanti2026predicting,bhuiyan2026deep,douaioui2024deep,sheridan2013time,pendlebury2019tesseract,hewamalage2023forecast} ; nous n'en reprenons alors que ce que le résumé établit.
 
 \subsection{Prédiction du risque de retard par apprentissage supervisé}
 \label{sec:rw-supervise}
@@ -734,7 +734,7 @@ Il ne reflète que la variabilité due aux graines, et non celle de l'échantill
 
 Sauf mention contraire, les résultats portent sur la stratégie de réglage TPE et sont moyennés sur les cinq graines ; les tableaux sont produits directement à partir des fichiers de résultats, sans transcription manuelle.
 
-\subsection{Comparaison des modèles}
+\subsection{Les arbres l'emportent sur DataCo, pas sur Olist}
 \label{sec:res-modeles}
 
 Le tableau~\ref{tab:modeles} donne les performances en conditions de déploiement, c'est-à-dire sous le protocole chronologique. Sur DataCo, les ensembles d'arbres dépassent la référence linéaire en classification : leur PR-AUC atteint 0,860 pour la forêt aléatoire et 0,859 pour XGBoost, contre 0,841, pour une prévalence de 57,3\,\% dans le test. La forêt aléatoire surapprend nettement, avec une PR-AUC de 0,974 à l'entraînement. En régression, les trois modèles se valent, avec une erreur absolue moyenne de 0,48 à 0,49 jour et un $R^2$ de 0,42 à 0,43.
@@ -759,7 +759,7 @@ Modèle & PR-AUC test & ROC-AUC test & PR-AUC ent. & MAE test & $R^2$ test & MAE
 \end{tabular}
 \end{table}
 
-\subsection{Écart d'optimisme}
+\subsection{L'évaluation aléatoire surestime fortement la performance sur Olist}
 \label{sec:res-ecart}
 
 Le tableau~\ref{tab:ecart} répond à RQ1. Sur Olist, le partitionnement aléatoire surestime fortement la performance en classification. Pour XGBoost, la PR-AUC estimée passe de 0,067 sous le protocole chronologique à 0,279 sous le protocole aléatoire, soit un écart de 0,212, dont l'intervalle à 95\,\% va de 0,196 à 0,229 ; la forêt aléatoire présente un écart du même ordre. Une partie de cet écart tient à la prévalence, plus élevée dans le test aléatoire (6,3\,\%) que dans le test chronologique (4,0\,\%), à laquelle la PR-AUC est sensible (équation~\eqref{eq:prec-bayes}). Mais la ROC-AUC, qui ne dépend pas de la prévalence, recule elle aussi, de 0,791 à 0,647 pour XGBoost et de 0,783 à 0,580 pour la forêt aléatoire. L'écart ne se réduit donc pas à un effet de prévalence. Il est plus faible pour la référence linéaire (0,064 en PR-AUC), ce qui est cohérent avec la seconde source d'optimisme de la section~\ref{sec:protocoles} : un modèle flexible tire davantage parti d'observations de test entrelacées avec celles de l'entraînement.
@@ -782,7 +782,7 @@ Modèle & $\Delta$ PR-AUC & $\Delta$ ROC-AUC & $\Delta$ MAE (jours) \\
 \end{tabular}
 \end{table}
 
-\subsection{Profil de dérive}
+\subsection{La performance mensuelle suit la prévalence}
 \label{sec:res-derive}
 
 La figure~\ref{fig:derive} décompose la performance chronologique par mois. Sur Olist, la PR-AUC de XGBoost varie de 0,049 en juillet 2018 à 0,127 en mai 2018, et suit de près la prévalence du mois, qui va de 1,2\,\% en juin à 9,7\,\% en août. Le mois d'août ne contient que les commandes passées jusqu'au 4, à cause de la troncature de fin de période (section~\ref{sec:data-understanding}). Ce parallélisme illustre l'équation~\eqref{eq:prec-bayes} : à pouvoir discriminant comparable, la précision, et avec elle la PR-AUC, monte et descend avec la prévalence. Sur DataCo, le profil est plat : la PR-AUC de XGBoost reste entre 0,834 et 0,871 sur les neuf mois du test, pour une prévalence comprise entre 55,8 et 58,7\,\%. Elle ne fléchit pas après octobre 2017, malgré le changement de structure des commandes décrit à la section~\ref{sec:data-understanding} : ce décalage des covariables n'a pas d'effet visible sur la performance.
@@ -794,7 +794,7 @@ La figure~\ref{fig:derive} décompose la performance chronologique par mois. Sur
 \label{fig:derive}
 \end{figure}
 
-\subsection{Conséquences pour la décision}
+\subsection{Le protocole inverse la décision de déployer}
 \label{sec:res-decision}
 
 Le tableau~\ref{tab:decision} et la figure~\ref{fig:economie} répondent à RQ2. Sur Olist, dans le scénario principal $r = 5$, le protocole aléatoire attribue à XGBoost une économie de 19,6\,\% par rapport à la meilleure politique sans modèle ; le protocole chronologique montre qu'en déploiement le même modèle coûte 22,3\,\% de plus que cette politique. L'écart d'économie vaut 0,419, avec un intervalle de 0,283 à 0,554. La précision des alertes passe de 0,278 à 0,080 : en déploiement, plus de neuf alertes sur dix seraient émises à tort. Les trois modèles conduisent au même constat, et il s'accentue lorsque $r$ augmente : à $r = 10$, l'économie chronologique de XGBoost tombe à $-$61,4\,\%, quand le protocole aléatoire annonce $+$34,2\,\%. Pour $r = 1$, la validation chronologique conseille de ne jamais alerter dans 93\,\% des études, contre 27\,\% sous le protocole aléatoire. Le protocole d'évaluation ne modifie donc pas seulement un score : il fait passer la recommandation de déployer le modèle à celle de ne pas le déployer.
@@ -824,7 +824,7 @@ Modèle & chrono & aléatoire & chrono & aléatoire & $\Delta_S$ \\
 \label{fig:economie}
 \end{figure}
 
-\subsection{Discussion et menaces à la validité}
+\subsection{L'écart dépend de la stationnarité des données}
 \label{sec:discussion}
 
 \paragraph{Pourquoi les deux jeux divergent.} Les deux jeux diffèrent précisément par la stationnarité. La prévalence de DataCo varie peu d'un trimestre à l'autre, et son délai prévu est entièrement fixé par le mode d'expédition (section~\ref{sec:data-understanding}) : la relation entre variables et retard ne change pas, et entrelacer entraînement et test ne donne au modèle aucune information qu'il n'aurait pas déjà. Ces régularités suggèrent aussi que DataCo est en partie généré, ce qui en limite la portée comme jeu de référence. Olist, à l'inverse, connaît des variations de prévalence d'un trimestre à l'autre ; le recul de la ROC-AUC sous le protocole chronologique indique en outre que la dérive ne se limite pas à un décalage de la prévalence (section~\ref{sec:metriques}). Nous ne cherchons pas à identifier le type de dérive ; le résultat est que l'écart d'optimisme n'est pas une propriété fixe du problème, mais dépend de la stationnarité des données. Un écart nul sur un jeu ne garantit donc rien sur un autre.
