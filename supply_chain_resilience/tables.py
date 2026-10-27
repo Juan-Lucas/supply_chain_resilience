@@ -86,10 +86,9 @@ def gaps_table() -> str:
         m = m[(m["strategy"] == STRATEGY) & (m["set"] == "test")]
         prev = m[m["task"] == "clf"].groupby("protocol")["prevalence"].mean()
         delay = m[m["task"] == "reg"].groupby("protocol")["delay_mean"].mean()
-        context = (
-            f"prévalence du test {num(100 * prev['chrono'], 1)}\\,\\% (chrono) et "
-            f"{num(100 * prev['random'], 1)}\\,\\% (aléatoire) ; retard moyen des commandes en retard "
-            f"{num(delay['chrono'], 2)} et {num(delay['random'], 2)} jours"
+        context = (  # chronologique / aléatoire
+            f"prévalence du test {num(100 * prev['chrono'], 1)} / {num(100 * prev['random'], 1)}\\,\\%,"
+            f" retard moyen {num(delay['chrono'], 2)} / {num(delay['random'], 2)} j"
         )
         lines.append(
             f"\\multicolumn{{4}}{{@{{}}l}}{{\\textit{{{DATASET_LABEL[dataset]}}} -- {context}}} \\\\"
