@@ -14,6 +14,13 @@
     5,
     10
   ],
+  "compute": {
+    "n_studies": 180,
+    "n_trials_per_study": [
+      30
+    ],
+    "hours": 55.3
+  },
   "metrics": [
     {
       "protocol": "chrono",

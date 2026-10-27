@@ -24,6 +24,7 @@ from sklearn.metrics import (
 )
 import typer
 
+from supply_chain_resilience.config import MODELS_DIR
 from supply_chain_resilience.models import Model, Task
 from supply_chain_resilience.preprocessing import RESULTS_DIR, Dataset
 from supply_chain_resilience.splits import Protocol
@@ -293,6 +294,20 @@ def records(df: pd.DataFrame) -> list[dict]:
     return json.loads(df.to_json(orient="records", force_ascii=False))
 
 
+def compute_summary(dataset: Dataset) -> dict:
+    """Durée de calcul cumulée des études (réglage et réajustements), d'après models/<jeu>."""
+    studies = [
+        json.loads(p.read_text(encoding="utf-8"))
+        for p in sorted((MODELS_DIR / dataset.value).glob("*.json"))
+    ]
+    seconds = sum(s["tuning_seconds"] + s.get("refit_seconds", 0) for s in studies)
+    return {
+        "n_studies": len(studies),
+        "n_trials_per_study": sorted({s["n_trials"] for s in studies}),
+        "hours": round(seconds / 3600, 1),
+    }
+
+
 @app.command()
 def main(dataset: Dataset = typer.Option(..., help="Jeu de données")):
     table = metrics_table(dataset)
@@ -304,6 +319,7 @@ def main(dataset: Dataset = typer.Option(..., help="Jeu de données")):
         "seeds": SEEDS,
         "confidence": CONFIDENCE,
         "cost_ratios": list(COST_RATIOS),
+        "compute": compute_summary(dataset),
         "metrics": records(table),
         "optimism_gaps": records(gaps),
         "drift_profiles": records(profiles),
