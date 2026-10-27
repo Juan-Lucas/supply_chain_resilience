@@ -14,10 +14,12 @@ from supply_chain_resilience.preprocessing import (
     OLIST_FIRST_YEAR,
     RESULTS_DIR,
     Dataset,
+    add_splits,
     apply_filters,
     build_targets,
     load_dataco,
     load_olist,
+    olist_censoring_cutoff,
 )
 
 app = typer.Typer()
@@ -90,6 +92,41 @@ def olist_censoring(tables: dict[str, pd.DataFrame]) -> dict:
     }
 
 
+CENSORING_HORIZONS = (29, 45, 60)  # 29 jours : le 95e centile retenu ; 45 et 60 : sensibilité
+
+
+def olist_censoring_sensitivity(tables: dict[str, pd.DataFrame]) -> list[dict]:
+    """Prévalence de l'entraînement et du test chronologiques selon la durée d'achats exclue.
+
+    Même filtre que preprocessing.apply_filters, mais avec un horizon imposé ; puis la
+    partition chronologique de preprocessing.add_splits sur les commandes restantes.
+    """
+    orders = build_targets(tables["orders"], Dataset.olist)
+    end_obs, _, _ = olist_censoring_cutoff(orders)
+    delivered = (orders["order_status"] == "delivered") & orders["order_delivered_customer_date"].notna()
+    recent = orders["order_purchase_timestamp"].dt.year >= OLIST_FIRST_YEAR
+    rows = []
+    for horizon in CENSORING_HORIZONS:
+        cutoff = end_obs.normalize() - pd.Timedelta(days=horizon)
+        kept = orders[delivered & recent & (orders["order_purchase_timestamp"] < cutoff)].copy()
+        kept = kept.astype({"y_clf": "int64"})
+        split = {}
+        add_splits(kept, Dataset.olist, split)
+        rows.append(
+            {
+                "horizon_days": horizon,
+                "censoring_cutoff": str(cutoff.date()),
+                "n_orders": len(kept),
+                "prevalence": round(float(kept["y_clf"].mean()), 4),
+                "chrono_cut": split["chrono_cut"],
+                "prevalence_train": split["prevalence_train"],
+                "prevalence_test": split["prevalence_test"],
+                "n_orders_test": split["n_orders_test"],
+            }
+        )
+    return rows
+
+
 @app.command()
 def main():
     dataco = load_dataco()
@@ -99,6 +136,7 @@ def main():
         "dataco_rupture": dataco_rupture(dataco),
         "olist_shipping_limit": olist_shipping_limit(olist),
         "olist_censoring": olist_censoring(olist),
+        "olist_censoring_sensitivity": olist_censoring_sensitivity(olist),
     }
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     with open(RESULTS_DIR / "diagnostics.json", "w", encoding="utf-8") as f:

@@ -10919,6 +10919,50 @@
       ]
     }
   ],
+  "robustness": [
+    {
+      "model": "linear",
+      "strategy": "tpe",
+      "n_bootstrap": 200,
+      "delta_pr_auc_boot_low": 0.042704618,
+      "delta_pr_auc_boot_high": 0.0854554874,
+      "delta_roc_auc_boot_low": 0.0047666098,
+      "delta_roc_auc_boot_high": 0.0600842174,
+      "random_pr_auc_matched": 0.0933512119,
+      "chrono_pr_auc": 0.0750156512,
+      "delta_pr_auc_matched": 0.0183355608,
+      "delta_pr_auc_matched_low": 0.0112711847,
+      "delta_pr_auc_matched_high": 0.0253999368
+    },
+    {
+      "model": "rf",
+      "strategy": "tpe",
+      "n_bootstrap": 200,
+      "delta_pr_auc_boot_low": 0.1799808367,
+      "delta_pr_auc_boot_high": 0.2442826161,
+      "delta_roc_auc_boot_low": 0.1670559884,
+      "delta_roc_auc_boot_high": 0.2236463146,
+      "random_pr_auc_matched": 0.1987544824,
+      "chrono_pr_auc": 0.0510633233,
+      "delta_pr_auc_matched": 0.1476911592,
+      "delta_pr_auc_matched_low": 0.1290196095,
+      "delta_pr_auc_matched_high": 0.1663627089
+    },
+    {
+      "model": "xgb",
+      "strategy": "tpe",
+      "n_bootstrap": 200,
+      "delta_pr_auc_boot_low": 0.1745044058,
+      "delta_pr_auc_boot_high": 0.2395927711,
+      "delta_roc_auc_boot_low": 0.1142706571,
+      "delta_roc_auc_boot_high": 0.159561226,
+      "random_pr_auc_matched": 0.2071806425,
+      "chrono_pr_auc": 0.0670074208,
+      "delta_pr_auc_matched": 0.1401732217,
+      "delta_pr_auc_matched_low": 0.1280898539,
+      "delta_pr_auc_matched_high": 0.1522565895
+    }
+  ],
   "decisions": [
     {
       "protocol": "chrono",

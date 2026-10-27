@@ -3,6 +3,7 @@
 import numpy as np
 import pandas as pd
 import pytest
+from sklearn.metrics import average_precision_score
 
 from supply_chain_resilience.evaluate import (
     confidence_interval,
@@ -157,3 +158,50 @@ def test_pr_curve_of_an_uninformative_classifier_is_near_the_prevalence():
     curve = pr_curve(y, rng.random(20000))
     assert curve[-1] == pytest.approx(0.1, abs=0.01)  # rappel 1 : tout alerter
     assert np.all(np.diff(curve) <= 1e-12)  # précision interpolée décroissante
+
+
+# ---------------------------------------------------------------------------
+# Robustesse : bootstrap par semaines, prévalence égale
+# ---------------------------------------------------------------------------
+
+
+def toy_test(n=2000, prevalence=0.1, seed=0):
+    rng = np.random.default_rng(seed)
+    y = (rng.random(n) < prevalence).astype(int)
+    return pd.DataFrame(
+        {
+            "ordered_at": pd.Timestamp("2018-01-01")
+            + pd.to_timedelta(rng.integers(0, 70, n), "D"),
+            "y_clf": y,
+            "pred": rng.random(n) * 0.5 + 0.4 * y,
+        }
+    )
+
+
+def test_week_blocks_cover_every_row_once():
+    from supply_chain_resilience.evaluate import week_blocks
+
+    test = toy_test()
+    rows = np.concatenate(week_blocks(test))
+    assert sorted(rows) == list(range(len(test)))
+
+
+def test_block_bootstrap_is_reproducible_and_centred():
+    from supply_chain_resilience.evaluate import block_bootstrap
+
+    test = toy_test()
+    a = block_bootstrap(test, np.random.default_rng(1), 50)
+    b = block_bootstrap(test, np.random.default_rng(1), 50)
+    assert a.shape == (50, 2) and np.array_equal(a, b)
+    full = average_precision_score(test["y_clf"], test["pred"])
+    assert abs(a[:, 0].mean() - full) < 0.05
+
+
+def test_matched_prevalence_lowers_pr_auc_of_an_uninformative_model():
+    from supply_chain_resilience.evaluate import matched_prevalence_pr_auc
+
+    rng = np.random.default_rng(0)
+    y = (rng.random(40000) < 0.1).astype(int)
+    test = pd.DataFrame({"y_clf": y, "pred": rng.random(40000)})
+    value = matched_prevalence_pr_auc(test, 0.04, np.random.default_rng(0), 5)
+    assert value == pytest.approx(0.04, abs=0.01)  # sans pouvoir discriminant : la prévalence

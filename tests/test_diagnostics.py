@@ -53,3 +53,14 @@ def test_olist_censoring(olist):
     last = list(out["last_weeks"].values())
     assert last[-2] == pytest.approx(5.04, abs=0.01)
     assert last[-1] == pytest.approx(1.79, abs=0.01)
+
+
+def test_censoring_sensitivity_reproduces_the_retained_horizon(olist):
+    from supply_chain_resilience.diagnostics import olist_censoring_sensitivity
+
+    rows = {r["horizon_days"]: r for r in olist_censoring_sensitivity(olist)}
+    base = rows[29]  # horizon retenu : mêmes effectifs que la préparation
+    assert base["n_orders"] == 90994
+    assert base["n_orders_test"] == 22749
+    assert base["prevalence_test"] == pytest.approx(0.0404, abs=1e-4)
+    assert rows[60]["n_orders"] < rows[45]["n_orders"] < base["n_orders"]

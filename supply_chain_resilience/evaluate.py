@@ -339,6 +339,97 @@ def curve_table(dataset: Dataset, seeds=SEEDS) -> pd.DataFrame:
 
 
 # ---------------------------------------------------------------------------
+# Robustesse de l'écart : bootstrap par semaines et prévalence égale
+# ---------------------------------------------------------------------------
+
+N_BOOTSTRAP = 200
+N_PREVALENCE_DRAWS = 20
+
+
+def week_blocks(test: pd.DataFrame) -> list[np.ndarray]:
+    """Positions des lignes de chaque semaine de commande (blocs du bootstrap)."""
+    weeks = test["ordered_at"].dt.to_period("W").to_numpy()
+    return [np.flatnonzero(weeks == w) for w in pd.unique(weeks)]
+
+
+def block_bootstrap(test: pd.DataFrame, rng: np.random.Generator, n: int) -> np.ndarray:
+    """PR-AUC et ROC-AUC sur n rééchantillonnages des semaines (colonnes : pr, roc)."""
+    blocks = week_blocks(test)
+    y, s = test["y_clf"].to_numpy(int), test["pred"].to_numpy(float)
+    out = np.empty((n, 2))
+    for b in range(n):
+        idx = np.concatenate([blocks[i] for i in rng.integers(0, len(blocks), len(blocks))])
+        out[b] = average_precision_score(y[idx], s[idx]), roc_auc_score(y[idx], s[idx])
+    return out
+
+
+def matched_prevalence_pr_auc(
+    test: pd.DataFrame, prevalence: float, rng: np.random.Generator, n: int
+) -> float:
+    """PR-AUC moyenne après sous-échantillonnage des retards jusqu'à la prévalence visée."""
+    y, s = test["y_clf"].to_numpy(int), test["pred"].to_numpy(float)
+    pos, neg = np.flatnonzero(y == 1), np.flatnonzero(y == 0)
+    n_pos = int(round(prevalence / (1 - prevalence) * len(neg)))
+    if n_pos >= len(pos):
+        return float(average_precision_score(y, s))
+    values = []
+    for _ in range(n):
+        idx = np.concatenate([neg, rng.choice(pos, n_pos, replace=False)])
+        values.append(average_precision_score(y[idx], s[idx]))
+    return float(np.mean(values))
+
+
+def robustness_table(dataset: Dataset, seeds=SEEDS) -> pd.DataFrame:
+    """Par modèle (classification, TPE) :
+    - intervalle à 95 % de l'écart moyen sur les graines, chaque test étant rééchantillonné
+      par semaines : il ajoute la variabilité de l'échantillon de test à celle des graines ;
+    - PR-AUC du test aléatoire ramené à la prévalence du test chronologique."""
+    rows = []
+    for model in Model:
+        boot = {"pr": [], "roc": []}
+        matched, chrono_pr = [], []
+        for seed in seeds:
+            rng = np.random.default_rng(seed)
+            tests = {}
+            for protocol in Protocol:
+                pred = load_predictions(
+                    dataset, study_name(protocol, seed, Task.clf, model, CURVE_STRATEGY)
+                )
+                tests[protocol] = pred[pred["set"] == "test"]
+            chrono = block_bootstrap(tests[Protocol.chrono], rng, N_BOOTSTRAP)
+            random = block_bootstrap(tests[Protocol.random], rng, N_BOOTSTRAP)
+            boot["pr"].append(random[:, 0] - chrono[:, 0])
+            boot["roc"].append(random[:, 1] - chrono[:, 1])
+            target = tests[Protocol.chrono]["y_clf"].mean()
+            matched.append(
+                matched_prevalence_pr_auc(tests[Protocol.random], target, rng, N_PREVALENCE_DRAWS)
+            )
+            chrono_pr.append(
+                average_precision_score(
+                    tests[Protocol.chrono]["y_clf"], tests[Protocol.chrono]["pred"]
+                )
+            )
+        row = {"model": model.value, "strategy": CURVE_STRATEGY.value, "n_bootstrap": N_BOOTSTRAP}
+        for metric, gaps in boot.items():
+            mean_over_seeds = np.mean(gaps, axis=0)  # une valeur par réplication
+            row[f"delta_{metric}_auc_boot_low"] = float(np.percentile(mean_over_seeds, 2.5))
+            row[f"delta_{metric}_auc_boot_high"] = float(np.percentile(mean_over_seeds, 97.5))
+        gaps_matched = [m - c for m, c in zip(matched, chrono_pr)]
+        mean, sd, low, high = confidence_interval(gaps_matched)
+        row.update(
+            {
+                "random_pr_auc_matched": float(np.mean(matched)),
+                "chrono_pr_auc": float(np.mean(chrono_pr)),
+                "delta_pr_auc_matched": mean,
+                "delta_pr_auc_matched_low": low,
+                "delta_pr_auc_matched_high": high,
+            }
+        )
+        rows.append(row)
+    return pd.DataFrame(rows)
+
+
+# ---------------------------------------------------------------------------
 # Sortie
 # ---------------------------------------------------------------------------
 
@@ -377,6 +468,7 @@ def main(dataset: Dataset = typer.Option(..., help="Jeu de données")):
         "optimism_gaps": records(gaps),
         "drift_profiles": records(profiles),
         "test_curves": records(curve_table(dataset)),
+        "robustness": records(robustness_table(dataset)),
         "decisions": records(decisions),
         "decision_gaps": records(decision_gaps(decisions)),
     }

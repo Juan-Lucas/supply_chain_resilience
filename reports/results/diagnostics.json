@@ -38,5 +38,37 @@
       "2018-08-20/2018-08-26": 5.04,
       "2018-08-27/2018-09-02": 1.79
     }
-  }
+  },
+  "olist_censoring_sensitivity": [
+    {
+      "horizon_days": 29,
+      "censoring_cutoff": "2018-08-05",
+      "n_orders": 90994,
+      "prevalence": 0.0687,
+      "chrono_cut": "2018-04-19 12:45:51.750000",
+      "prevalence_train": 0.0702,
+      "prevalence_test": 0.0404,
+      "n_orders_test": 22749
+    },
+    {
+      "horizon_days": 45,
+      "censoring_cutoff": "2018-07-20",
+      "n_orders": 87007,
+      "prevalence": 0.0693,
+      "chrono_cut": "2018-04-05 21:57:23.500000",
+      "prevalence_train": 0.0631,
+      "prevalence_test": 0.0378,
+      "n_orders_test": 21752
+    },
+    {
+      "horizon_days": 60,
+      "censoring_cutoff": "2018-07-05",
+      "n_orders": 84510,
+      "prevalence": 0.0703,
+      "chrono_cut": "2018-03-28 10:37:05.500000",
+      "prevalence_train": 0.058,
+      "prevalence_test": 0.0432,
+      "n_orders_test": 21128
+    }
+  ]
 }
