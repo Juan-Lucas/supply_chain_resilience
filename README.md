@@ -64,4 +64,4 @@ Dans l'ordre :
 
 Sans relancer l'entraînement, `make figures` régénère les tableaux et les figures à partir des fichiers versionnés de `reports/results/`.
 
-L'article se compile dans `reports/draft/` : `latexmk -pdf supply_chain_resilience.tex` pour l'article (anglais), `latexmk -pdf supply_chain_resilience_fr.tex` pour la version de travail en français.
+L'article se compile dans `reports/draft/` avec `latexmk -pdf supply_chain_resilience.tex`.
